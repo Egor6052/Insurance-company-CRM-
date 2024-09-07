@@ -1,0 +1,7 @@
+.MainFolder {
+  background-color: aqua;
+}
+.MainFolder .logo ul {
+  text-decoration: none;
+  list-style-type: none;
+}

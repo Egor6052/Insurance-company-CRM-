@@ -1,0 +1,8 @@
+html {
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0px;
+  scroll-behavior: smooth;
+  background-color: #ffffff;
+}
