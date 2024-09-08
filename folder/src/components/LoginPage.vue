@@ -18,7 +18,6 @@
         <button type="submit" class="submit-button">{{ $t('login') }}</button>
       </form>
   
-      <!-- Кнопка входу через Google -->
       <button @click="signInWithGoogle" class="google-login-button">
         Войти с Google
       </button>

@@ -4,7 +4,7 @@ import router from './router'
 import { createI18n } from 'vue-i18n'
 
 
-// Налаштування перекладів
+// Для перекладів
 const messages = {
   en: {
     loginButton: 'Login',
