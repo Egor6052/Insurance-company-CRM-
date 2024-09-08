@@ -3,18 +3,23 @@ import App from './App.vue'
 import router from './router'
 import { createI18n } from 'vue-i18n'
 
+
 // Налаштування перекладів
 const messages = {
   en: {
+    back: 'Back',
+    tariffs: 'Available rates',
     company: '[ Insurance company ]',
     description: 'Structure FigJam',
     designer: 'Head Designer: Darina Dzetsyno',
     acceptButton: 'Agree and accept'
   },
   uk: {
+    back: 'Назад',
+    tariffs: 'Доступні тарифи',
     company: '[ Страхова компанія ]',
     description: 'Stracture FigJam',
-    designer: 'Головний дизайнер: Дарина Дзециньо',
+    designer: 'Head Designer: Darina Dzetsyno',
     acceptButton: 'Погодитися та прийняти'
   }
 };

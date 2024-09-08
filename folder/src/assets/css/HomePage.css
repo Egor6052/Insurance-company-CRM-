@@ -47,17 +47,30 @@
 }
 .MainFolder .logo .container .Accept {
   margin-left: 50px;
-  border-radius: 10px;
+  border-radius: 5px;
   height: 50px;
   width: 400px;
   background-color: #569efd;
-}
-.MainFolder .logo .container .Accept p {
-  font-family: Arial, Helvetica, sans-serif;
-  margin-top: 5px;
-  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  /* Убирает подчеркивание ссылки */
   color: aliceblue;
+  /* Цвет текста по умолчанию */
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 28px;
 }
 .MainFolder .logo .container .Accept:hover {
   background-color: #4281d4;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }

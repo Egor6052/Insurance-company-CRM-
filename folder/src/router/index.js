@@ -1,17 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../components/HomePage.vue'
-import TariffsPage from '../components/TariffsPage.vue'
+import TarifsPage from '../components/TariffsPage.vue'
 import RegisterPage from '../components/RegisterPage.vue'
-
-const routes = [
-  { path: '/', component: HomePage },
-  { path: '/tariffs', component: TariffsPage },
-  { path: '/register/:tariffId', component: RegisterPage }
-]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
-})
+  routes: [
+    { name: 'Home', path: '/', component: HomePage },
+    { name: 'Tarifs', path: '/tarifs', component: TarifsPage },
+    { name: 'Register', path: '/register/:tariffId', component: RegisterPage }  ]
+});
 
-export default router
+export default router;

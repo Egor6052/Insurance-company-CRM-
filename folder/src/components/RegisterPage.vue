@@ -1,22 +1,61 @@
 <template>
-    <div>
-      <h1>Register for Tariff {{ tariffId }}</h1>
-      <!-- Форма реєстрації тут -->
+  <div class="register-page">
+    <h1>Register for Tariff {{ tariffId }}</h1>
+
+    <div class="battonBack">
+      <RouterLink to="/tarifs" class="Accept"><p>{{ $t('back') }}</p></RouterLink>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    name: 'RegisterPage',
-    computed: {
-      tariffId() {
-        return this.$route.params.tariffId;
+    
+    <form @submit.prevent="handleSubmit">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" v-model="form.name" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" v-model="form.email" required />
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" v-model="form.phone" required />
+      </div>
+      <div class="form-group">
+        <label for="message">Message:</label>
+        <textarea id="message" v-model="form.message" rows="4" required></textarea>
+      </div>
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'RegisterPage',
+  data() {
+    return {
+      form: {
+        name: '',
+        email: '',
+        phone: '',
+        message: ''
       }
+    };
+  },
+  computed: {
+    tariffId() {
+      // Извлечение параметра tariffId из URL
+      return this.$route.params.tariffId;
+    }
+  },
+  methods: {
+    handleSubmit() {
+      // Обработка отправки формы
+      console.log('Form submitted:', this.form);
     }
   }
-  </script>
-  
-  <style scoped>
-  /* Ваш CSS для сторінки реєстрації */
-  </style>
-  
+}
+</script>
+
+<style scoped >
+  @import '../assets/css/Register.css';
+</style>
