@@ -12,7 +12,7 @@
           <li>
             <h2>{{ tariff.name }}</h2>
             <p>{{ tariff.description }}</p>
-            <button @click="register(tariff.id)">{{ $t('register') }}</button>
+            <button @click="register(tariff.id)">{{ $t('choose') }}</button>
           </li>
         </ul>
       </div>

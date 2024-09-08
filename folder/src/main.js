@@ -7,6 +7,8 @@ import { createI18n } from 'vue-i18n'
 // Налаштування перекладів
 const messages = {
   en: {
+    loginButton: 'Login',
+    choose: 'Choose',
     back: 'Back',
     tariffs: 'Available rates',
     company: '[ Insurance company ]',
@@ -15,6 +17,8 @@ const messages = {
     acceptButton: 'Agree and accept'
   },
   uk: {
+    loginButton: 'Увійти',
+    choose: 'Обрати',
     back: 'Назад',
     tariffs: 'Доступні тарифи',
     company: '[ Страхова компанія ]',

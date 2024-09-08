@@ -45,7 +45,13 @@
 .MainFolder .logo .container {
   margin-top: 50px;
 }
-.MainFolder .logo .container .Accept {
+.MainFolder .logo .container ul {
+  display: flex;
+}
+.MainFolder .logo .container ul li {
+  list-style-type: none;
+}
+.MainFolder .logo .container ul li .Accept {
   margin-left: 50px;
   border-radius: 5px;
   height: 50px;
@@ -55,14 +61,31 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  /* Убирает подчеркивание ссылки */
   color: aliceblue;
-  /* Цвет текста по умолчанию */
   font-family: Arial, Helvetica, sans-serif;
   font-size: 28px;
 }
-.MainFolder .logo .container .Accept:hover {
+.MainFolder .logo .container ul li .Accept:hover {
   background-color: #4281d4;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.MainFolder .logo .container ul li .Login {
+  margin-left: 50px;
+  border-radius: 5px;
+  height: 50px;
+  width: 100px;
+  background-color: #e4e4e4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #888888;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 28px;
+}
+.MainFolder .logo .container ul li .Login:hover {
+  background-color: #cecece;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }

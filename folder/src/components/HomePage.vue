@@ -7,9 +7,19 @@
         <div class="Aboutdesigner"><a><p>{{ $t('designer') }}</p></a></div>
       </div>
       <div class="container">
-        <RouterLink to="/tarifs" class="Accept">
-          {{ $t('acceptButton') }}
-        </RouterLink>
+        <ul>
+          <li>
+             <RouterLink to="/tarifs" class="Accept">
+              {{ $t('acceptButton') }}
+            </RouterLink>
+          </li>
+          <li>
+             <RouterLink to="/login" class="Login">
+              {{ $t('loginButton') }}
+            </RouterLink>
+          </li>
+        </ul>
+       
       </div>
     </div>
   </div>
