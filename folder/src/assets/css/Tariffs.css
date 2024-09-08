@@ -1,0 +1,57 @@
+/* Основні стилі для контейнера тарифів */
+.tariffs {
+  padding: 20px;
+  background-color: #f4f4f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* Стиль заголовка */
+.tariffs h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+/* Стиль для кожного тарифу */
+.tariff {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 10px;
+  width: 300px;
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+}
+/* Зміна тіні при наведені */
+.tariff:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+/* Стиль для назви тарифу */
+.tariff h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+/* Стиль для опису тарифу */
+.tariff p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+/* Стиль для кнопки реєстрації */
+.tariff button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+/* Зміна кольору кнопки при наведенні */
+.tariff button:hover {
+  background-color: #0056b3;
+}

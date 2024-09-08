@@ -1,6 +1,5 @@
 <template>
-
-  <HomePage msg="Welcome to Your Vue.js App"/>
+  <HomePage msg="Welcome to App"/>
 </template>
 
 <script>
@@ -15,6 +14,5 @@ export default {
 </script>
 
 <style>
-
    @import "./assets/css/App.css";
 </style>

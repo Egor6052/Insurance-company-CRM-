@@ -1,27 +1,30 @@
 <template>
- <div class="MainFolder">
+  <div class="MainFolder">
+    <!-- Текст для перекладу у main.js -->
     <div class="logo">
-      <ul>
-        <li> <div class="logoName"><p>[ Страхова компанія ]</p></div> </li>
-        <li><div class="description"><p>Stracture FigJam</p></div></li>
-        <li><div class="Aboutdesigner"><a href=""><p>Head Desiner: Darina Dzetsyno</p></a></div>
-        </li>
-      </ul>
+      <div class="logoName"><p>{{ $t('company') }}</p></div>
+      <div class="text-container">
+        <div class="description"><p>{{ $t('description') }}</p></div>
+        <div class="Aboutdesigner"><a><p>{{ $t('designer') }}</p></a></div>
+      </div>
+      <div class="container">
+        <button class="Accept" @click="goToTariffs"><p>{{ $t('acceptButton') }}</p></button>
+      </div>
     </div>
- </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'HomePage',
-
-  props: {
-    msg: String
+  methods: {
+    goToTariffs() {
+      this.$router.push('/tariffs');
+    }
   }
 }
 </script>
 
 <style scoped>
- 
  @import "../assets/css/HomePage.css";
 </style>
