@@ -10,9 +10,11 @@
       <div v-for="tariff in tariffs" :key="tariff.id" class="tariff">
         <ul>
           <li>
+            <button @click="register(tariff.id, tariff.name)" class="buttonMenu">
             <h2>{{ tariff.name }}</h2>
             <p>{{ tariff.description }}</p>
             <button @click="register(tariff.id)">{{ $t('choose') }}</button>
+            </button>
           </li>
         </ul>
       </div>
@@ -35,8 +37,8 @@ export default {
     }
   },
   methods: {
-    register(tariffId) {
-      this.$router.push({ name: 'Register', params: { tariffId } });
+    register(tariffId, tariffName) {
+      this.$router.push({ name: 'Register', params: { tariffId, tariffName } });
     }
   }
 }

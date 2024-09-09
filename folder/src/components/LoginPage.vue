@@ -25,7 +25,7 @@
   </template>
   
   <script>
-  import { auth, googleProvider } from "../firebase"; // Підключення Firebase
+  // import { auth, googleProvider } from "../firebase"; // Підключення Firebase
   
   export default {
     name: 'LoginPage',
@@ -37,23 +37,23 @@
         }
       };
     },
-    methods: {
-      handleSubmit() {
-        // Обробка звичайного входу через форму
-        console.log('Form submitted:', this.form);
-      },
-      signInWithGoogle() {
-        // Вхід через Google
-        auth.signInWithPopup(googleProvider)
-          .then((result) => {
-            console.log("User signed in: ", result.user);
-            // Додайте сюди редірект після успішного входу, якщо необхідно
-          })
-          .catch((error) => {
-            console.error("Error signing in with Google: ", error);
-          });
-      }
-    }
+    // methods: {
+    //   handleSubmit() {
+    //     // Обробка звичайного входу через форму
+    //     console.log('Form submitted:', this.form);
+    //   },
+    //   signInWithGoogle() {
+    //     // Вхід через Google
+    //     auth.signInWithPopup(googleProvider)
+    //       .then((result) => {
+    //         console.log("User signed in: ", result.user);
+    //         // Додайте сюди редірект після успішного входу, якщо необхідно
+    //       })
+    //       .catch((error) => {
+    //         console.error("Error signing in with Google: ", error);
+    //       });
+    //   }
+    // }
   }
   </script>
   

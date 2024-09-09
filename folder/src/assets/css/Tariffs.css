@@ -33,6 +33,12 @@
   padding: 0;
   margin: 0;
 }
+.tariffs .tariff ul li .buttonMenu {
+  background: #fff;
+}
+.tariffs .tariff ul li .buttonMenu:hover {
+  background: #fff;
+}
 .tariffs .tariff ul li h2 {
   font-size: 1.5rem;
   color: #333;

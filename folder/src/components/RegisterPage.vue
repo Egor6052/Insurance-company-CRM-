@@ -1,6 +1,6 @@
 <template>
   <div class="register-page">
-    <h1>Register for Tariff {{ tariffId }}</h1>
+    <h1>Register with {{ tariffName }}</h1>
 
     <div class="battonBack">
       <RouterLink to="/tarifs" class="Accept"><p>{{ $t('back') }}</p></RouterLink>
@@ -45,7 +45,12 @@ export default {
     tariffId() {
       // Извлечение параметра tariffId из URL
       return this.$route.params.tariffId;
+    },
+    tariffName(){
+      // Извлечение параметра tariffName из URL
+      return this.$route.params.tariffName;
     }
+
   },
   methods: {
     handleSubmit() {
