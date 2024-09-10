@@ -67,18 +67,4 @@ export default {
 
 <style scoped>
 @import "../assets/css/LoginPage.css";
-
-.google-login-button {
-  background-color: #4285f4;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
-.google-login-button:hover {
-  background-color: #357ae8;
-}
 </style>

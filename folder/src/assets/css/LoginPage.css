@@ -74,3 +74,15 @@
 .login-page .login-form .submit-button:hover {
   background-color: #0056b3;
 }
+.login-page .google-login-button {
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+.login-page .google-login-button:hover {
+  background-color: #357ae8;
+}
