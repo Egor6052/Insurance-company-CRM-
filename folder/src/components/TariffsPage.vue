@@ -8,15 +8,16 @@
     
     <div class="tariffs-container">
       <div v-for="tariff in tariffs" :key="tariff.id" class="tariff">
-        <ul>
-          <li>
-            <button @click="register(tariff.id, tariff.name)" class="buttonMenu">
-            <h2>{{ tariff.name }}</h2>
-            <p>{{ tariff.description }}</p>
-            <button @click="register(tariff.id)">{{ $t('choose') }}</button>
-            </button>
-          </li>
-        </ul>
+        <a @click="register(tariff.id, tariff.name)" class="buttonMenu">
+          <ul>
+            <li>
+              <h2>{{ tariff.name }}</h2>
+              <p>{{ tariff.description }}</p>
+              <button @click="register(tariff.id, tariff.name)">{{ $t('choose') }}</button>
+              
+            </li>
+          </ul>
+        </a>
       </div>
     </div>
   </div>
@@ -38,9 +39,10 @@ export default {
   },
   methods: {
     register(tariffId, tariffName) {
-      this.$router.push({ name: 'Register', params: { tariffId, tariffName } });
+      this.$router.push({ name: 'Register', params: { tariffId }, query: { tariffName } });
     }
   }
+
 }
 </script>
 

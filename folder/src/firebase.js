@@ -1,17 +1,26 @@
-// firebase.js
-import firebase from "firebase/app";
-import "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
+// Ваши конфигурации Firebase
 const firebaseConfig = {
-  apiKey: "your-api-key",
-  authDomain: "your-auth-domain",
-  projectId: "your-project-id",
-  storageBucket: "your-storage-bucket",
-  messagingSenderId: "your-messaging-sender-id",
-  appId: "your-app-id"
+  apiKey: "AIzaSyDOJjRzA6gtIb6ob0NYZN6VCQUW92G53W8",
+  authDomain: "insurance-company-crm-e67fc.firebaseapp.com",
+  projectId: "insurance-company-crm-e67fc",
+  storageBucket: "insurance-company-crm-e67fc.appspot.com",
+  messagingSenderId: "99676248326",
+  appId: "1:99676248326:web:f85885fb4e5eb89be32687",
+  measurementId: "G-W0624CPJ28"
 };
 
-firebase.initializeApp(firebaseConfig);
+// Инициализация Firebase
+const app = initializeApp(firebaseConfig);
 
-export const auth = firebase.auth();
-export const googleProvider = new firebase.auth.GoogleAuthProvider();
+// Инициализация Auth и Firestore
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Создание провайдера Google для аутентификации
+const googleProvider = new GoogleAuthProvider();
+
+export { auth, db, googleProvider };

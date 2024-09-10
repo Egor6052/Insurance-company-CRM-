@@ -28,16 +28,16 @@
   text-align: center;
   transition: box-shadow 0.3s ease;
 }
+.tariffs .tariff .buttonMenu {
+  background: #fff;
+}
+.tariffs .tariff .buttonMenu:hover {
+  background: #fff;
+}
 .tariffs .tariff ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
-}
-.tariffs .tariff ul li .buttonMenu {
-  background: #fff;
-}
-.tariffs .tariff ul li .buttonMenu:hover {
-  background: #fff;
 }
 .tariffs .tariff ul li h2 {
   font-size: 1.5rem;
