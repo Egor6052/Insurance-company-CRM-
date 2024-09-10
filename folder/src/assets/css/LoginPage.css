@@ -35,6 +35,7 @@
   margin-bottom: 20px;
 }
 .login-page .login-form {
+  margin-top: 100px;
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -82,6 +83,20 @@
   border-radius: 5px;
   cursor: pointer;
   margin-top: 20px;
+  display: flex;
+}
+.login-page .google-login-button .imgConteiner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+.login-page .google-login-button .imgConteiner img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .login-page .google-login-button:hover {
   background-color: #357ae8;

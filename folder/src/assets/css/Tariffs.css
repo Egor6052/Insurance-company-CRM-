@@ -17,7 +17,7 @@
   flex-wrap: wrap;
   justify-content: center;
 }
-.tariffs .tariff {
+.tariffs .tariffs-container .tariff {
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -28,28 +28,28 @@
   text-align: center;
   transition: box-shadow 0.3s ease;
 }
-.tariffs .tariff .buttonMenu {
+.tariffs .tariffs-container .tariff .buttonMenu {
   background: #fff;
 }
-.tariffs .tariff .buttonMenu:hover {
+.tariffs .tariffs-container .tariff .buttonMenu:hover {
   background: #fff;
 }
-.tariffs .tariff ul {
+.tariffs .tariffs-container .tariff ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
-.tariffs .tariff ul li h2 {
+.tariffs .tariffs-container .tariff ul li h2 {
   font-size: 1.5rem;
   color: #333;
   margin-bottom: 10px;
 }
-.tariffs .tariff ul li p {
+.tariffs .tariffs-container .tariff ul li p {
   font-size: 1rem;
   color: #666;
   margin-bottom: 20px;
 }
-.tariffs .tariff ul li button {
+.tariffs .tariffs-container .tariff ul li button {
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -59,10 +59,10 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-.tariffs .tariff ul li button:hover {
+.tariffs .tariffs-container .tariff ul li button:hover {
   background-color: #0056b3;
 }
-.tariffs .tariff:hover {
+.tariffs .tariffs-container .tariff:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .tariffs .battonBack {

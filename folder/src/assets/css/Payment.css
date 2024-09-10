@@ -1,0 +1,74 @@
+.payment-tariff-page {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+.payment-tariff-page .battonBack {
+  margin-top: -10px;
+  display: flex;
+  margin-left: -190px;
+}
+.payment-tariff-page .battonBack .Accept {
+  border-radius: 5px;
+  width: 100px;
+  height: 50px;
+  background-color: #007bff;
+  text-decoration: none;
+  color: aliceblue;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+.payment-tariff-page .battonBack .Accept:hover {
+  background-color: #0056b3;
+}
+.payment-tariff-page h1 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.payment-tariff-page .package-info {
+  margin-bottom: 20px;
+}
+.payment-tariff-page .package-info p {
+  margin: 0;
+  font-size: 16px;
+}
+.payment-tariff-page .payment-details {
+  margin-bottom: 20px;
+}
+.payment-tariff-page .payment-details label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.payment-tariff-page .payment-details input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.payment-tariff-page .payment-details p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+.payment-tariff-page .confirm-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #569efd;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.payment-tariff-page .confirm-button:hover {
+  background-color: #4281d4;
+}

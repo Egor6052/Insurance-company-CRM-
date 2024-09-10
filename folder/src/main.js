@@ -7,6 +7,11 @@ import { createI18n } from 'vue-i18n'
 // Для перекладів
 const messages = {
   en: {
+    password: 'Password',
+    username: 'User Gmail',
+    login: 'login',
+    EnterWithGoogle: 'Enter with Google',
+    Submit: 'Next step',
     loginButton: 'Login',
     choose: 'Choose',
     back: 'Back',
@@ -17,6 +22,11 @@ const messages = {
     acceptButton: 'Agree and accept'
   },
   uk: {
+    password: 'Ваш пароль',
+    username: 'Gmail користувача',
+    login: 'Увійти',
+    EnterWithGoogle: 'Увійти з Google',
+    Submit: 'Наступний крок',
     loginButton: 'Увійти',
     choose: 'Обрати',
     back: 'Назад',

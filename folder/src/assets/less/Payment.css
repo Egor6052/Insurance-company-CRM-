@@ -1,0 +1,20 @@
+.payment-tariff-page {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.package-info,
+.payment-details {
+  margin-bottom: 20px;
+}
+.confirm-button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.confirm-button:hover {
+  background-color: #218838;
+}

@@ -1,6 +1,6 @@
 
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
-import { db } from "../firebase";  // Убедитесь, что путь правильный
+import { db } from "../firebase";
 
 export async function getUser(userId) {
   try {

@@ -3,6 +3,8 @@ import HomePage from '../components/HomePage.vue'
 import TarifsPage from '../components/TariffsPage.vue'
 import RegisterPage from '../components/RegisterPage.vue'
 import LoginPage from '../components/LoginPage.vue'
+import UserPage from '../components/UserPage.vue'
+import Payment from '../components/PaymentTariff.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -13,6 +15,8 @@ const router = createRouter({
       props: route => ({ tariffId: route.params.tariffId, tariffName: route.query.tariffName })
     },
     { name: 'Login', path: '/login', component: LoginPage },
+    {name: 'UserPage', path: '/UserPage', component: UserPage },
+    {name: 'Payment', path: '/Payment', component: Payment },
   ]
 });
 

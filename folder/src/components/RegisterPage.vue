@@ -31,16 +31,10 @@
         <label for="consultantId">Consultant ID:</label>
         <input type="text" id="consultantId" v-model="form.consultantId" required />
       </div>
-      <div class="form-group">
-        <label for="message">Message:</label>
-        <textarea id="message" v-model="form.message" rows="4" required></textarea>
-      </div>
-      <button type="submit" class="submit-button">Submit</button>
+      <button type="submit" class="submit-button">{{ $t('Submit') }}</button>
     </form>
   </div>
 </template>
-
-
 
 <script>
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -52,6 +46,7 @@ export default {
   data() {
     return {
       form: {
+        tariff: '',
         name: '',
         email: '',
         password: '',
@@ -84,6 +79,7 @@ export default {
 
         // Записываем данные в Cloud Firestore
         await setDoc(doc(db, 'users', userId), {
+          tariff: this.tariffName,
           name: name,
           email: email,
           phone: phone,
@@ -99,8 +95,15 @@ export default {
         this.form.wallet = '';
         this.form.consultantId = '';
 
-        // Перенаправление
-        this.$router.push('/success-page');
+        // Перенаправление на страницу оплаты с параметрами тарифа
+        this.$router.push({
+          path: '/Payment',
+          query: {
+          tariffName: this.tariffName,
+          minAmount: this.minAmount,
+          maxAmount: this.maxAmount
+        }
+        });
       } catch (error) {
         if (error.code === 'auth/email-already-in-use') {
           alert('This email is already registered. Please use a different email.');
@@ -109,12 +112,30 @@ export default {
           alert('Registration error: ' + error.message);
         }
       }
+    },
+    getMinAmount(tariffName) {
+      // Логика для получения минимальной суммы в зависимости от тарифа
+      // Например:
+      const tariffs = {
+        'Basic': 10,
+        'Premium': 50,
+        'Gold': 100
+      };
+      return tariffs[tariffName] || 0;
+    },
+    getMaxAmount(tariffName) {
+      // Логика для получения максимальной суммы в зависимости от тарифа
+      // Например:
+      const tariffs = {
+        'Basic': 50,
+        'Premium': 150,
+        'Gold': 500
+      };
+      return tariffs[tariffName] || 0;
     }
   }
 }
 </script>
-
-
 
 <style scoped>
 @import '../assets/css/Register.css';

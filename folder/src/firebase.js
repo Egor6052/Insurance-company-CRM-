@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-// Ваши конфигурации Firebase
+// Конфигурации Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyDOJjRzA6gtIb6ob0NYZN6VCQUW92G53W8",
   authDomain: "insurance-company-crm-e67fc.firebaseapp.com",
@@ -13,14 +13,11 @@ const firebaseConfig = {
   measurementId: "G-W0624CPJ28"
 };
 
-// Инициализация Firebase
 const app = initializeApp(firebaseConfig);
 
-// Инициализация Auth и Firestore
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Создание провайдера Google для аутентификации
 const googleProvider = new GoogleAuthProvider();
 
 export { auth, db, googleProvider };
