@@ -9,7 +9,7 @@
       <div class="container">
         <ul>
           <li>
-             <RouterLink to="/tarifs" class="Accept">
+             <RouterLink to="/tariffs" class="Accept">
               {{ $t('acceptButton') }}
             </RouterLink>
           </li>

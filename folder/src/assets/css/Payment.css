@@ -1,6 +1,6 @@
 .payment-tariff-page {
-  max-width: 600px;
-  margin: auto;
+  width: 500px;
+  height: 500px;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -42,6 +42,7 @@
 }
 .payment-tariff-page .payment-details {
   margin-bottom: 20px;
+  margin-right: 20px;
 }
 .payment-tariff-page .payment-details label {
   display: block;

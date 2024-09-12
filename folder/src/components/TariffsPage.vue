@@ -13,28 +13,48 @@
             <li>
               <h2>{{ tariff.name }}</h2>
               <p>{{ tariff.description }}</p>
+              <p>{{ tariff.price }} {{ $t('$') }}</p> <!-- Добавлено отображение цены -->
               <button @click="register(tariff.id, tariff.name)">{{ $t('choose') }}</button>
-              
             </li>
           </ul>
         </a>
       </div>
     </div>
+
   </div>
 </template>
 
-
 <script>
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase";
+
 export default {
   name: 'TariffsPage',
   data() {
     return {
-      tariffs: [
-        { id: 1, name: 'Basic', description: 'Basic package description' },
-        { id: 2, name: 'Standard', description: 'Standard package description' },
-        { id: 3, name: 'Premium', description: 'Premium package description' },
-        { id: 4, name: 'Deluxe', description: 'Deluxe package description' }
-      ]
+      tariffs: []  // Пустой массив для тарифов, которые будут загружены из Firebase
+    };
+  },
+  async created() {
+    try {
+      const docRef = doc(db, 'tariffs', 'beNOUQ1b9ffvpRNDKxS4');
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const tariffsData = docSnap.data();
+        
+        // Преобразование данных в массив для отображения
+        this.tariffs = [
+          { ...tariffsData.Basic, id: 1 },
+          { ...tariffsData.Standard, id: 2 },
+          { ...tariffsData.Premium, id: 3 },
+          { ...tariffsData.Deluxe, id: 4 }
+        ];
+      } else {
+        console.log('Документ не найден');
+      }
+    } catch (error) {
+      console.error('Ошибка при получении тарифов:', error);
     }
   },
   methods: {
@@ -42,8 +62,7 @@ export default {
       this.$router.push({ name: 'Register', params: { tariffId }, query: { tariffName } });
     }
   }
-
-}
+};
 </script>
 
 <style scoped>

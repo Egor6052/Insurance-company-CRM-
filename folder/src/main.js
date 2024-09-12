@@ -7,6 +7,9 @@ import { createI18n } from 'vue-i18n'
 // Для перекладів
 const messages = {
   en: {
+    selectedTariff: 'Selected tariff',
+    selectedPackage: 'Selected Package',
+    paymentTariff: 'Payment Tariff',
     password: 'Password',
     username: 'User Gmail',
     login: 'login',
@@ -22,6 +25,9 @@ const messages = {
     acceptButton: 'Agree and accept'
   },
   uk: {
+    selectedTariff: 'Обраний тариф',
+    selectedPackage: 'Обраний тариф',
+    paymentTariff: 'Оплата пакету',
     password: 'Ваш пароль',
     username: 'Gmail користувача',
     login: 'Увійти',

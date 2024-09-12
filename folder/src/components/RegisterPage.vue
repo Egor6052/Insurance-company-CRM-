@@ -3,7 +3,7 @@
     <h1>Register with {{ tariffName }}</h1>
 
     <div class="battonBack">
-      <RouterLink to="/tarifs" class="Accept"><p>{{ $t('back') }}</p></RouterLink>
+      <RouterLink to="/tariffs" class="Accept"><p>{{ $t('back') }}</p></RouterLink>
     </div>
     
     <form @submit.prevent="handleSubmit">
@@ -46,13 +46,14 @@ export default {
   data() {
     return {
       form: {
-        tariff: '',
         name: '',
         email: '',
         password: '',
         phone: '',
         wallet: '',
-        consultantId: ''
+        consultantId: '',
+        tariff: this.$route.params.tariffId,
+        tariffName: this.$route.query.tariffName
       }
     };
   },
@@ -66,9 +67,8 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      console.log('Form submitted:', this.form);
       try {
-        const { email, password, name, phone, wallet, consultantId } = this.form;
+        const { email, password, name, phone, wallet, consultantId, tariff, tariffName } = this.form;
 
         // Создаем пользователя
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -79,7 +79,8 @@ export default {
 
         // Записываем данные в Cloud Firestore
         await setDoc(doc(db, 'users', userId), {
-          tariff: this.tariffName,
+          tariff: tariff, // Сохраняем ID тарифа
+          tariffName: tariffName,
           name: name,
           email: email,
           phone: phone,
@@ -95,14 +96,10 @@ export default {
         this.form.wallet = '';
         this.form.consultantId = '';
 
-        // Перенаправление на страницу оплаты с параметрами тарифа
-        this.$router.push({
-          path: '/Payment',
-          query: {
-          tariffName: this.tariffName,
-          minAmount: this.minAmount,
-          maxAmount: this.maxAmount
-        }
+        // Перенаправление на страницу оплаты с параметрами
+        this.$router.push({ 
+          path: '/Payment', 
+          query: { tariffId: tariff, tariffName: tariffName }
         });
       } catch (error) {
         if (error.code === 'auth/email-already-in-use') {
@@ -112,26 +109,6 @@ export default {
           alert('Registration error: ' + error.message);
         }
       }
-    },
-    getMinAmount(tariffName) {
-      // Логика для получения минимальной суммы в зависимости от тарифа
-      // Например:
-      const tariffs = {
-        'Basic': 10,
-        'Premium': 50,
-        'Gold': 100
-      };
-      return tariffs[tariffName] || 0;
-    },
-    getMaxAmount(tariffName) {
-      // Логика для получения максимальной суммы в зависимости от тарифа
-      // Например:
-      const tariffs = {
-        'Basic': 50,
-        'Premium': 150,
-        'Gold': 500
-      };
-      return tariffs[tariffName] || 0;
     }
   }
 }

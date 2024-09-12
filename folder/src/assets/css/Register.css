@@ -1,5 +1,5 @@
 .register-page {
-  max-width: 600px;
+  width: 400px;
   margin: auto;
   padding: 20px;
   border: 1px solid #ddd;
@@ -11,6 +11,7 @@
   text-align: center;
 }
 .register-page .form-group {
+  margin-right: 20px;
   margin-bottom: 15px;
 }
 .register-page .form-group label {

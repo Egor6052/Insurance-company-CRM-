@@ -10,7 +10,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     { name: 'Home', path: '/', component: HomePage },
-    { name: 'Tarifs', path: '/tarifs', component: TarifsPage },
+    { name: 'Tarifs', path: '/tariffs', component: TarifsPage },
     { name: 'Register', path: '/register/:tariffId', component: RegisterPage,
       props: route => ({ tariffId: route.params.tariffId, tariffName: route.query.tariffName })
     },
