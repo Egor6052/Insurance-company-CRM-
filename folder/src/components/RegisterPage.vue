@@ -1,38 +1,50 @@
 <template>
   <div class="register-page">
-    <h1>Register with {{ tariffName }}</h1>
 
-    <div class="battonBack">
-      <RouterLink to="/tariffs" class="Accept"><p>{{ $t('back') }}</p></RouterLink>
+    <!-- Шапка -->
+    <div class="header">
+      <div class="battonBack">
+        <RouterLink to="/tariffs" class="Accept"><p>{{ $t('back') }}</p></RouterLink>
+      </div>
     </div>
+
+    <div class="page">
+      <h1>Register with {{ tariffName }}</h1>
+
+      <div class="battonBack">
+        <RouterLink to="/tariffs" class="Accept"><p>{{ $t('back') }}</p></RouterLink>
+      </div>
+      
+      <form @submit.prevent="handleSubmit">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" v-model="form.name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" v-model="form.email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" v-model="form.password" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone:</label>
+          <input type="tel" id="phone" v-model="form.phone" required />
+        </div>
+        <div class="form-group">
+          <label for="wallet">USDT Wallet (TRC20):</label>
+          <input type="text" id="wallet" v-model="form.wallet" required />
+        </div>
+        <div class="form-group">
+          <label for="consultantId">Consultant ID:</label>
+          <input type="text" id="consultantId" v-model="form.consultantId" required />
+        </div>
+        <button type="submit" class="submit-button">{{ $t('Submit') }}</button>
+      </form>
+    </div>
+
     
-    <form @submit.prevent="handleSubmit">
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" id="name" v-model="form.name" required />
-      </div>
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" v-model="form.email" required />
-      </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" v-model="form.password" required />
-      </div>
-      <div class="form-group">
-        <label for="phone">Phone:</label>
-        <input type="tel" id="phone" v-model="form.phone" required />
-      </div>
-      <div class="form-group">
-        <label for="wallet">USDT Wallet (TRC20):</label>
-        <input type="text" id="wallet" v-model="form.wallet" required />
-      </div>
-      <div class="form-group">
-        <label for="consultantId">Consultant ID:</label>
-        <input type="text" id="consultantId" v-model="form.consultantId" required />
-      </div>
-      <button type="submit" class="submit-button">{{ $t('Submit') }}</button>
-    </form>
   </div>
 </template>
 

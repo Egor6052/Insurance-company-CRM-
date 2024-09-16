@@ -1,8 +1,14 @@
 <template>
   <div class="payment-tariff-page">
-    <div class="battonBack">
-      <RouterLink to="/tariffs" class="Accept"><p>{{ $t('back') }}</p></RouterLink>
+
+     <!-- Шапка -->
+     <div class="header">
+      <div class="battonBack">
+        <RouterLink to="/tariffs" class="Accept"><p>{{ $t('back') }}</p></RouterLink>
+      </div>
     </div>
+
+    <div class="page">
 
     <h1>{{ $t('paymentTariff') }}</h1>
 
@@ -11,13 +17,19 @@
     </div>
 
     <div class="payment-details">
-      <p><strong>{{ $t('paymentAmount') }}:</strong> {{ tariffPrice }} {{ $t('currency') }}</p>
+      <p><strong>{{ $t('paymentAmount') }}:</strong> {{ tariff.price }} {{ $t('$') }}</p>
     </div>
 
     <button @click="confirmPayment" class="confirm-button">{{ $t('confirm') }}</button>
+    </div>
+
+    <!-- 
+    <div class="battonBack">
+      <RouterLink to="/tariffs" class="Accept"><p>{{ $t('back') }}</p></RouterLink>
+    </div> -->
+
   </div>
 </template>
-
 
 <script>
 import { doc, getDoc } from "firebase/firestore";
@@ -27,6 +39,8 @@ export default {
   name: 'PaymentTariffPage',
   data() {
     return {
+      tariff: {},  // Тариф по умолчанию
+      tariffs: [],  // Массив всех тарифов
       packageName: this.$route.query.tariffName || 'Unknown Package',
       minAmount: 0,
       maxAmount: 0,
@@ -35,27 +49,37 @@ export default {
   },
   async created() {
     try {
-      // Получаем ID тарифа из запроса
-      const tariffId = this.$route.query.tariffId || '';
+      // Получаем данные тарифов из Firebase
+      const docRef = doc(db, 'tariffs', 'beNOUQ1b9ffvpRNDKxS4');
+      const docSnap = await getDoc(docRef);
 
-      // Если есть ID тарифа, загружаем соответствующие данные
-      if (tariffId) {
-        const tariffDoc = doc(db, 'tariffs', tariffId);
-        const tariffSnapshot = await getDoc(tariffDoc);
+      if (docSnap.exists()) {
+        const tariffsData = docSnap.data();
+        
+        // Преобразование данных в массив для удобного поиска
+        this.tariffs = [
+          { name: 'Basic', ...tariffsData.Basic },
+          { name: 'Standard', ...tariffsData.Standard },
+          { name: 'Premium', ...tariffsData.Premium },
+          { name: 'Deluxe', ...tariffsData.Deluxe }
+        ];
 
-        if (tariffSnapshot.exists()) {
-          const tariffData = tariffSnapshot.data();
-          this.minAmount = tariffData.minAmount || 0;
-          this.maxAmount = tariffData.maxAmount || 0;
-          this.paymentAmount = this.minAmount; // Устанавливаем начальное значение
+        // Поиск тарифа по имени
+        const foundTariff = this.tariffs.find(tariff => tariff.name === this.packageName);
+        
+        if (foundTariff) {
+          this.tariff = foundTariff;  // Сохраняем найденный тариф
+          this.minAmount = foundTariff.minAmount || 0;
+          this.maxAmount = foundTariff.maxAmount || 0;
+          this.paymentAmount = this.minAmount;
         } else {
-          console.error('No such document!');
-          this.minAmount = 0;
-          this.maxAmount = 0;
+          console.error('Тариф не найден');
         }
+      } else {
+        console.log('Документ не найден');
       }
     } catch (error) {
-      console.error('Error fetching tariff:', error);
+      console.error('Ошибка при загрузке тарифа:', error);
     }
   },
   methods: {
@@ -65,12 +89,11 @@ export default {
         return;
       }
       
-      // Логика подтверждения данных (например, отправка на сервер)
+      // Логика подтверждения данных
       alert(this.$t('paymentConfirmed'));
     }
-    
   }
-}
+};
 </script>
 
 <style scoped>

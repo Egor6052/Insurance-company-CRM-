@@ -1,11 +1,21 @@
 <template>
   <div class="login-page">
-    <div class="battonBack">
-      <RouterLink to="/" class="Accept">{{ $t('back') }}</RouterLink>
+
+     <!-- Шапка -->
+     <div class="header">
+      <div class="battonBack">
+        <RouterLink to="/" class="Accept"><p>{{ $t('back') }}</p></RouterLink>
+      </div>
+      <div class="logo">
+        <h1>{{ $t('company') }}</h1>
+      </div>
     </div>
 
-    <h1>{{ $t('company') }}</h1>
-    <h1>{{ $t('login') }}</h1>
+      <div class="login">
+        <h1>{{ $t('login') }}</h1>
+      </div>
+    <!-- <h1>{{ $t('company') }}</h1> -->
+    
 
     <form @submit.prevent="handleSubmit" class="login-form">
       <div class="form-group">

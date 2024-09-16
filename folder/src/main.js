@@ -7,6 +7,13 @@ import { createI18n } from 'vue-i18n'
 // Для перекладів
 const messages = {
   en: {
+    ConsultantID: 'ConsultantID',
+    Wallet: 'Wallet',
+    PhoneNumber: 'Phone number',
+    Email: 'Email',
+    descriptionTariff: 'Description of the tariff',
+    confirm: 'Confirm',
+    paymentAmount: 'Payment Amount',
     selectedTariff: 'Selected tariff',
     selectedPackage: 'Selected Package',
     paymentTariff: 'Payment Tariff',
@@ -25,6 +32,13 @@ const messages = {
     acceptButton: 'Agree and accept'
   },
   uk: {
+    ConsultantID: 'ID консультанта',
+    Wallet: 'Гаманець',
+    PhoneNumber: 'Номер телефону',
+    Email: 'Email',
+    descriptionTariff: 'Опис тарифу',
+    confirm: 'Підтвердити',
+    paymentAmount: 'До сплати',
     selectedTariff: 'Обраний тариф',
     selectedPackage: 'Обраний тариф',
     paymentTariff: 'Оплата пакету',

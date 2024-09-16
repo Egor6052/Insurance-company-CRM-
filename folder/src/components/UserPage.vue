@@ -1,5 +1,6 @@
 <template>
   <div class="user-page">
+    <!-- Шапка -->
     <div class="header">
       <div class="battonBack">
         <RouterLink to="/" class="Accept"><p>{{ $t('back') }}</p></RouterLink>
@@ -20,36 +21,47 @@
       <div class="user-info">
         <ul>
           <li><h1>{{ userName }}</h1></li>
-          <li><h2>Email: </h2><p>{{ userEmail }}</p></li>
-          <li><h2>Phone number: </h2><p>{{ userPhone }}</p></li>
-          <li><h2>Wallet: </h2><p>{{ userWallet }}</p></li>
-          <li><h2>ConsultantID: </h2><p>{{ userConsultantId }}</p></li>
+          <li><strong>{{ $t('Email') }}:</strong><p>{{ userEmail }}</p></li>
+          <li><strong>{{ $t('PhoneNumber') }}:</strong><p>{{ userPhone }}</p></li>
+          <li><strong>{{ $t('Wallet') }}:</strong><p>{{ userWallet }}</p></li>
+          <li><strong>{{ $t('ConsultantID') }}:</strong><p>{{ userConsultantId }}</p></li>
         </ul>
       </div>
     </div>
 
-    <!-- Тарифы -->
-    <div class="tariffs-page">
+   <!-- Тарифы -->
+    <div v-if="userTariffInfo" class="tariffs-page">
       <div class="all-tariffs">
         <div class="tariffs-container">
-          <div class="headerTariff"><p>Обраний тариф</p></div>
-          <ul>
-            <li v-if="userTariffInfo">
-              <div class="border">
-                <p><strong>{{ userTariffInfo.name }}</strong></p>
-                <li>
-                  <p>{{ userTariffInfo.description }}</p>
-                  <p>{{ userTariffInfo.price }} {{ $t('$') }}</p>
-                </li>
-              </div>
-            </li>
-            <li v-else>
-              <RouterLink to="/tariffs" class="buttonMenu">{{ $t('chooseTariff') }}</RouterLink>
-            </li>
-          </ul>
+          <div class="headerTariff"><strong>{{ $t('selectedTariff') }}</strong></div>
+
+          <div class="class-ul">
+            <ul>
+
+              <li>
+                <div class="border">
+                  <p><strong>{{ userTariffInfo.name }}</strong></p>
+                </div>
+              </li>
+
+              <li>
+                <div class="details">
+                  <ul>
+                    <li>
+                      <strong>{{ $t('descriptionTariff') }}:</strong><p>{{ userTariffInfo.description }}</p>
+                      <p>{{ userTariffInfo.price }} {{ $t('$') }}</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+
         </div>
       </div>
     </div>
+
+
 
     <!-- Модальное окно для редактирования данных -->
     <div v-if="showModal" class="modal">
@@ -135,37 +147,36 @@ export default {
   },
   methods: {
     async fetchTariffInfo(tariffId) {
-    try {
-      // Доступ к документу с тарифами
-      const docRef = doc(db, 'tariffs', 'beNOUQ1b9ffvpRNDKxS4'); // Замените 'tariffsDocumentId' на фактический ID документа
-      const docSnap = await getDoc(docRef);
+  try {
+    const docRef = doc(db, 'tariffs', 'beNOUQ1b9ffvpRNDKxS4'); // Замените на фактический ID документа
+    const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        const tariffsData = docSnap.data();
-        
-        // Преобразование данных в массив тарифов
-        const tariffs = [
-          { ...tariffsData.Basic, id: 1 },
-          { ...tariffsData.Standard, id: 2 },
-          { ...tariffsData.Premium, id: 3 },
-          { ...tariffsData.Deluxe, id: 4 }
-        ];
+    if (docSnap.exists()) {
+      const tariffsData = docSnap.data();
+      console.log('Tariffs data:', tariffsData);
+      
+      const tariffs = [
+        { ...tariffsData.Basic, id: 1 },
+        { ...tariffsData.Standard, id: 2 },
+        { ...tariffsData.Premium, id: 3 },
+        { ...tariffsData.Deluxe, id: 4 }
+      ];
 
-        // Поиск нужного тарифа по ID
-        const selectedTariff = tariffs.find(tariff => tariff.id === parseInt(tariffId));
+      const selectedTariff = tariffs.find(tariff => tariff.id === parseInt(tariffId));
 
-        if (selectedTariff) {
-          this.userTariffInfo = selectedTariff;
-        } else {
-          console.error('Tariff not found');
-        }
+      if (selectedTariff) {
+        this.userTariffInfo = selectedTariff;
       } else {
-        console.error('Tariffs document not found');
+        console.error('Tariff not found');
       }
-    } catch (error) {
-      console.error('Error fetching tariff data:', error);
+    } else {
+      console.error('Tariffs document not found');
     }
-  },
+  } catch (error) {
+    console.error('Error fetching tariff data:', error);
+  }
+},
+
     async saveUserData() {
       const user = auth.currentUser;
       if (user) {

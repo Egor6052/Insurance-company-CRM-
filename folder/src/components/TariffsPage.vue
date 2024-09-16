@@ -1,10 +1,15 @@
 <template>
   <div class="tariffs">
+
+    <!-- Шапка -->
+    <div class="header">
+      <div class="battonBack">
+        <RouterLink to="/" class="Accept"><p>{{ $t('back') }}</p></RouterLink>
+      </div>
+    </div>
+
     <h1>{{ $t('tariffs') }}</h1>
 
-    <div class="battonBack">
-      <RouterLink to="/" class="Accept"><p>{{ $t('back') }}</p></RouterLink>
-    </div>
     
     <div class="tariffs-container">
       <div v-for="tariff in tariffs" :key="tariff.id" class="tariff">
@@ -13,7 +18,7 @@
             <li>
               <h2>{{ tariff.name }}</h2>
               <p>{{ tariff.description }}</p>
-              <p>{{ tariff.price }} {{ $t('$') }}</p> <!-- Добавлено отображение цены -->
+              <p>{{ tariff.price }} {{ $t('$') }}</p>
               <button @click="register(tariff.id, tariff.name)">{{ $t('choose') }}</button>
             </li>
           </ul>

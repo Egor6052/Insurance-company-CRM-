@@ -1,20 +1,21 @@
 // out: ../css/Payment.css
 
 .payment-tariff-page {
-    // max-width: 600px;
-    width: 500px;
-    height: 500px;
-    // margin: auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
 
-
+  .header {
+    background: #555;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    
     .battonBack {
-        margin-top: -10px;
+        margin-top: 10px;
         display: flex;
-        margin-left: -190px;
+        margin-left: 70px;
         // justify-content: flex-start;
         
         .Accept {
@@ -37,6 +38,45 @@
             }
         }
     }
+  }
+  
+    .page {
+      // max-width: 600px;
+    width: 500px;
+    height: 300px;
+    // margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+
+
+    // .battonBack {
+    //     margin-top: -10px;
+    //     display: flex;
+    //     margin-left: -190px;
+    //     // justify-content: flex-start;
+        
+    //     .Accept {
+    //         border-radius: 5px;
+    //         width: 100px;
+    //         height: 50px;
+    //         background-color: #007bff;
+    //         text-decoration: none;
+    //         color: aliceblue;
+    //         font-family: Arial, Helvetica, sans-serif;
+    //         font-size: 1rem;
+    //         cursor: pointer;
+    //         display: flex;
+    //         align-items: center;
+    //         justify-content: center;
+    //         transition: background-color 0.3s ease;
+            
+    //         &:hover {
+    //             background-color: #0056b3;
+    //         }
+    //     }
+    // }
   
     h1 {
       margin-bottom: 20px;
@@ -90,4 +130,6 @@
         background-color: #4281d4;
       }
     }
+    }
+    
   }
