@@ -16,17 +16,19 @@
       <p><strong>{{ $t('selectedPackage') }}:</strong> {{ packageName }}</p>
     </div>
 
+    <div class="title">
+      <p><strong>{{ $t('instructions') }}:</strong>{{ tariff.description }}</p>
+    </div>
+
     <div class="payment-details">
       <p><strong>{{ $t('paymentAmount') }}:</strong> {{ tariff.price }} {{ $t('$') }}</p>
     </div>
 
     <button @click="confirmPayment" class="confirm-button">{{ $t('confirm') }}</button>
+
     </div>
 
-    <!-- 
-    <div class="battonBack">
-      <RouterLink to="/tariffs" class="Accept"><p>{{ $t('back') }}</p></RouterLink>
-    </div> -->
+    
 
   </div>
 </template>
@@ -68,7 +70,7 @@ export default {
         const foundTariff = this.tariffs.find(tariff => tariff.name === this.packageName);
         
         if (foundTariff) {
-          this.tariff = foundTariff;  // Сохраняем найденный тариф
+          this.tariff = foundTariff;
           this.minAmount = foundTariff.minAmount || 0;
           this.maxAmount = foundTariff.maxAmount || 0;
           this.paymentAmount = this.minAmount;
@@ -84,17 +86,15 @@ export default {
   },
   methods: {
     confirmPayment() {
-      if (this.paymentAmount < this.minAmount || this.paymentAmount > this.maxAmount) {
-        alert(this.$t('invalidAmount'));
-        return;
-      }
-      
-      // Логика подтверждения данных
-      alert(this.$t('paymentConfirmed'));
+      this.$router.push({
+      name: 'Wallet',
+      query: { tariffId: this.tariff.id }  // Передача id тарифа через query
+    });
     }
   }
 };
 </script>
+
 
 <style scoped>
 @import '../assets/css/Payment.css';

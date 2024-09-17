@@ -5,6 +5,7 @@ import RegisterPage from '../components/RegisterPage.vue'
 import LoginPage from '../components/LoginPage.vue'
 import UserPage from '../components/UserPage.vue'
 import Payment from '../components/PaymentTariff.vue'
+import Wallet from '../components/WalletPayment.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -17,6 +18,7 @@ const router = createRouter({
     { name: 'Login', path: '/login', component: LoginPage },
     {name: 'UserPage', path: '/UserPage', component: UserPage },
     {name: 'Payment', path: '/Payment', component: Payment },
+    {name: 'Wallet', path: '/Wallet', component: Wallet },
   ]
 });
 

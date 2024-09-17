@@ -7,6 +7,8 @@ import { createI18n } from 'vue-i18n'
 // Для перекладів
 const messages = {
   en: {
+    walletPayment: 'Wallet address for payment',
+    instructions: 'Instructions',
     ConsultantID: 'ConsultantID',
     Wallet: 'Wallet',
     PhoneNumber: 'Phone number',
@@ -32,6 +34,8 @@ const messages = {
     acceptButton: 'Agree and accept'
   },
   uk: {
+    walletPayment: 'Адреса гаманця для оплати',
+    instructions: 'Інструкція',
     ConsultantID: 'ID консультанта',
     Wallet: 'Гаманець',
     PhoneNumber: 'Номер телефону',
