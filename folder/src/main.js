@@ -7,6 +7,13 @@ import { createI18n } from 'vue-i18n'
 // Для перекладів
 const messages = {
   en: {
+    supportChat: 'Support Chat',
+    copyAddress: 'Copy address',
+    network: 'Network',
+    paymentAddress: 'Payment address',
+    paymentInReview: 'Your payment in review',
+    goToAccount: 'go to Account',
+    amount: 'Amount',
     walletPayment: 'Wallet address for payment',
     instructions: 'Instructions',
     ConsultantID: 'ConsultantID',
@@ -34,6 +41,13 @@ const messages = {
     acceptButton: 'Agree and accept'
   },
   uk: {
+    supportChat: 'Чат підтримки',
+    copyAddress: 'Скопіювати',
+    network: 'Мережа',
+    paymentAddress: 'Адреса платежу',
+    paymentInReview: 'Ваш запит оброблюєьтся',
+    goToAccount: 'Перейти до акаунту',
+    amount: 'До сплати',
     walletPayment: 'Адреса гаманця для оплати',
     instructions: 'Інструкція',
     ConsultantID: 'ID консультанта',
