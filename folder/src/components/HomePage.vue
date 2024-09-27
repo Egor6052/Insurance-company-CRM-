@@ -10,12 +10,12 @@
         <ul>
           <li>
              <RouterLink to="/tariffs" class="Accept">
-              {{ $t('acceptButton') }}
+              <p>{{ $t('acceptButton') }}</p>
             </RouterLink>
           </li>
           <li>
              <RouterLink to="/login" class="Login">
-              {{ $t('loginButton') }}
+              <p>{{ $t('loginButton') }}</p>
             </RouterLink>
           </li>
         </ul>

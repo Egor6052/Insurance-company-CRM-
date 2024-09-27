@@ -1,3 +1,6 @@
+.wallet-payment-page {
+  /* Media queries */
+}
 .wallet-payment-page .header {
   background: #555;
   position: fixed;
@@ -39,10 +42,6 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  /* Секция для адреса и сети */
-  /* Секция для суммы */
-  /* Кнопка тех. поддержки */
-  /* Окно с подтверждением платежа */
 }
 .wallet-payment-page .walletPage h1 {
   font-size: 24px;
@@ -152,7 +151,6 @@
   bottom: 20px;
   right: 20px;
   z-index: 1001;
-  /* Над усіма об'єктами */
 }
 .wallet-payment-page .walletPage .support-chat button {
   background-color: #007bff;
@@ -178,6 +176,45 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   z-index: 1002;
+}
+.wallet-payment-page .walletPage .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1002;
+}
+.wallet-payment-page .walletPage .overlay .confirmation-message {
+  width: 400px;
+  height: 100px;
+  border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #e7ffdf;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.wallet-payment-page .walletPage .overlay .confirmation-message p {
+  color: #333;
+}
+.wallet-payment-page .walletPage .overlay .confirmation-message button {
+  margin-left: 10px;
+  border: #333;
+  border-radius: 10px;
+  width: 100px;
+  height: 50px;
+  background-color: #007bff;
+  color: #f1f1f1;
+}
+.wallet-payment-page .walletPage .overlay .confirmation-message button:hover {
+  background-color: #0056b3;
 }
 .wallet-payment-page .walletPage .confirmation-modal {
   background-color: rgba(0, 0, 0, 0.5);
@@ -216,4 +253,120 @@
 }
 .wallet-payment-page .walletPage .confirmation-modal .modal-content .go-to-dashboard-button:hover {
   background-color: #0056b3;
+}
+@media (max-width: 768px) {
+  .wallet-payment-page .walletPage {
+    width: 300px;
+  }
+  .wallet-payment-page .walletPage h1 {
+    font-size: 20px;
+  }
+  .wallet-payment-page .walletPage .confirm-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  .wallet-payment-page .walletPage .address-info {
+    font-size: 12px;
+    max-width: 100%;
+  }
+  .wallet-payment-page .walletPage .address-info p {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    overflow-wrap: break-word;
+    word-break: break-all;
+  }
+  .wallet-payment-page .walletPage .address-info p strong {
+    margin-right: 10px;
+    word-break: break-word;
+  }
+  .wallet-payment-page .walletPage .address-info .button-copy {
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .wallet-payment-page .walletPage .address-info .button-copy .imgConteiner {
+    width: 20px;
+    height: 20px;
+  }
+  .wallet-payment-page .walletPage .address-info .button-copy .imgConteiner img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .wallet-payment-page .walletPage .address-info .address .copy-button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  .wallet-payment-page .walletPage .support-chat button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  .wallet-payment-page .walletPage .support-chat .chat-window {
+    width: 100%;
+    right: 0;
+    left: 0;
+  }
+}
+@media (max-width: 480px) {
+  .wallet-payment-page .header {
+    height: 60px;
+  }
+  .wallet-payment-page .header .battonBack {
+    margin-left: 20px;
+  }
+  .wallet-payment-page .header .battonBack .Accept {
+    width: 80px;
+    height: 40px;
+    font-size: 0.9rem;
+  }
+  .wallet-payment-page .walletPage {
+    height: 530px;
+  }
+  .wallet-payment-page .walletPage h1 {
+    font-size: 18px;
+  }
+  .wallet-payment-page .walletPage .confirm-button {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+  .wallet-payment-page .walletPage .address-info {
+    font-size: 12px;
+    max-width: 100%;
+  }
+  .wallet-payment-page .walletPage .address-info p {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    overflow-wrap: break-word;
+    word-break: break-all;
+  }
+  .wallet-payment-page .walletPage .address-info p strong {
+    margin-right: 10px;
+    word-break: break-word;
+  }
+  .wallet-payment-page .walletPage .address-info .button-copy {
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .wallet-payment-page .walletPage .address-info .button-copy .imgConteiner {
+    width: 20px;
+    height: 20px;
+  }
+  .wallet-payment-page .walletPage .address-info .button-copy .imgConteiner img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .wallet-payment-page .walletPage .address-info .address .copy-button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  .wallet-payment-page .walletPage .support-chat button {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
 }

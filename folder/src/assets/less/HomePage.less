@@ -6,19 +6,17 @@
     align-items: center;
     height: 100vh;
     background-color: white;
-  
+
     .logo {
-        // display: flex;
         align-items: center;
         margin-top: -300px;
 
         .logoName {
-            font-size: 98px;
+            // font-size: 98px;
             font-weight: 700;
             color: #2C2C2C;
             p {
-            //   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-family: Arial, Helvetica, sans-serif;
+                font-family: Arial, Helvetica, sans-serif;
             }
         }
 
@@ -31,8 +29,9 @@
             margin-right: 20px;
 
             .description {
-                font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-                font-size: 44px;
+                margin-top: 50px;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                // font-size: 44px;
                 color: #B8B8B8;
             }
 
@@ -41,7 +40,7 @@
                 font-size: 38px;
 
                 a {
-                    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
                     text-decoration: none;
                     color: #2C2C2C;
 
@@ -60,12 +59,11 @@
                 li {
                     list-style-type: none;
 
-
                     .Accept {
                         margin-left: 50px;
                         border-radius: 5px;
                         height: 50px;
-                        width: 400px;
+                        // width: 400px;
                         background-color: #569efd;
                         display: flex;
                         align-items: center;
@@ -74,13 +72,15 @@
                         color: aliceblue;
                         font-family: Arial, Helvetica, sans-serif;
                         font-size: 28px;
+                        p {
+                            font-size: 29px;
+                        }
 
                         &:hover {
                             background-color: #4281d4;
                             cursor: pointer;
                             transition: background-color 0.3s ease;
                         }
-                        
                     }
 
                     .Login {
@@ -102,23 +102,114 @@
                             cursor: pointer;
                             transition: background-color 0.3s ease;
                         }
-                        
-                    }    
+                    }
                 }
             }
-
-            
         }
-
-        
-        
     }
 }
 
+/* Великі екрани (від 1200px) */
+@media (min-width: 1200px) {
+    .logoName {
+        font-size: 98px;
+    }
+    .description {
+        // margin-top: 50px;
+        font-size: 44px;
+    }
+    .Aboutdesigner {
+        font-size: 38px;
+    }
+    .Accept {
+        width: 400px;
+        font-size: 28px;
+    }
+    .Login {
+        width: 100px;
+        font-size: 28px;
+    }
+}
 
-.fade-enter-active, .fade-leave-active {
-    transition: opacity 0.5s;
-  }
-  .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
-    opacity: 0;
-  }
+/* Середні екрани (від 768px до 1200px) */
+@media (max-width: 1200px) and (min-width: 768px) {
+    .logoName {
+        font-size: 70px;
+    }
+    .description {
+        font-size: 32px;
+    }
+    .Aboutdesigner {
+        font-size: 28px;
+    }
+    .Accept {
+        width: 300px;
+        font-size: 24px;
+    }
+    .Login {
+        width: 80px;
+        font-size: 24px;
+    }
+}
+
+/* Малі екрани (від 480px до 768px) */
+@media (max-width: 768px) and (min-width: 480px) {
+    .MainFolder {
+        flex-direction: column;
+    }
+    .logo {
+        margin-top: 0;
+        align-items: flex-start;
+    }
+    .logoName {
+        font-size: 50px;
+    }
+    .description {
+        font-size: 24px;
+    }
+    .Aboutdesigner {
+        font-size: 22px;
+    }
+    .Accept {
+        width: 250px;
+        font-size: 20px;
+    }
+    .Login {
+        width: 70px;
+        font-size: 20px;
+    }
+}
+
+/* Дуже малі екрани (до 480px) */
+@media (max-width: 480px) {
+    .MainFolder {
+        flex-direction: column;
+    }
+    .logo {
+        margin-top: 0;
+        align-items: flex-start;
+    }
+    .logoName {
+        p {
+            font-size: 40px;
+        }
+        
+    }
+    .description {
+        // p {
+            font-size: 18px;
+        // }
+        
+    }
+    .Aboutdesigner {
+        font-size: 18px;
+    }
+    .Accept {
+        width: 200px;
+        font-size: 16px;
+    }
+    .Login {
+        width: 60px;
+        font-size: 16px;
+    }
+}

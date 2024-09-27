@@ -40,18 +40,20 @@
       <!-- Чат технічної підтримки через Telegram -->
       <div class="support-chat">
         <button @click="openTelegram">{{ $t('supportChat') }}</button>
-        <div v-if="chatOpen" class="chat-window">
-          <p>{{ $t('chatWindow') }}</p>
-          <!-- Відкриття чату в новому вікні -->
-          <iframe v-if="chatOpen" :src="telegramUrl" width="400" height="600" frameborder="0"></iframe>
+        <!-- <div v-if="chatOpen" class="chat-window"> -->
+          <!-- <p>{{ $t('chatWindow') }}</p> -->
+          <!-- Відкриття чату в новому вікні
+          <iframe v-if="chatOpen" :src="telegramUrl" width="400" height="600" frameborder="0"></iframe> -->
+        <!-- </div> -->
+      </div>
+
+      <div v-if="paymentConfirmed" class="overlay">
+        <div v-if="paymentConfirmed" class="confirmation-message">
+          <p>{{ $t('paymentInReview') }}</p>
+          <RouterLink to="/UserPage"><button>{{ $t('goToAccount') }}</button></RouterLink>
         </div>
       </div>
 
-
-      <div v-if="paymentConfirmed" class="confirmation-message">
-        <p>{{ $t('paymentInReview') }}</p>
-        <RouterLink to="/UserPage">{{ $t('goToAccount') }}</RouterLink>
-      </div>
     </div>
   </div>
 </template>
