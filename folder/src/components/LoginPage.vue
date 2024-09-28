@@ -7,7 +7,7 @@
         <RouterLink to="/" class="Accept"><p>{{ $t('back') }}</p></RouterLink>
       </div>
       <div class="logo">
-        <h1>{{ $t('company') }}</h1>
+        <p>{{ $t('company') }}</p>
       </div>
     </div>
 

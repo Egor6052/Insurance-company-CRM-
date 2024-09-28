@@ -1,13 +1,13 @@
 // out: ../css/LoginPage.css
 
 .login-page {
-    width: 100%;
-    height: 100%;
+    // width: 100%;
+    // height: 100%;
     background-color: #f4f4f9;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    // padding: 5px;
 
     .header {
       background: #555;
@@ -15,13 +15,14 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 70px;
+      // height: 70px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0 20px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       z-index: 1000;
+
       
       .battonBack {
         margin-left: 70px;
@@ -29,8 +30,8 @@
           
           .Accept {
               border-radius: 5px;
-              width: 100px;
-              height: 50px;
+              // width: 100px;
+              // height: 50px;
               background-color: #007bff;
               text-decoration: none;
               color: aliceblue;
@@ -48,22 +49,21 @@
           }
       }
       .logo {
-        
-        h1 {
+        margin-right: 50px;
+        align-items: center;
+    
+        p {
+          
+          font-weight: 700;
           font-family: Arial, Helvetica, sans-serif;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 2rem;
           color: #ffffff;
-          // margin-bottom: 20px;
         }
       }
 
     }
     
     .login {
-      margin-top: 100px;
+      // margin-top: 100px;
 
       h1 {
         margin-top: 100px;
@@ -74,7 +74,7 @@
         font-size: 2rem;
         color: #000000;
         // margin-bottom: 20px;
-    }
+      }
     }
     
   
@@ -88,11 +88,12 @@
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       padding: 20px;
-      width: 100%;
-      max-width: 400px;
+      // width: 400px;
+      // max-width: 400px;
       display: flex;
       flex-direction: column;
       gap: 15px;
+     
   
       .form-group {
         display: flex;
@@ -159,3 +160,170 @@
     }
   }
   
+/* Великі екрани (від 1200px) */
+@media (min-width: 1200px) {
+  .login-page {
+    width: 100%;
+    height: 100%;
+    .login {
+      margin-top: 100px;
+      p {
+        font-size: 2rem;
+      }
+    }
+    .header {
+      height: 70px;
+      .logo {
+        p {
+          font-size: 2rem;
+        }
+      }
+      .battonBack {
+        .Accept {
+           width: 100px;
+              height: 50px;
+        }
+      }
+      
+    }
+  }
+  .login-form {
+    width: 400px;
+  }
+
+  
+  .header .logo p,
+ 
+  .form-group label,
+  .submit-button,
+  .google-login-button {
+    font-size: 1rem;
+  }
+}
+
+/* Середні екрани (768px - 1200px) */
+@media (max-width: 1200px) and (min-width: 768px) {
+  .login-page {
+    width: 100%;
+    height: 100%;
+    .login {
+      margin-top: 100px;
+      p {
+        // font-size: 30px
+      }
+    }
+    .header {
+      height: 70px;
+      .logo {
+        p {
+          font-size: 1.5rem;
+        }
+      }
+      .battonBack {
+        .Accept {
+            width: 100px;
+            height: 50px;
+        }
+      }
+      
+    }
+  }
+
+  .login-form {
+    width: 350px;
+  }
+
+  .header .logo h1,
+  .login h1 {
+    font-size: 1.8rem;
+  }
+
+  .form-group label,
+  .submit-button,
+  .google-login-button {
+    font-size: 0.9rem;
+  }
+}
+
+/* Малі екрани (480px - 768px) */
+@media (max-width: 768px) and (min-width: 480px) {
+  .login-page {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 300px;
+    .header {
+      height: 70px;
+      .logo {
+        p {
+          font-size: 1.5rem;
+        }
+      }
+      .battonBack {
+        margin-left: -10px;
+        .Accept {
+            width: 80px;
+            height: 50px;
+        }
+      }
+      
+    }
+  }
+
+  .login-form {
+    width: 300px;
+  }
+
+  .header .logo p,
+  .login p {
+    font-size: 1.6rem;
+  }
+
+  .form-group label,
+  .submit-button,
+  .google-login-button {
+    font-size: 0.85rem;
+  }
+}
+
+/* Дуже малі екрани (до 480px) */
+@media (max-width: 480px) {
+  .login-page {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 300px;
+   
+    
+    .header {
+      height: 70px;
+      .logo {
+        p {
+          font-size: 1.5rem;
+        }
+      }
+      .battonBack {
+        margin-left: -10px;
+        .Accept {
+            width: 70px;
+            height: 50px;
+        }
+      }
+      
+    }
+  }
+
+  .login-form {
+    width: 250px;
+    padding: 10px;
+  }
+
+  .header .logo h1,
+  .login h1 {
+    font-size: 1.4rem;
+  }
+
+  .form-group label,
+  .submit-button,
+  .google-login-button {
+    font-size: 0.8rem;
+  }
+}
