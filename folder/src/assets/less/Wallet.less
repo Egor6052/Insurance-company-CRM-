@@ -177,7 +177,7 @@
       z-index: 1001;
 
       button {
-        background-color: #007bff;
+        background-color: #806ae0;
         color: white;
         padding: 12px 24px;
         border: none;
@@ -186,11 +186,13 @@
         cursor: pointer;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         transition: background-color 0.3s ease;
+
+        &:hover {
+        background-color: #7754c9;
+        }
       }
 
-      button:hover {
-        background-color: #0056b3;
-      }
+      
 
       .chat-window {
         position: fixed;
@@ -296,9 +298,9 @@
   /* Media queries */
   @media (max-width: 768px) {
     .walletPage {
-      // max-width: 100%;
+      margin-top: 70px;
       // padding: 15px;
-      width: 300px;
+      width: 400px;
 
       h1 {
         font-size: 20px;
@@ -370,22 +372,24 @@
 
   @media (max-width: 480px) {
     .header {
-      height: 60px;
+      height: 50px;
 
       .battonBack {
+        margin-top: 7px;
         margin-left: 20px;
 
         .Accept {
-          width: 80px;
-          height: 40px;
-          font-size: 0.9rem;
+          width: 70px;
+          height: 35px;
+          font-size: 0.8rem;
         }
       }
     }
 
     .walletPage {
-      // margin-top: 10px;
-      height: 530px;
+      margin-top: 50px;
+      // height: 530px;
+      width: 300px;
       h1 {
         font-size: 18px;
       }

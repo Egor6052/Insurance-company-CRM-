@@ -1,97 +1,102 @@
 // out: ../css/Register.css
 
-
 .register-page {
-    // max-width: 600px;
-    .header {
-      background: #555;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 70px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-      
-      .battonBack {
-          margin-top: -10px;
-          display: flex;
-          margin-left: -190px;
-          // justify-content: flex-start;
-          
-          .Accept {
-              border-radius: 5px;
-              width: 100px;
-              height: 50px;
-              background-color: #007bff;
-              text-decoration: none;
-              color: aliceblue;
-              font-family: Arial, Helvetica, sans-serif;
-              font-size: 1rem;
-              cursor: pointer;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              transition: background-color 0.3s ease;
-              
-              &:hover {
-                  background-color: #0056b3;
-              }
-          }
+  .header {
+    background: #555;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+
+    .battonBack {
+      margin-top: -10px;
+      display: flex;
+      margin-left: -190px;
+
+      .Accept {
+        border-radius: 5px;
+        width: 100px;
+        height: 50px;
+        background-color: #007bff;
+        text-decoration: none;
+        color: aliceblue;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #0056b3;
+        }
       }
     }
+  }
 
-    .page {
-      margin-top: 100px;
-      width: 400px;
-      margin: auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background-color: #f9f9f9;
-  
-    h1 {
+  .page {
+    margin-top: 100px;
+    width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-right: 20px;
+    margin-left: -10px;
+
+    p {
+      font-weight: 700;
+
       margin-bottom: 20px;
+      margin-top: -5px;
       text-align: center;
     }
-  
-    .form-group {
-      margin-right: 20px;
-      margin-bottom: 15px;
-  
-      label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-      }
-  
-      input,
-      textarea {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-    }
-  
-    .submit-button {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      background-color: #569efd;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      font-size: 16px;
-      cursor: pointer;
-  
-      &:hover {
-        background-color: #4281d4;
-      }
-    }
-}
+    .form {
+      // background-color: #007bff;
 
-.battonBack {
+      .form-group {
+        margin-right: 20px;
+        margin-bottom: 15px;
+
+        label {
+          display: block;
+          margin-bottom: 5px;
+          font-weight: bold;
+        }
+
+        input,
+        textarea {
+          width: 100%;
+          padding: 8px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+      }
+
+      .submit-button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #569efd;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #4281d4;
+        }
+      }
+    }
+  }
+
+  .battonBack {
     position: absolute;
     top: 20px;
     left: 250px;
@@ -103,7 +108,7 @@
       height: 50px;
       background-color: #007bff;
       text-decoration: none;
-      color: aliceblue; 
+      color: aliceblue;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 1rem;
       cursor: pointer;
@@ -116,5 +121,98 @@
         background-color: #0056b3;
       }
     }
+  }
+
+  // Адаптивність
+  @media (max-width: 768px) {
+    .header {
+      height: 60px;
+
+      .battonBack {
+        margin-top: -5px;
+        margin-left: -80px;
+
+        .Accept {
+          width: 80px;
+          height: 40px;
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    .page {
+      margin-left: -10px;
+
+      // width: 100%;
+      width: 350px;
+      padding: 15px;
+      margin-top: 80px;
+      p {
+        font-weight: 700;
+        font-size: 25px;
+      }
+      
+      
+
+      .submit-button {
+        padding: 8px;
+        font-size: 14px;
+      }
+    }
+
+    .battonBack {
+      top: 15px;
+      left: 100px;
+
+      .Accept {
+        width: 80px;
+        height: 40px;
+      }
     }
   }
+
+  @media (max-width: 480px) {
+    .header {
+      height: 50px;
+
+      .battonBack {
+        margin-top: -2px;
+        margin-left: -20px;
+
+        .Accept {
+          width: 70px;
+          height: 35px;
+          font-size: 0.8rem;
+        }
+      }
+    }
+
+    .page {
+      width: 100%;
+      padding: 10px;
+      margin-top: 70px;
+      margin-left: -10px;
+      p {
+        font-size: 30px;
+      }
+      // .form {
+      //   // margin-left: 20px;
+      // }
+
+      .submit-button {
+        padding: 6px;
+        font-size: 12px;
+      }
+    }
+
+    .battonBack {
+      top: 10px;
+      left: 50px;
+
+      .Accept {
+        width: 70px;
+        height: 35px;
+      }
+    }
+  }
+}

@@ -9,13 +9,13 @@
     </div>
 
     <div class="page">
-      <h1>Register with {{ tariffName }}</h1>
+      <p>Register with {{ tariffName }}</p>
 
       <div class="battonBack">
         <RouterLink to="/tariffs" class="Accept"><p>{{ $t('back') }}</p></RouterLink>
       </div>
       
-      <form @submit.prevent="handleSubmit">
+      <form @submit.prevent="handleSubmit" class="form">
         <div class="form-group">
           <label for="name">Name:</label>
           <input type="text" id="name" v-model="form.name" required />

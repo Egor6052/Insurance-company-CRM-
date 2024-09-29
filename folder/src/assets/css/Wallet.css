@@ -153,7 +153,7 @@
   z-index: 1001;
 }
 .wallet-payment-page .walletPage .support-chat button {
-  background-color: #007bff;
+  background-color: #806ae0;
   color: white;
   padding: 12px 24px;
   border: none;
@@ -164,7 +164,7 @@
   transition: background-color 0.3s ease;
 }
 .wallet-payment-page .walletPage .support-chat button:hover {
-  background-color: #0056b3;
+  background-color: #7754c9;
 }
 .wallet-payment-page .walletPage .support-chat .chat-window {
   position: fixed;
@@ -256,7 +256,8 @@
 }
 @media (max-width: 768px) {
   .wallet-payment-page .walletPage {
-    width: 300px;
+    margin-top: 70px;
+    width: 400px;
   }
   .wallet-payment-page .walletPage h1 {
     font-size: 20px;
@@ -311,18 +312,20 @@
 }
 @media (max-width: 480px) {
   .wallet-payment-page .header {
-    height: 60px;
+    height: 50px;
   }
   .wallet-payment-page .header .battonBack {
+    margin-top: 7px;
     margin-left: 20px;
   }
   .wallet-payment-page .header .battonBack .Accept {
-    width: 80px;
-    height: 40px;
-    font-size: 0.9rem;
+    width: 70px;
+    height: 35px;
+    font-size: 0.8rem;
   }
   .wallet-payment-page .walletPage {
-    height: 530px;
+    margin-top: 50px;
+    width: 300px;
   }
   .wallet-payment-page .walletPage h1 {
     font-size: 18px;

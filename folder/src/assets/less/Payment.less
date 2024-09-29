@@ -13,145 +13,69 @@
     z-index: 1000;
     
     .battonBack {
-        margin-top: 10px;
+      margin-top: 10px;
+      display: flex;
+      margin-left: 70px;
+
+      .Accept {
+        border-radius: 5px;
+        width: 100px;
+        height: 50px;
+        background-color: #007bff;
+        text-decoration: none;
+        color: aliceblue;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1rem;
+        cursor: pointer;
         display: flex;
-        margin-left: 70px;
-        // justify-content: flex-start;
-        
-        .Accept {
-            border-radius: 5px;
-            width: 100px;
-            height: 50px;
-            background-color: #007bff;
-            text-decoration: none;
-            color: aliceblue;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.3s ease;
-            
-            &:hover {
-                background-color: #0056b3;
-            }
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #0056b3;
         }
+      }
     }
   }
-  
-    .page {
-      // max-width: 600px;
-    width: 500px;
-    height: 300px;
-    // margin: auto;
+
+  .page {
+    width: 450px;
+    height: auto;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #f9f9f9;
+    margin: 100px auto 0;
+    
 
-
-    // .battonBack {
-    //     margin-top: -10px;
-    //     display: flex;
-    //     margin-left: -190px;
-    //     // justify-content: flex-start;
-        
-    //     .Accept {
-    //         border-radius: 5px;
-    //         width: 100px;
-    //         height: 50px;
-    //         background-color: #007bff;
-    //         text-decoration: none;
-    //         color: aliceblue;
-    //         font-family: Arial, Helvetica, sans-serif;
-    //         font-size: 1rem;
-    //         cursor: pointer;
-    //         display: flex;
-    //         align-items: center;
-    //         justify-content: center;
-    //         transition: background-color 0.3s ease;
-            
-    //         &:hover {
-    //             background-color: #0056b3;
-    //         }
-    //     }
-    // }
-  
     h1 {
       margin-bottom: 20px;
       text-align: center;
     }
-  
-    .package-info {
+
+    .package-info, .title, .payment-details {
       margin-bottom: 20px;
-  
+
       p {
         margin: 0;
         font-size: 16px;
-
-        // width: 100%;
-        // height: 50px;
-        // background-color: #b7ffbc;
-        // margin-bottom: 20px;
-        // padding: 5px;
-        // margin-right: 5px;
       }
 
       strong {
-        // width: 100%;
-        // height: 50px;
-        // background-color: #f9f9f9;
-        // margin-bottom: 20px;
-        // padding: 5px;
         margin-right: 5px;
       }
     }
+
     .title {
-      width: 100%;
-      height: 50px;
       background-color: #e6e6e6;
-      margin-bottom: 20px;
-      p {
-        font-size: 16px;
-        margin-right: 10px;
-        margin-left: 10px;
+      padding: 10px;
 
-        strong {
-          // width: 100%;
-          // height: 50px;
-          // background-color: #f9f9f9;
-          // margin-bottom: 20px;
-          // padding: 5px;
-          margin-right: 5px;
-        }
-      }
-
-    }
-  
-    .payment-details {
-      margin-bottom: 20px;
-      margin-right: 20px;
-  
-      label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-      }
-  
-      input {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-  
       p {
-        margin: 5px 0;
-        font-size: 14px;
+        margin: 0;
       }
     }
-  
+
     .confirm-button {
       display: block;
       width: 100%;
@@ -162,11 +86,62 @@
       border-radius: 4px;
       font-size: 16px;
       cursor: pointer;
-  
+
       &:hover {
         background-color: #4281d4;
       }
     }
-    }
-    
   }
+
+  /* Адаптивність для планшетів */
+  @media (max-width: 768px) {
+    .page {
+      width: 400px;
+    }
+
+    .header .battonBack {
+      margin-left: 20px;
+    }
+
+    .confirm-button {
+      font-size: 14px;
+    }
+  }
+
+  /* Адаптивність для мобільних телефонів */
+  @media (max-width: 480px) {
+    .page {
+      width: 300px;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+
+    .header {
+      height: 50px;
+
+      .battonBack {
+        margin-top: 7px;
+        // margin-left: -20px;
+
+        .Accept {
+          width: 70px;
+          height: 35px;
+          font-size: 0.8rem;
+        }
+      }
+    }
+
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    .package-info p, .title p, .payment-details p {
+      font-size: 14px;
+    }
+
+    .confirm-button {
+      font-size: 14px;
+      padding: 8px;
+    }
+  }
+}

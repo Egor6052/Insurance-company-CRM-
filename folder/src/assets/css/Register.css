@@ -39,28 +39,32 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f9f9f9;
+  margin-right: 20px;
+  margin-left: -10px;
 }
-.register-page .page h1 {
+.register-page .page p {
+  font-weight: 700;
   margin-bottom: 20px;
+  margin-top: -5px;
   text-align: center;
 }
-.register-page .page .form-group {
+.register-page .page .form .form-group {
   margin-right: 20px;
   margin-bottom: 15px;
 }
-.register-page .page .form-group label {
+.register-page .page .form .form-group label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
 }
-.register-page .page .form-group input,
-.register-page .page .form-group textarea {
+.register-page .page .form .form-group input,
+.register-page .page .form .form-group textarea {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-.register-page .page .submit-button {
+.register-page .page .form .submit-button {
   display: block;
   width: 100%;
   padding: 10px;
@@ -71,7 +75,7 @@
   font-size: 16px;
   cursor: pointer;
 }
-.register-page .page .submit-button:hover {
+.register-page .page .form .submit-button:hover {
   background-color: #4281d4;
 }
 .register-page .battonBack {
@@ -97,4 +101,75 @@
 }
 .register-page .battonBack .Accept:hover {
   background-color: #0056b3;
+}
+@media (max-width: 768px) {
+  .register-page .header {
+    height: 60px;
+  }
+  .register-page .header .battonBack {
+    margin-top: -5px;
+    margin-left: -80px;
+  }
+  .register-page .header .battonBack .Accept {
+    width: 80px;
+    height: 40px;
+    font-size: 0.9rem;
+  }
+  .register-page .page {
+    margin-left: -10px;
+    width: 350px;
+    padding: 15px;
+    margin-top: 80px;
+  }
+  .register-page .page p {
+    font-weight: 700;
+    font-size: 25px;
+  }
+  .register-page .page .submit-button {
+    padding: 8px;
+    font-size: 14px;
+  }
+  .register-page .battonBack {
+    top: 15px;
+    left: 100px;
+  }
+  .register-page .battonBack .Accept {
+    width: 80px;
+    height: 40px;
+  }
+}
+@media (max-width: 480px) {
+  .register-page .header {
+    height: 50px;
+  }
+  .register-page .header .battonBack {
+    margin-top: -2px;
+    margin-left: -20px;
+  }
+  .register-page .header .battonBack .Accept {
+    width: 70px;
+    height: 35px;
+    font-size: 0.8rem;
+  }
+  .register-page .page {
+    width: 100%;
+    padding: 10px;
+    margin-top: 70px;
+    margin-left: -10px;
+  }
+  .register-page .page p {
+    font-size: 30px;
+  }
+  .register-page .page .submit-button {
+    padding: 6px;
+    font-size: 12px;
+  }
+  .register-page .battonBack {
+    top: 10px;
+    left: 50px;
+  }
+  .register-page .battonBack .Accept {
+    width: 70px;
+    height: 35px;
+  }
 }
