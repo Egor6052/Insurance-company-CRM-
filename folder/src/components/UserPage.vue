@@ -11,25 +11,52 @@
           <img src="../assets/icons/pencil.png" alt="Edit">
         </div>
       </button>
+
+      <!-- Кнопка для администраторов -->
+      <!-- <button v-if="isAdmin" class="admin-button" @click="adminFunction">
+        <p>Admin button</p>
+      </button> -->
     </div>
 
     <!-- Информация о пользователе -->
-    <div class="user-header">
-      <div class="user-icon">
-        <img src="../assets/icons/user.png" class="icon-img" alt="User">
-      </div>
-      <div class="user-info">
-        <ul>
-          <li><h1>{{ userName }}</h1></li>
-          <li><strong>{{ $t('Email') }}:</strong><p>{{ userEmail }}</p></li>
-          <li><strong>{{ $t('PhoneNumber') }}:</strong><p>{{ userPhone }}</p></li>
-          <li><strong>{{ $t('Wallet') }}:</strong><p>{{ userWallet }}</p></li>
-          <li><strong>{{ $t('ConsultantID') }}:</strong><p>{{ userConsultantId }}</p></li>
-        </ul>
-      </div>
-    </div>
+     <div class="pages">
+  
+        <li> <div class="user-header">
+        <div class="user-icon">
+          <img src="../assets/icons/user.png" class="icon-img" alt="User">
+        </div>
+        <div class="user-info">
+          <ul>
+            <li><h1>{{ userName }}</h1></li>
+            <li><div v-if="isAdmin" class="admin-message">
+              <p>Ви адміністратор!</p>
+            </div></li>
+            
+            <li><strong>{{ $t('Email') }}:</strong><p>{{ userEmail }}</p></li>
+            <li><strong>{{ $t('PhoneNumber') }}:</strong><p>{{ userPhone }}</p></li>
+            <li><strong>{{ $t('Wallet') }}:</strong><p>{{ userWallet }}</p></li>
+            <li><strong>{{ $t('ConsultantID') }}:</strong><p>{{ userConsultantId }}</p></li>
+          </ul>
+        </div>
+      </div></li>
 
-   <!-- Тарифы -->
+      <li> <div class="Admin-panel">
+
+
+      </div></li>
+
+
+     </div>
+     
+    
+   
+
+    <!-- Повідомлення для адміністратора -->
+    <!-- <div v-if="isAdmin" class="admin-message">
+      <p>Ви адміністратор!</p>
+    </div> -->
+
+   <!-- Тарифи -->
     <div v-if="userTariffInfo" class="tariffs-page">
       <div class="all-tariffs">
         <div class="tariffs-container">
@@ -60,8 +87,6 @@
         </div>
       </div>
     </div>
-
-
 
     <!-- Модальное окно для редактирования данных -->
     <div v-if="showModal" class="modal">
@@ -94,9 +119,11 @@
   </div>
 </template>
 
+
 <script>
 import { auth, db } from "../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default {
   name: 'UserPage',
@@ -109,73 +136,85 @@ export default {
       userConsultantId: '',
       userTariff: '',
       userTariffInfo: null,
-      showModal: false
+      showModal: false,
+      isAdmin: false,
     };
   },
-  async created() {
-    const user = auth.currentUser;
-    if (user) {
-      try {
-        // Получаем данные пользователя
-        const userDocRef = doc(db, `users/${user.uid}`);
-        const userDoc = await getDoc(userDocRef);
+  created() {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          // Отримуємо дані користувача
+          const userDocRef = doc(db, `users/${user.uid}`);
+          const userDoc = await getDoc(userDocRef);
 
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          
-          this.userName = userData.name || 'Error';
-          this.userEmail = userData.email || 'We can`t find it';
-          this.userPhone = userData.phone || 'We can`t find it';
-          this.userWallet = userData.wallet || 'TRC20 Wallet Address';
-          this.userConsultantId = userData.consultantId || 'We can`t find it';
-          this.userTariff = userData.tariff || 'No tariff selected';
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
+            
+            this.userName = userData.name || 'Error';
+            this.userEmail = userData.email || 'We can`t find it';
+            this.userPhone = userData.phone || 'We can`t find it';
+            this.userWallet = userData.wallet || 'TRC20 Wallet Address';
+            this.userConsultantId = userData.consultantId || 'We can`t find it';
+            this.userTariff = userData.tariff || 'No tariff selected';
+            this.userPosition = userData.position || 'Position is not found';
+            
+            // Отримуємо інформацію про тариф, якщо він вибраний
+            if (this.userTariff !== 'No tariff selected') {
+              await this.fetchTariffInfo(this.userTariff);
+            }
 
-          // Получаем информацию о тарифе, если он выбран
-          if (this.userTariff !== 'No tariff selected') {
-            await this.fetchTariffInfo(this.userTariff);
+            // Перевіряємо, чи є користувач адміністратором
+            this.isAdmin = this.userPosition === "admin"; // Заміна на перевірку позиції
+            if (this.isAdmin) {
+              console.log("You are an Admin!");
+              // Тут можна викликати додаткові функції для адміністратора
+            }
+
+          } else {
+            console.error('No user data found');
           }
-
-        } else {
-          console.error('No user data found');
+        } catch (error) {
+          console.error('Error fetching user data:', error);
         }
-      } catch (error) {
-        console.error('Error fetching user data:', error);
+      } else {
+        console.error('No user is signed in');
+        // Можливо, тут слід перенаправити на сторінку входу
+        this.$router.push('/login'); // Заміна на ваш маршрут для входу
       }
-    } else {
-      console.error('No user is signed in');
-    }
+    });
   },
   methods: {
     async fetchTariffInfo(tariffId) {
-  try {
-    const docRef = doc(db, 'tariffs', 'beNOUQ1b9ffvpRNDKxS4'); // Замените на фактический ID документа
-    const docSnap = await getDoc(docRef);
+      try {
+        const docRef = doc(db, 'tariffs', 'beNOUQ1b9ffvpRNDKxS4'); // Замените на фактический ID документа
+        const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      const tariffsData = docSnap.data();
-      console.log('Tariffs data:', tariffsData);
-      
-      const tariffs = [
-        { ...tariffsData.Basic, id: 1 },
-        { ...tariffsData.Standard, id: 2 },
-        { ...tariffsData.Premium, id: 3 },
-        { ...tariffsData.Deluxe, id: 4 }
-      ];
+        if (docSnap.exists()) {
+          const tariffsData = docSnap.data();
+          console.log('Tariffs data:', tariffsData);
+          
+          const tariffs = [
+            { ...tariffsData.Basic, id: 1 },
+            { ...tariffsData.Standard, id: 2 },
+            { ...tariffsData.Premium, id: 3 },
+            { ...tariffsData.Deluxe, id: 4 }
+          ];
 
-      const selectedTariff = tariffs.find(tariff => tariff.id === parseInt(tariffId));
+          const selectedTariff = tariffs.find(tariff => tariff.id === parseInt(tariffId));
 
-      if (selectedTariff) {
-        this.userTariffInfo = selectedTariff;
-      } else {
-        console.error('Tariff not found');
+          if (selectedTariff) {
+            this.userTariffInfo = selectedTariff;
+          } else {
+            console.error('Tariff not found');
+          }
+        } else {
+          console.error('Tariffs document not found');
+        }
+      } catch (error) {
+        console.error('Error fetching tariff data:', error);
       }
-    } else {
-      console.error('Tariffs document not found');
-    }
-  } catch (error) {
-    console.error('Error fetching tariff data:', error);
-  }
-},
+    },
 
     async saveUserData() {
       const user = auth.currentUser;
@@ -189,15 +228,22 @@ export default {
             wallet: this.userWallet,
             consultantId: this.userConsultantId
           });
-          this.showModal = false; // Закрываем модальное окно
+          this.showModal = false; // Закриваємо модальне вікно
         } catch (error) {
           console.error('Error updating user data:', error);
         }
       }
+    },
+
+    // Приклад функції для адміністратора
+    adminFunction() {
+      console.log('Admin function executed');
+      // Додайте тут потрібні функції для адміністратора
     }
   }
 };
 </script>
+
 
 <style scoped>
 @import "../assets/css/UserPage.css";

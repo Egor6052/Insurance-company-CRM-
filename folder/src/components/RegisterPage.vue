@@ -43,7 +43,6 @@
         <button type="submit" class="submit-button">{{ $t('Submit') }}</button>
       </form>
     </div>
-
     
   </div>
 </template>
@@ -89,7 +88,7 @@ export default {
         // Получаем ID пользователя
         const userId = userCredential.user.uid;
 
-        // Записываем данные в Cloud Firestore
+        // Записываем данные в Cloud Firestore, добавляя поле position
         await setDoc(doc(db, 'users', userId), {
           tariff: tariff, // Сохраняем ID тарифа
           tariffName: tariffName,
@@ -97,7 +96,8 @@ export default {
           email: email,
           phone: phone,
           wallet: wallet,
-          consultantId: consultantId
+          consultantId: consultantId,
+          position: "user" // Додаємо поле position
         });
 
         // Очистка формы
@@ -122,6 +122,7 @@ export default {
         }
       }
     }
+    
   }
 }
 </script>
