@@ -95,9 +95,7 @@
            <div class="panel">
               <!-- Для Адміністратора -->
               <div v-if="isAdmin" class="admin-panel">
-                <div class="settings">
-                  
-                </div>
+
 
                 <div class="name">
                     <p>{{ $t('users') }}</p>
@@ -117,16 +115,38 @@
                         {{ user.position }}
                       </div>
 
-                      <!--  -->
-                      <div v-if="user.position === 'user'">
-                         <!-- Кнопка для створення адміна -->
-                       <button @click="AddAdminUser(user.id)" class="admin-button">{{ $t('addAdmin') }}</button>
-                      </div> 
+                      <!-- Кнопка для створення консультанта -->
+                      <button v-if="user.position === 'user'" @click="AddConsultant(user.id)" class="consultant-button">{{ $t('addConsultant') }}</button>
                       
+                      <!-- Кнопка для забирання прав консультанта -->
+                      <button v-if="user.position === 'consultant'" @click="RemoveConsultant(user.id)" class="removeConsultant-button">{{ $t('removeConsultant') }}</button>
+                      
+                       <!-- Кнопка для створення адміна -->
+                      <button v-if="user.position === 'user' || user.position === 'consultant'" @click="AddAdminUser(user.id)" class="admin-button">{{ $t('addAdmin') }}</button>
+                      
+                      <!-- Кнопка для забирання прав адміністратора -->
+                      <button v-if="user.position === 'admin'" @click="RemoveAdmin(user.id)" class="user-button">{{ $t('removeAdmin') }}</button>
+
                       <!-- Кнопка для видалення -->
                       <button @click="deleteUser(user.id)" class="delete-button">{{ $t('delete') }}</button>
                     </li>
                   </ul>
+                </div>
+
+                <!-- Налагодження тарифів -->
+                <div class="tariff-settings">
+                  <div class="Title">
+                    <p>{{ $t('tariffTitle') }}</p>
+                  </div>
+
+                  <div class="tariffs">
+                    <ul>
+                      <li v-for="tariff in tariffs" :key="tariff.id">
+                        {{ tariff.name }} - {{ tariff.price }} USD
+                      </li>
+                    </ul>
+                  </div>
+
                 </div>
 
               </div>
@@ -209,6 +229,7 @@ export default {
   data() {
     return {
       users: [],
+      tariffs: [],
       userName: '',
       userEmail: '',
       userPhone: '',
@@ -219,6 +240,7 @@ export default {
       showModal: false,
       isAdmin: false,
       isUser: false,
+      isConsultant: false,
     };
   },
   created() {
@@ -245,6 +267,7 @@ export default {
 
             this.isAdmin = this.userPosition === "admin";
             this.isUser = this.userPosition === "user";
+            this.isConsultant = this.userPosition === "consultant";
 
             if (this.isAdmin) {
               await this.fetchUsers();
@@ -270,13 +293,14 @@ export default {
 
         if (docSnap.exists()) {
           const tariffsData = docSnap.data();
-          const tariffs = [
-            { ...tariffsData.Basic, id: 1 },
-            { ...tariffsData.Standard, id: 2 },
-            { ...tariffsData.Premium, id: 3 },
-            { ...tariffsData.Deluxe, id: 4 }
-          ];
 
+          // Перетворюємо всі поля з документа в масив тарифів
+          const tariffs = Object.keys(tariffsData).map((key, index) => ({
+            ...tariffsData[key],  // Додаємо дані про тариф
+            id: index + 1         // Нумеруємо тарифи (1, 2, 3, ...)
+          }));
+
+          // Знаходимо тариф за id
           const selectedTariff = tariffs.find(tariff => tariff.id === parseInt(tariffId));
           if (selectedTariff) {
             this.userTariffInfo = selectedTariff;
@@ -310,6 +334,80 @@ export default {
       }
     },
 
+
+    // Функція для надання прав адміністратора
+    async AddAdminUser(userId) {
+      try {
+        const userDocRef = doc(db, 'users', userId);
+        await updateDoc(userDocRef, {
+          position: 'admin'
+        });
+        console.log(`User with ID ${userId} is now an admin`);
+        
+        // Оновлюємо користувача в інтерфейсі після зміни
+        this.users = this.users.map(user =>
+          user.id === userId ? { ...user, position: 'admin' } : user
+        );
+      } catch (error) {
+        console.error('Error updating user to admin:', error);
+      }
+    },
+    
+     // Функція для забирання прав адміністратора
+     async RemoveAdmin(userId) {
+      try {
+        const userDocRef = doc(db, 'users', userId);
+        await updateDoc(userDocRef, {
+          position: 'user'
+        });
+        console.log(`User with ID ${userId} is now an user`);
+        
+        // Оновлюємо користувача в інтерфейсі після зміни
+        this.users = this.users.map(user =>
+          user.id === userId ? { ...user, position: 'user' } : user
+        );
+      } catch (error) {
+        console.error('Error updating user to user:', error);
+      }
+    },
+    
+    // Функція для надання прав консультанта
+    async AddConsultant(userId) {
+      try {
+        const userDocRef = doc(db, 'users', userId);
+        await updateDoc(userDocRef, {
+          position: 'consultant'
+        });
+        console.log(`User with ID ${userId} is now an consultant`);
+        
+        // Оновлюємо користувача в інтерфейсі після зміни
+        this.users = this.users.map(user =>
+          user.id === userId ? { ...user, position: 'consultant' } : user
+        );
+      } catch (error) {
+        console.error('Error updating user to consultant:', error);
+      }
+    },
+
+    // Функція для забирання прав консультанта
+    async RemoveConsultant(userId) {
+      try {
+        const userDocRef = doc(db, 'users', userId);
+        await updateDoc(userDocRef, {
+          position: 'user'
+        });
+        console.log(`User with ID ${userId} is now an user`);
+        
+        // Оновлюємо користувача в інтерфейсі після зміни
+        this.users = this.users.map(user =>
+          user.id === userId ? { ...user, position: 'user' } : user
+        );
+      } catch (error) {
+        console.error('Error updating user to user:', error);
+      }
+    },
+  
+
     // Функція для видалення користувача з Firestore та Authentication
     async deleteUser(userId) {
       try {
@@ -318,20 +416,22 @@ export default {
         await deleteDoc(userDocRef);
         this.users = this.users.filter(user => user.id !== userId);
 
-        // Отримуємо користувача Firebase Authentication
+        // Отримуємо залогіненого користувача
         const user = auth.currentUser;
 
         if (user && user.uid === userId) {
           // Видаляємо користувача з Firebase Authentication
           await deleteAuthUser(user);
           console.log(`User with ID ${userId} has been deleted from Firebase Authentication.`);
+        } else {
+          console.log("You can only delete the currently signed-in user from Firebase Authentication.");
         }
 
         console.log(`User with ID ${userId} has been deleted from Firestore and Authentication.`);
       } catch (error) {
         console.error('Error deleting user:', error);
       }
-    },
+    },  
 
     async fetchUsers() {
       try {

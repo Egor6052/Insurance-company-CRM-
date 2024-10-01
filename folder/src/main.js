@@ -7,6 +7,10 @@ import { createI18n } from 'vue-i18n'
 // Для перекладів
 const messages = {
   en: {
+    tariffTitle: 'Settings Tariff',
+    removeConsultant: 'Make user',
+    addConsultant: 'Add consultant',
+    removeAdmin: 'Make user',
     addAdmin: 'Add admin',
     delete: 'Delete',
     users: 'Users',
@@ -44,6 +48,10 @@ const messages = {
     acceptButton: 'Agree and accept'
   },
   uk: {
+    tariffTitle: 'Налаштування тарифів',
+    removeConsultant: 'Зробити користувачем',
+    addConsultant: 'Зробити консультантом',
+    removeAdmin: 'Зробити користувачем',
     addAdmin: 'Дати адміна',
     delete: 'Видалити',
     users: 'Користувачі',
