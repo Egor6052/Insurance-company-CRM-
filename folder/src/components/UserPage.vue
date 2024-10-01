@@ -5,88 +5,167 @@
       <div class="battonBack">
         <RouterLink to="/" class="Accept"><p>{{ $t('back') }}</p></RouterLink>
       </div>
-      
-      <button class="change" @click="showModal = true">
-        <div class="imgConteiner">
-          <img src="../assets/icons/pencil.png" alt="Edit">
-        </div>
-      </button>
-
-      <!-- Кнопка для администраторов -->
-      <!-- <button v-if="isAdmin" class="admin-button" @click="adminFunction">
-        <p>Admin button</p>
-      </button> -->
     </div>
 
-    <!-- Информация о пользователе -->
-     <div class="pages">
-  
-        <li> <div class="user-header">
-        <div class="user-icon">
-          <img src="../assets/icons/user.png" class="icon-img" alt="User">
-        </div>
-        <div class="user-info">
-          <ul>
-            <li><h1>{{ userName }}</h1></li>
-            <li><div v-if="isAdmin" class="admin-message">
-              <p>Ви адміністратор!</p>
-            </div></li>
-            
-            <li><strong>{{ $t('Email') }}:</strong><p>{{ userEmail }}</p></li>
-            <li><strong>{{ $t('PhoneNumber') }}:</strong><p>{{ userPhone }}</p></li>
-            <li><strong>{{ $t('Wallet') }}:</strong><p>{{ userWallet }}</p></li>
-            <li><strong>{{ $t('ConsultantID') }}:</strong><p>{{ userConsultantId }}</p></li>
-          </ul>
-        </div>
-      </div></li>
 
-      <li> <div class="Admin-panel">
+    <div class="folders">
+      <ul>
+        <li>
+           <!-- Информация о пользователе -->
+          <div class="page">
+              <div class="user-header">
+                <ul>
+                  <li>
+                    <div class="user-icon">
+                      <img src="../assets/icons/user.png" class="icon-img" alt="User">
+                    </div>
+                  </li>
 
+                  <li>
+                    <div class="user-info">
+                      <ul>
+                        <li><h1>{{ userName }}</h1></li>
+                        <li>
+                          <div v-if="isAdmin" class="admin-message">
+                            <p>Ви адміністратор!</p>
+                          </div>
+                          <div v-if="isConsultant" class="admin-message">
+                            <p>Ви Консультант!</p>
+                          </div>
+                        </li>
+                        
+                        <li><strong>{{ $t('Email') }}:</strong><p>{{ userEmail }}</p></li>
+                        <li><strong>{{ $t('PhoneNumber') }}:</strong><p>{{ userPhone }}</p></li>
+                        <li><strong>{{ $t('Wallet') }}:</strong><p>{{ userWallet }}</p></li>
+                        <li><strong>{{ $t('ConsultantID') }}:</strong><p>{{ userConsultantId }}</p></li>
+                        
+                      </ul>
+                    </div>
+                  </li>
 
-      </div></li>
+                  <li>
+                    <button class="change" @click="showModal = true">
+                      <div class="imgConteiner">
+                        <img src="../assets/icons/pencil.png" alt="Edit">
+                      </div>
+                    </button>
+                  </li>
+                </ul>
+            </div>
+          </div>
+        </li>
 
+        <li>
+          <!-- Тарифи -->
+          <div v-if="userTariffInfo" class="tariffs-page">
+              <div class="all-tariffs">
+                <div class="tariffs-container">
+                  <div class="headerTariff"><strong>{{ $t('selectedTariff') }}</strong></div>
 
-     </div>
-     
-    
-   
+                  <div class="class-ul">
+                    <ul>
 
-    <!-- Повідомлення для адміністратора -->
-    <!-- <div v-if="isAdmin" class="admin-message">
-      <p>Ви адміністратор!</p>
-    </div> -->
+                      <li>
+                        <div class="border">
+                          <p><strong>{{ userTariffInfo.name }}</strong></p>
+                        </div>
+                      </li>
 
-   <!-- Тарифи -->
-    <div v-if="userTariffInfo" class="tariffs-page">
-      <div class="all-tariffs">
-        <div class="tariffs-container">
-          <div class="headerTariff"><strong>{{ $t('selectedTariff') }}</strong></div>
+                      <li>
+                        <div class="details">
+                          <ul>
+                            <li>
+                              <strong>{{ $t('descriptionTariff') }}:</strong><p>{{ userTariffInfo.description }}</p>
+                              <p>{{ userTariffInfo.price }} {{ $t('$') }}</p>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
 
-          <div class="class-ul">
-            <ul>
-
-              <li>
-                <div class="border">
-                  <p><strong>{{ userTariffInfo.name }}</strong></p>
                 </div>
-              </li>
+              </div>
+            </div>
+        </li>
+        
 
-              <li>
-                <div class="details">
+        <li>
+          <!-- Панель налаштувань для адміністратора -->
+           <div class="panel">
+              <!-- Для Адміністратора -->
+              <div v-if="isAdmin" class="admin-panel">
+                <div class="settings">
+                  
+                </div>
+
+                <div class="name">
+                    <p>{{ $t('users') }}</p>
+                </div>
+
+                <div class="users">
                   <ul>
-                    <li>
-                      <strong>{{ $t('descriptionTariff') }}:</strong><p>{{ userTariffInfo.description }}</p>
-                      <p>{{ userTariffInfo.price }} {{ $t('$') }}</p>
+                    <li v-for="user in users" :key="user.id">
+                      <h4>
+                        {{ user.name }}
+                      </h4>
+                      <p>
+                        {{ user.email }}
+                      </p>
+
+                      <div class="position">
+                        {{ user.position }}
+                      </div>
+
+                      <!--  -->
+                      <div v-if="user.position === 'user'">
+                         <!-- Кнопка для створення адміна -->
+                       <button @click="AddAdminUser(user.id)" class="admin-button">{{ $t('addAdmin') }}</button>
+                      </div> 
+                      
+                      <!-- Кнопка для видалення -->
+                      <button @click="deleteUser(user.id)" class="delete-button">{{ $t('delete') }}</button>
                     </li>
                   </ul>
                 </div>
-              </li>
-            </ul>
-          </div>
 
-        </div>
-      </div>
+              </div>
+
+              <div v-if="isConsultant" class="consultant-panel">
+
+              </div>
+
+              <!-- Для звичайного користувача -->
+              <div v-if="isUser" class="user-panel">
+                <p>Your User!</p>
+              </div>
+
+           </div>
+         
+
+        </li>
+      </ul>
     </div>
+
+    <!-- Чат підтримки -->
+    <div class="support-chat">
+        <button @click="openTelegram">{{ $t('supportChat') }}</button>
+        <!-- <div v-if="chatOpen" class="chat-window"> -->
+          <!-- <p>{{ $t('chatWindow') }}</p> -->
+          <!-- Відкриття чату в новому вікні
+          <iframe v-if="chatOpen" :src="telegramUrl" width="400" height="600" frameborder="0"></iframe> -->
+        <!-- </div> -->
+      </div>
+   
+
+
+
+
+
+
+
+
+
 
     <!-- Модальное окно для редактирования данных -->
     <div v-if="showModal" class="modal">
@@ -122,13 +201,14 @@
 
 <script>
 import { auth, db } from "../firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc, updateDoc, deleteDoc, collection, getDocs } from "firebase/firestore";
+import { deleteUser as deleteAuthUser, onAuthStateChanged } from "firebase/auth"; // Імпорт deleteUser
 
 export default {
   name: 'UserPage',
   data() {
     return {
+      users: [],
       userName: '',
       userEmail: '',
       userPhone: '',
@@ -138,13 +218,13 @@ export default {
       userTariffInfo: null,
       showModal: false,
       isAdmin: false,
+      isUser: false,
     };
   },
   created() {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
-          // Отримуємо дані користувача
           const userDocRef = doc(db, `users/${user.uid}`);
           const userDoc = await getDoc(userDocRef);
 
@@ -159,16 +239,15 @@ export default {
             this.userTariff = userData.tariff || 'No tariff selected';
             this.userPosition = userData.position || 'Position is not found';
             
-            // Отримуємо інформацію про тариф, якщо він вибраний
             if (this.userTariff !== 'No tariff selected') {
               await this.fetchTariffInfo(this.userTariff);
             }
 
-            // Перевіряємо, чи є користувач адміністратором
-            this.isAdmin = this.userPosition === "admin"; // Заміна на перевірку позиції
+            this.isAdmin = this.userPosition === "admin";
+            this.isUser = this.userPosition === "user";
+
             if (this.isAdmin) {
-              console.log("You are an Admin!");
-              // Тут можна викликати додаткові функції для адміністратора
+              await this.fetchUsers();
             }
 
           } else {
@@ -179,21 +258,18 @@ export default {
         }
       } else {
         console.error('No user is signed in');
-        // Можливо, тут слід перенаправити на сторінку входу
-        this.$router.push('/login'); // Заміна на ваш маршрут для входу
+        this.$router.push('/login');
       }
     });
   },
   methods: {
     async fetchTariffInfo(tariffId) {
       try {
-        const docRef = doc(db, 'tariffs', 'beNOUQ1b9ffvpRNDKxS4'); // Замените на фактический ID документа
+        const docRef = doc(db, 'tariffs', 'beNOUQ1b9ffvpRNDKxS4'); 
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
           const tariffsData = docSnap.data();
-          console.log('Tariffs data:', tariffsData);
-          
           const tariffs = [
             { ...tariffsData.Basic, id: 1 },
             { ...tariffsData.Standard, id: 2 },
@@ -202,7 +278,6 @@ export default {
           ];
 
           const selectedTariff = tariffs.find(tariff => tariff.id === parseInt(tariffId));
-
           if (selectedTariff) {
             this.userTariffInfo = selectedTariff;
           } else {
@@ -228,21 +303,52 @@ export default {
             wallet: this.userWallet,
             consultantId: this.userConsultantId
           });
-          this.showModal = false; // Закриваємо модальне вікно
+          this.showModal = false; 
         } catch (error) {
           console.error('Error updating user data:', error);
         }
       }
     },
 
-    // Приклад функції для адміністратора
-    adminFunction() {
-      console.log('Admin function executed');
-      // Додайте тут потрібні функції для адміністратора
-    }
+    // Функція для видалення користувача з Firestore та Authentication
+    async deleteUser(userId) {
+      try {
+        // Видаляємо користувача з Firestore
+        const userDocRef = doc(db, 'users', userId);
+        await deleteDoc(userDocRef);
+        this.users = this.users.filter(user => user.id !== userId);
+
+        // Отримуємо користувача Firebase Authentication
+        const user = auth.currentUser;
+
+        if (user && user.uid === userId) {
+          // Видаляємо користувача з Firebase Authentication
+          await deleteAuthUser(user);
+          console.log(`User with ID ${userId} has been deleted from Firebase Authentication.`);
+        }
+
+        console.log(`User with ID ${userId} has been deleted from Firestore and Authentication.`);
+      } catch (error) {
+        console.error('Error deleting user:', error);
+      }
+    },
+
+    async fetchUsers() {
+      try {
+        const usersCollection = collection(db, 'users');
+        const usersSnapshot = await getDocs(usersCollection);
+        const usersList = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        this.users = usersList;
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    },
   }
 };
 </script>
+
+
+
 
 
 <style scoped>

@@ -42,19 +42,88 @@
 .user-page .header .battonBack .Accept:hover {
   background-color: #0056b3;
 }
-.user-page .header .change {
+.user-page .folders {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-page .folders ul {
+  list-style-type: none;
+  display: flex;
+}
+.user-page .folders ul li {
+  margin-right: 20px;
+}
+.user-page .folders ul li .page {
+  width: 350px;
+  height: 600px;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.user-page .folders ul li .page .user-header {
+  margin-bottom: 20px;
+}
+.user-page .folders ul li .page .user-header ul {
+  display: grid;
+}
+.user-page .folders ul li .page .user-header ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-page .folders ul li .page .user-header ul li .user-icon {
+  margin-right: 20px;
+}
+.user-page .folders ul li .page .user-header ul li .user-icon .icon-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #64b7c5;
+}
+.user-page .folders ul li .page .user-header ul li .user-info ul {
+  display: inline;
+  list-style: none;
+  padding: 0;
+}
+.user-page .folders ul li .page .user-header ul li .user-info ul li {
+  justify-content: space-between;
+}
+.user-page .folders ul li .page .user-header ul li .user-info ul li .admin-message {
+  background-color: #ffefc4;
+  color: #856404;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  width: 170px;
+}
+.user-page .folders ul li .page .user-header ul li .user-info ul li h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+.user-page .folders ul li .page .user-header ul li .user-info ul li p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+.user-page .folders ul li .page .user-header ul li .change {
+  margin-left: 30px;
+  margin-top: 20px;
   margin-right: 60px;
   background-color: #cacaca;
-  width: 50px;
-  height: 50px;
-  border-radius: 5px;
+  width: 100px;
+  height: 40px;
+  border-radius: 15px;
   cursor: pointer;
   border: none;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
 }
-.user-page .header .change .imgConteiner {
+.user-page .folders ul li .page .user-header ul li .change .imgConteiner {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,79 +131,37 @@
   height: 20px;
   margin-left: 10px;
 }
-.user-page .header .change .imgConteiner img {
+.user-page .folders ul li .page .user-header ul li .change .imgConteiner img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
-.user-page .header .change:hover {
+.user-page .folders ul li .page .user-header ul li .change:hover {
   background-color: #b9b9b9;
 }
-.user-page .pages {
+.user-page .folders ul li .tariffs-page {
+  width: 400px;
   background-color: #fff;
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   margin-bottom: 20px;
 }
-.user-page .pages li {
-  list-style-type: none;
-}
-.user-page .pages .user-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.user-page .pages .user-header .user-icon {
-  margin-right: 20px;
-}
-.user-page .pages .user-header .user-icon .icon-img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-color: #64b7c5;
-}
-.user-page .pages .user-header .user-info ul {
-  list-style: none;
-  padding: 0;
-}
-.user-page .pages .user-header .user-info ul h1 {
-  font-size: 24px;
-  margin-bottom: 10px;
-  color: #333;
-}
-.user-page .pages .user-header .user-info ul p {
-  margin: 5px 0;
-  font-size: 16px;
-}
-.user-page .pages .user-header .admin-message {
-  background-color: #ffefc4;
-  color: #856404;
-  padding: 10px;
-  border-radius: 4px;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-.user-page .tariffs-page {
-  background-color: #fff;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-.user-page .tariffs-page .headerTariff {
+.user-page .folders ul li .tariffs-page .headerTariff {
   font-size: 18px;
   margin-bottom: 15px;
   font-weight: bold;
 }
-.user-page .tariffs-page .class-ul ul {
+.user-page .folders ul li .tariffs-page ul {
+  display: inline;
   list-style: none;
   padding: 0;
 }
-.user-page .tariffs-page .class-ul ul li {
+.user-page .folders ul li .tariffs-page ul li {
+  display: inline;
   margin-bottom: 10px;
 }
-.user-page .tariffs-page .class-ul ul li .border {
+.user-page .folders ul li .tariffs-page ul li .border {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -145,9 +172,125 @@
   border-radius: 4px;
   background-color: #d6ffc3;
 }
-.user-page .tariffs-page .class-ul ul li .details ul {
+.user-page .folders ul li .tariffs-page ul li .details ul {
   list-style: none;
   padding: 0;
+}
+.user-page .folders ul li .panel {
+  width: 700px;
+  height: 500px;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.user-page .folders ul li .panel .admin-panel .name p {
+  font-weight: 800;
+  color: #333;
+  font-size: 20px;
+}
+.user-page .folders ul li .panel .admin-panel .users {
+  border-radius: 5px;
+  width: 700px;
+  height: 300px;
+  background-color: #eeeeee;
+  border-style: dotted;
+  display: flex;
+  overflow-y: auto;
+}
+.user-page .folders ul li .panel .admin-panel .users ul {
+  margin-top: 10px;
+  margin-left: -30px;
+  display: block;
+  width: 100%;
+  margin-right: 20px;
+}
+.user-page .folders ul li .panel .admin-panel .users ul li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  width: 100%;
+  height: 40px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.user-page .folders ul li .panel .admin-panel .users ul li h4 {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.user-page .folders ul li .panel .admin-panel .users ul li p {
+  margin-right: 10px;
+}
+.user-page .folders ul li .panel .admin-panel .users ul li .position {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 20px;
+  border-radius: 5px;
+  background-color: #d6ffc3;
+}
+.user-page .folders ul li .panel .admin-panel .users ul li .admin-button {
+  margin-right: 10px;
+  margin-left: auto;
+  background-color: #eb9e46;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.user-page .folders ul li .panel .admin-panel .users ul li .admin-button:hover {
+  background-color: #a56b28;
+}
+.user-page .folders ul li .panel .admin-panel .users ul li .delete-button {
+  margin-right: 10px;
+  margin-left: auto;
+  background-color: #eb4646;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.user-page .folders ul li .panel .admin-panel .users ul li .delete-button:hover {
+  background-color: #a83333;
+}
+.user-page .folders ul li .panel .admin-panel .users ul li:hover {
+  background-color: #f7f7f7;
+}
+.user-page .support-chat {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1001;
+}
+.user-page .support-chat button {
+  background-color: #806ae0;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+.user-page .support-chat button:hover {
+  background-color: #7754c9;
+}
+.user-page .support-chat .chat-window {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 300px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 1002;
 }
 .user-page .modal {
   position: fixed;

@@ -7,6 +7,9 @@ import { createI18n } from 'vue-i18n'
 // Для перекладів
 const messages = {
   en: {
+    addAdmin: 'Add admin',
+    delete: 'Delete',
+    users: 'Users',
     supportChat: 'Support Chat',
     copyAddress: 'Copy address',
     network: 'Network',
@@ -41,6 +44,9 @@ const messages = {
     acceptButton: 'Agree and accept'
   },
   uk: {
+    addAdmin: 'Дати адміна',
+    delete: 'Видалити',
+    users: 'Користувачі',
     supportChat: 'Чат підтримки',
     copyAddress: 'Скопіювати',
     network: 'Мережа',
