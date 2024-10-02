@@ -192,7 +192,7 @@
 }
 .user-page .folders ul li .panel .admin-panel .users {
   border-radius: 5px;
-  width: 900px;
+  width: 100%;
   height: 300px;
   background-color: #eeeeee;
   border-style: dotted;
@@ -317,10 +317,42 @@
   overflow-y: auto;
   border-radius: 5px;
 }
+.user-page .folders ul li .panel .admin-panel .tariff-settings .tariffs ul {
+  margin-top: 10px;
+  margin-left: -30px;
+  display: block;
+  width: 100%;
+  margin-right: 20px;
+}
 .user-page .folders ul li .panel .admin-panel .tariff-settings .tariffs ul li {
-  background-color: #007bff;
-  width: 200px;
-  height: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 5px;
+  align-items: center;
+  display: flex;
+  background-color: #ffffff;
+  width: 100%;
+  height: 40px;
+  margin-right: 10px;
+  margin-left: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+.user-page .folders ul li .panel .admin-panel .tariff-settings .tariffs ul li .imgConteiner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+.user-page .folders ul li .panel .admin-panel .tariff-settings .tariffs ul li .imgConteiner img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.user-page .folders ul li .panel .admin-panel .tariff-settings .tariffs ul li:hover {
+  background-color: #f1f1f1;
 }
 .user-page .support-chat {
   position: fixed;
@@ -352,6 +384,73 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   z-index: 1002;
+}
+.user-page .modal-tariff {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.user-page .modal-tariff .modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  position: relative;
+}
+.user-page .modal-tariff .modal-content h3 {
+  margin-top: 0;
+  font-size: 24px;
+  text-align: center;
+  color: #333;
+}
+.user-page .modal-tariff .modal-content label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #555;
+}
+.user-page .modal-tariff .modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  /* Підрахунок padding в ширині */
+  font-size: 16px;
+}
+.user-page .modal-tariff .modal-content input[type="number"] {
+  -moz-appearance: textfield;
+  /* Для підтримки стилю в Firefox */
+}
+.user-page .modal-tariff .modal-content button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+.user-page .modal-tariff .modal-content button:hover {
+  background-color: #0056b3;
+}
+.user-page .modal-tariff .modal-content button:last-child {
+  background-color: #dc3545;
+}
+.user-page .modal-tariff .modal-content button:last-child:hover {
+  background-color: #c82333;
 }
 .user-page .modal {
   position: fixed;

@@ -48,7 +48,7 @@ const messages = {
     acceptButton: 'Agree and accept'
   },
   uk: {
-    tariffTitle: 'Налаштування тарифів',
+    tariffTitle: 'Редагування тарифів',
     removeConsultant: 'Зробити користувачем',
     addConsultant: 'Зробити консультантом',
     removeAdmin: 'Зробити користувачем',

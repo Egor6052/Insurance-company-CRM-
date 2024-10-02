@@ -128,7 +128,7 @@
                       <button v-if="user.position === 'admin'" @click="RemoveAdmin(user.id)" class="user-button">{{ $t('removeAdmin') }}</button>
 
                       <!-- Кнопка для видалення -->
-                      <button @click="deleteUser(user.id)" class="delete-button">{{ $t('delete') }}</button>
+                      <!-- <button @click="deleteUser(user.id)" class="delete-button">{{ $t('delete') }}</button> -->
                     </li>
                   </ul>
                 </div>
@@ -137,15 +137,36 @@
                 <div class="tariff-settings">
                   <div class="Title">
                     <p>{{ $t('tariffTitle') }}</p>
-                  </div>
+                    
+                    <!-- Кнопка для додавання нового тарифу -->
+                    <button @click="openAddTariffModal" class="add-tariff-button">+</button>
 
+                  </div>
+                  
                   <div class="tariffs">
                     <ul>
                       <li v-for="tariff in tariffs" :key="tariff.id">
-                        {{ tariff.name }} - {{ tariff.price }} USD
+                        <h2>{{ tariff.name }}</h2>
+                        <p>{{ tariff.description }}</p>
+                        <p>{{ tariff.price }} {{ $t('$') }}</p>
+
+                        <button @click="changeTariff" class="changeTariff">
+                          <div class="imgConteiner">
+                            <img src="../assets/icons/pencil.png" alt="Edit">
+                          </div>
+                        </button>
+                        <button @click="deleteTariff" class="changeTariff">
+                          <div class="imgConteiner">
+                            <img src="../assets/icons/free-icon-bin-839571.png" alt="Edit">
+                          </div>
+                        </button>
                       </li>
                     </ul>
                   </div>
+                  
+
+
+
 
                 </div>
 
@@ -182,6 +203,24 @@
 
 
 
+      <!-- Модальне вікно для додавання тарифу -->
+      <div v-if="isModalOpen" class="modal-tariff">
+        <div class="modal-content">
+          <h3>Додати новий тариф</h3>
+
+          <label for="tariffName">Назва тарифу:</label>
+          <input v-model="newTariff.name" id="tariffName" type="text" placeholder="Назва" />
+
+          <label for="tariffDescription">Опис тарифу:</label>
+          <input v-model="newTariff.description" id="tariffDescription" type="text" placeholder="Опис" />
+
+          <label for="tariffPrice">Ціна тарифу:</label>
+          <input v-model="newTariff.price" id="tariffPrice" type="number" placeholder="Ціна" />
+
+          <button @click="addTariff">Додати тариф</button>
+          <button @click="closeModal">Закрити</button>
+        </div>
+      </div>
 
 
 
@@ -221,15 +260,21 @@
 
 <script>
 import { auth, db } from "../firebase";
-import { doc, getDoc, updateDoc, deleteDoc, collection, getDocs } from "firebase/firestore";
-import { deleteUser as deleteAuthUser, onAuthStateChanged } from "firebase/auth"; // Імпорт deleteUser
+import { doc, getDoc, updateDoc, deleteDoc, collection, getDocs, addDoc } from "firebase/firestore";
+import { deleteUser as deleteAuthUser, onAuthStateChanged } from "firebase/auth";
 
 export default {
   name: 'UserPage',
   data() {
     return {
       users: [],
-      tariffs: [],
+      tariffs: [],        // Масив для тарифів
+      isModalOpen: false, // Контроль модального вікна
+      newTariff: {        // Дані нового тарифу
+        name: '',
+        description: '',
+        price: 0,
+      },
       userName: '',
       userEmail: '',
       userPhone: '',
@@ -285,35 +330,108 @@ export default {
       }
     });
   },
+  async mounted() {
+    // Викликаємо функцію для завантаження тарифів
+    this.fetchTariffs();
+  },
   methods: {
-    async fetchTariffInfo(tariffId) {
+
+
+
+
+    // Відкрити модальне вікно
+    openAddTariffModal() {
+      this.isModalOpen = true;
+    },
+
+    // Закрити модальне вікно
+    closeModal() {
+      this.isModalOpen = false;
+    },
+
+    // Додати новий тариф у Firestore
+    async addTariff() {
       try {
-        const docRef = doc(db, 'tariffs', 'beNOUQ1b9ffvpRNDKxS4'); 
-        const docSnap = await getDoc(docRef);
+        // Створюємо новий документ в колекції tariffs
+        await addDoc(collection(db, 'tariffs'), {
+          name: this.newTariff.name,
+          description: this.newTariff.description,
+          price: parseFloat(this.newTariff.price), // Перетворюємо ціну в число
+        });
 
-        if (docSnap.exists()) {
-          const tariffsData = docSnap.data();
+        // Очищуємо форму після додавання
+        this.newTariff = { name: '', description: '', price: 0 };
 
-          // Перетворюємо всі поля з документа в масив тарифів
-          const tariffs = Object.keys(tariffsData).map((key, index) => ({
-            ...tariffsData[key],  // Додаємо дані про тариф
-            id: index + 1         // Нумеруємо тарифи (1, 2, 3, ...)
-          }));
+        // Закриваємо модальне вікно
+        this.closeModal();
 
-          // Знаходимо тариф за id
-          const selectedTariff = tariffs.find(tariff => tariff.id === parseInt(tariffId));
-          if (selectedTariff) {
-            this.userTariffInfo = selectedTariff;
-          } else {
-            console.error('Tariff not found');
-          }
-        } else {
-          console.error('Tariffs document not found');
-        }
+        // Оновлюємо список тарифів
+        this.fetchTariffs();
       } catch (error) {
-        console.error('Error fetching tariff data:', error);
+        console.error('Error adding tariff: ', error);
       }
     },
+
+      // Функція для отримання тарифів з колекції "tariffs"
+      async fetchTariffs() {
+        try {
+          // Отримуємо колекцію тарифів з Firestore
+          const tariffsCollection = collection(db, 'tariffs');
+          const tariffsSnapshot = await getDocs(tariffsCollection);
+          
+          // Преобразовуємо всі документи в масив тарифів
+          this.tariffs = tariffsSnapshot.docs.map(doc => ({
+            id: doc.id,            // Ідентифікатор документа
+            ...doc.data()          // Дані документа (name, description, price)
+          }));
+        } catch (error) {
+          console.error('Error fetching tariffs:', error);
+        }
+      },
+    // Метод для переходу на сторінку реєстрації із тарифом
+    register(tariffId, tariffName) {
+      this.$router.push({ name: 'Register', params: { tariffId }, query: { tariffName } });
+    },
+
+    
+
+  //   mounted() {
+  //   this.fetchTariffs();
+  // },
+
+
+
+
+
+    // Перевірка тарифу який обрав юзер
+      async fetchTariffInfo(tariffId) {
+        try {
+          // Отримуємо колекцію "tariffs"
+          const tariffsCollection = collection(db, 'tariffs');
+          
+          // Отримуємо всі документи з колекції
+          const tariffsSnapshot = await getDocs(tariffsCollection);
+          
+          // Перетворюємо документи на масив об'єктів
+          const tariffsList = tariffsSnapshot.docs.map(doc => ({
+            id: doc.id,        // Унікальний id документа
+            ...doc.data()      // Дані документа (назва, ціна, опис тощо)
+          }));
+
+          // Знаходимо тариф за doc.id
+          const selectedTariff = tariffsList.find(tariff => tariff.id === tariffId);
+
+          if (selectedTariff) {
+            this.userTariffInfo = selectedTariff;  // Встановлюємо обраний тариф
+          } else {
+            console.error('Tariff not found');  // Якщо тариф не знайдений
+          }
+        } catch (error) {
+          console.error('Error fetching tariff data:', error);
+        }
+      },
+
+
 
     async saveUserData() {
       const user = auth.currentUser;
@@ -442,6 +560,10 @@ export default {
       } catch (error) {
         console.error('Error fetching users:', error);
       }
+    },
+
+    openTelegram() {
+      window.open('https://t.me/CEO_BigCat', '_blank');
     },
   }
 };

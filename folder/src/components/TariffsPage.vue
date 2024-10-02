@@ -30,45 +30,40 @@
 </template>
 
 <script>
-import { doc, getDoc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
 export default {
   name: 'TariffsPage',
   data() {
     return {
-      tariffs: []  // Пустой массив для тарифов, которые будут загружены из Firebase
+      tariffs: []  // Пустий масив для тарифів, які будуть завантажені з Firebase
     };
   },
   async created() {
     try {
-      const docRef = doc(db, 'tariffs', 'beNOUQ1b9ffvpRNDKxS4');
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        const tariffsData = docSnap.data();
-        
-        // Преобразование данных в массив для отображения
-        this.tariffs = [
-          { ...tariffsData.Basic, id: 1 },
-          { ...tariffsData.Standard, id: 2 },
-          { ...tariffsData.Premium, id: 3 },
-          { ...tariffsData.Deluxe, id: 4 }
-        ];
-      } else {
-        console.log('Документ не найден');
-      }
+      // Отримуємо колекцію тарифів з Firestore
+      const tariffsCollection = collection(db, 'tariffs');
+      const tariffsSnapshot = await getDocs(tariffsCollection);
+      
+      // Преобразовуємо всі документи в масив тарифів
+      this.tariffs = tariffsSnapshot.docs.map(doc => ({
+        id: doc.id,            // Ідентифікатор документа
+        ...doc.data()          // Дані документа (name, description, price)
+      }));
     } catch (error) {
       console.error('Ошибка при получении тарифов:', error);
     }
   },
   methods: {
     register(tariffId, tariffName) {
+      // Відправляє користувача на сторінку реєстрації з параметрами тарифу
       this.$router.push({ name: 'Register', params: { tariffId }, query: { tariffName } });
     }
   }
 };
 </script>
+
 
 <style scoped>
   @import "../assets/css/Tariffs.css";
