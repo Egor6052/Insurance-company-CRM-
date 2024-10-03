@@ -183,12 +183,11 @@
 }
 .user-page .folders ul li .panel {
   width: 900px;
-  height: 800px;
+  height: 100%;
   background-color: #fff;
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  margin-bottom: 20px;
 }
 .user-page .folders ul li .panel .name p {
   font-weight: 800;
@@ -253,7 +252,7 @@
 .user-page .folders ul li .panel .users ul li .parent-container .user-button,
 .user-page .folders ul li .panel .users ul li .parent-container .delete-button {
   margin-left: 10px;
-  background-color: #eb9e46;
+  background-color: #46a1eb;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -265,27 +264,27 @@
 .user-page .folders ul li .panel .users ul li .parent-container .removeConsultant-button:hover,
 .user-page .folders ul li .panel .users ul li .parent-container .user-button:hover,
 .user-page .folders ul li .panel .users ul li .parent-container .delete-button:hover {
-  background-color: #a56b28;
+  background-color: #3a8aca;
 }
 .user-page .folders ul li .panel .users ul li .parent-container .consultant-button {
-  background-color: #e8eb46;
-  color: black;
+  background-color: #46d2eb;
+  color: #ffffff;
 }
 .user-page .folders ul li .panel .users ul li .parent-container .consultant-button:hover {
-  background-color: #beb666;
+  background-color: #3bafc4;
 }
 .user-page .folders ul li .panel .users ul li .parent-container .removeConsultant-button {
-  background-color: #eb5946;
+  background-color: #4672eb;
   color: white;
 }
 .user-page .folders ul li .panel .users ul li .parent-container .removeConsultant-button:hover {
-  background-color: #a83333;
+  background-color: #3b61ca;
 }
 .user-page .folders ul li .panel .users ul li .parent-container .user-button {
-  background-color: #eb4646;
+  background-color: #7246eb;
 }
 .user-page .folders ul li .panel .users ul li .parent-container .user-button:hover {
-  background-color: #a83333;
+  background-color: #623bce;
 }
 .user-page .folders ul li .panel .users ul li .parent-container .delete-button {
   background-color: #eb4646;
@@ -443,14 +442,134 @@
   color: #333;
   font-size: 20px;
 }
-.user-page .folders ul li .panel .addInstruction .instruction .textInput {
+.user-page .folders ul li .panel .addInstruction .Title .changeInstruction {
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 20px;
+  font-size: 15px;
+  width: 200px;
+  height: 40px;
+  color: white;
+  background-color: #00a2ff;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-page .folders ul li .panel .addInstruction .Title .changeInstruction p {
+  font-weight: 400;
+  font-size: 14px;
+  color: white;
+}
+.user-page .folders ul li .panel .addInstruction .Title .changeInstruction:hover {
+  background-color: #0086d3;
+}
+.user-page .folders ul li .panel .addInstruction .instruction {
+  display: flex;
+}
+.user-page .folders ul li .panel .addInstruction .instruction .input {
   width: 50%;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.user-page .folders ul li .panel .addInstruction .instruction .input p {
   padding-bottom: 20px;
   font-size: 16px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border: 1px solid #ccc;
+  font-family: 'Courier New', Courier, monospace;
+}
+.user-page .folders ul li .panel .addWallet .Title {
+  display: flex;
+  align-items: center;
+}
+.user-page .folders ul li .panel .addWallet .Title p {
+  font-weight: 800;
+  color: #333;
+  font-size: 20px;
+}
+.user-page .folders ul li .panel .addWallet .Title .changeWallet {
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 20px;
+  font-size: 15px;
+  width: 200px;
+  height: 40px;
+  color: white;
+  background-color: #00a2ff;
+  border: none;
   border-radius: 5px;
-  resize: vertical;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-page .folders ul li .panel .addWallet .Title .changeWallet p {
+  font-weight: 400;
+  font-size: 14px;
+  color: white;
+}
+.user-page .folders ul li .panel .addWallet .Title .changeWallet:hover {
+  background-color: #0086d3;
+}
+.user-page .folders ul li .panel .addWallet .walletFolder .input {
+  width: 50%;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.user-page .folders ul li .panel .addWallet .walletFolder .input p {
+  padding-bottom: 20px;
+  font-size: 16px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.user-page .folders ul li .panel .supportChatFolder .Title {
+  display: flex;
+  align-items: center;
+}
+.user-page .folders ul li .panel .supportChatFolder .Title p {
+  font-weight: 800;
+  color: #333;
+  font-size: 20px;
+}
+.user-page .folders ul li .panel .supportChatFolder .Title .changeSupportChat {
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 20px;
+  font-size: 15px;
+  width: 200px;
+  height: 40px;
+  color: white;
+  background-color: #00a2ff;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-page .folders ul li .panel .supportChatFolder .Title .changeSupportChat p {
+  font-weight: 400;
+  font-size: 14px;
+  color: white;
+}
+.user-page .folders ul li .panel .supportChatFolder .Title .changeSupportChat:hover {
+  background-color: #0086d3;
+}
+.user-page .folders ul li .panel .supportChatFolder .chatFolder .input {
+  width: 50%;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.user-page .folders ul li .panel .supportChatFolder .chatFolder .input p {
+  padding-bottom: 20px;
+  font-size: 16px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 .user-page .support-chat {
   position: fixed;
@@ -482,6 +601,72 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   z-index: 1002;
+}
+.user-page .modal-instruction {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.user-page .modal-instruction .modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.user-page .modal-instruction .modal-content textarea {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 360px;
+  height: 100px;
+  resize: none;
+}
+.user-page .modal-instruction .modal-content .border {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-page .modal-instruction .modal-content .border .changeInstruction {
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 15px;
+  width: 150px;
+  height: 40px;
+  color: white;
+  background-color: #00a2ff;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-page .modal-instruction .modal-content .border .changeInstruction p {
+  font-weight: 400;
+  font-size: 14px;
+  color: white;
+}
+.user-page .modal-instruction .modal-content .border .changeInstruction:hover {
+  background-color: #0c5db4;
+}
+.user-page .modal-instruction .close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 24px;
 }
 .user-page .modal-tariff {
   position: fixed;
@@ -591,7 +776,12 @@
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-.user-page .modal-tariff .modal-content .button-ok {
+.user-page .modal-tariff .modal-content .border {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-page .modal-tariff .modal-content .border .button-ok {
   margin-right: 10px;
   padding: 10px 20px;
   border: none;
@@ -600,10 +790,10 @@
   color: white;
   cursor: pointer;
 }
-.user-page .modal-tariff .modal-content .button-ok:hover {
+.user-page .modal-tariff .modal-content .border .button-ok:hover {
   background-color: #0056b3;
 }
-.user-page .modal-tariff .modal-content .batton-exit {
+.user-page .modal-tariff .modal-content .border .batton-exit {
   margin-right: 10px;
   padding: 10px 20px;
   border: none;
@@ -612,7 +802,7 @@
   color: white;
   cursor: pointer;
 }
-.user-page .modal-tariff .modal-content .batton-exit:hover {
+.user-page .modal-tariff .modal-content .border .batton-exit:hover {
   background-color: #8a8a8a;
 }
 .user-page .modal {

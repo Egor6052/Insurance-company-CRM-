@@ -60,35 +60,67 @@ export default {
   name: 'WalletPayment',
   data() {
     return {
+      chatID: '',
+      newChatID: '',
       chatOpen: false,
       tariffId: this.$route.query.tariffId || null,  // Зчитуємо тариф за допомогою параметра в URL
       tariff: null,
-      paymentAddress: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
-      network: 'Bitcoin',
+      paymentAddress: '',   // Початкове значення для адреси гаманця
+      network: 'Bitcoin',   // Мережа для гаманця
       amount: 0,
       paymentConfirmed: false
     };
   },
   async created() {
-  console.log("Received tariffId:", this.tariffId);  // Логування tariffId для перевірки
-  if (this.tariffId) {
-    try {
-      const docRef = doc(db, 'tariffs', this.tariffId);  // Використовуємо tariffId
-      const docSnap = await getDoc(docRef);
+    console.log("Received tariffId:", this.tariffId);  // Логування tariffId для перевірки
 
-      if (docSnap.exists()) {
-        this.tariff = docSnap.data();
+    // Завантажуємо тариф, якщо є tariffId
+    if (this.tariffId) {
+      try {
+        const docRef = doc(db, 'tariffs', this.tariffId);  // Використовуємо tariffId
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          this.tariff = docSnap.data();
+        } else {
+          console.error('Тариф не знайдено');
+        }
+      } catch (error) {
+        console.error('Помилка при завантаженні тарифу:', error);
+      }
+    } else {
+      console.error('tariffId не передано');
+    }
+
+    // Завантажуємо гаманець для цього користувача
+    try {
+      const docRefWallet = doc(db, 'wallets', 'h8kj0fwHOiE07hS01fAh');  // Шлях до документа гаманця
+      const docSnapWallet = await getDoc(docRefWallet);
+
+      if (docSnapWallet.exists()) {
+        // Підставляємо адресу гаманця зі значенням із Firestore
+        this.paymentAddress = docSnapWallet.data().wallet || '';  // Підставляємо гаманець з поля "wallet"
       } else {
-        console.error('Тариф не знайдено');
+        console.error('Документ гаманця не знайдено');
       }
     } catch (error) {
-      console.error('Помилка при завантаженні даних:', error);
+      console.error('Помилка при завантаженні гаманця:', error);
     }
-  } else {
-    console.error('tariffId не передано');
-  }
-}
-,
+
+    // Завантажуємо chatID з Firestore
+    try {
+        const docRefChat = doc(db, 'supportChat', '1aONeejgoIf15kc3CCxu');  // Шлях до документа підтримки
+        const docSnapChat = await getDoc(docRefChat);
+
+        if (docSnapChat.exists()) {
+          this.chatID = docSnapChat.data().chatID || '';  // Підставляємо chatID з поля "chatID"
+        } else {
+          console.error('Документ підтримки не знайдено');
+        }
+      } catch (error) {
+        console.error('Помилка при завантаженні chatID:', error);
+      } 
+  },
   methods: {
     copyAddress() {
       navigator.clipboard.writeText(this.paymentAddress).then(() => {
@@ -102,7 +134,18 @@ export default {
       this.paymentConfirmed = true;
     },
     openTelegram() {
-      window.open('https://t.me/CEO_BigCat', '_blank');
+      // Перевіряємо chatID
+      if (this.chatID) {
+        // Лог для перевірки значення chatID
+        // console.log('chatID:', this.chatID);
+        const formattedChatID = this.chatID.replace('@', '');
+        // Формуємо URL та відкриваємо
+        const telegramUrl = `https://t.me/${formattedChatID}`;
+        
+        window.open(telegramUrl, '_blank');
+      } else {
+        alert('Немає доступного chatID для переходу.');
+      }
     },
     checkAmount() {
       if (this.amount < 0) {

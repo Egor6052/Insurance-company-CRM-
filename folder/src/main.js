@@ -7,6 +7,12 @@ import { createI18n } from 'vue-i18n'
 // Для перекладів
 const messages = {
   en: {
+    changeSupportChat: 'Change Support Chat',
+    titleSupportChat: 'Support chat',
+    changeWallet: 'change wallet',
+    titleWallet: 'Wallet for payment',
+    changeInstruction: 'Change instruction',
+    instructionUpdate: 'Update instruction',
     save: 'save changes',
     addTariff: 'Add tariff',
     titleInstruction : 'Add instructions after payment',
@@ -55,6 +61,12 @@ const messages = {
     acceptButton: 'Agree and accept'
   },
   uk: {
+    changeSupportChat: 'Змінити чат підтримки',
+    titleSupportChat: 'Чат підтримки',
+    changeWallet: 'Змінити гаманець',
+    titleWallet: 'Гаманець для оплати',
+    changeInstruction: 'Редагувати інструкцію',
+    instructionUpdate: 'Оновити інструкцію',
     save: 'Зберегти зміни',
     addTariff: 'Додати тариф',
     titleInstruction : 'Додати інструкцію після оплати',

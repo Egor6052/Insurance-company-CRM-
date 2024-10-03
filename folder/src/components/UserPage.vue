@@ -182,22 +182,104 @@
                 <div class="addInstruction">
                   <div class="Title">
                     <p>{{ $t('titleInstruction') }}</p>
+                    <button @click="instructionModal" class="changeInstruction">{{ $t('changeInstruction') }}</button>
                   </div>
-
 
                   <div class="instruction">
                     <div class="input">
-                      <!-- Поле для введення тексту інструкції -->
-                      <textarea v-model="instructionText" rows="5" cols="30" placeholder="Редагуйте інструкцію тут..."></textarea>
-                    </div>
-                    <button @click="changeInstruction" class="changeInstruction">
-                      <div class="imgContainer">
-                        <img src="../assets/icons/pencil.png" alt="Edit">
+                       <!-- Виведення інструкції -->
+                      <div v-for="(instruction, index) in instructions" :key="index" class="tex">
+                        <div class="tex">
+                          <p>{{ instruction }}</p>
+                        </div>
+                        
                       </div>
-                    </button>
+                     </div>
                   </div>
 
+                  <!-- Модальне вікно для введення нової інструкції -->
+                  <div v-if="showModalinstr" class="modal-instruction">
+                    <div class="modal-content">
+                      <span class="close" @click="instructionModal">&times;</span>
+                        <p>{{ $t('changeInstruction') }}</p>
+
+                      <textarea v-model="newInstruction" placeholder="Введіть нову інструкцію..."></textarea>
+                      <div class="border">
+                        <button @click="updateInstruction" class="changeInstruction">
+                          <p>{{ $t('instructionUpdate') }}</p>
+                        </button>
+                      </div>
+                    
+                    </div>
+                  </div>
                 </div>
+
+
+                <div class="addWallet">
+                  <div class="Title">
+                    <p>{{ $t('titleWallet') }}</p>
+                    <button @click="openWalletModal" class="changeWallet">{{ $t('changeWallet') }}</button>
+                  </div>
+
+                    <div class="walletFolder">
+                      <div class="input">
+                        <!-- Виведення гаманця -->
+                        <div class="tex">
+                          <p>{{ wallet }}</p>
+                        </div>
+                      </div>
+
+                  <!-- Модальне вікно -->
+                  <div v-if="isWalletModalOpen" class="modal">
+                    <div class="modal-content">
+                      <span class="close" @click="closeWalletModal">&times;</span>
+
+                      <div>
+                        <label for="wallet">Wallet Address:</label>
+                        <textarea v-model="wallet" id="wallet"></textarea>
+
+                        <button @click="updateWallet">Зберегти зміни</button>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+
+                <!-- Чат технічної підтримки через Telegram -->
+              <div class="supportChatFolder">
+                <div class="Title">
+                  <p>{{ $t('titleSupportChat') }}</p>
+                  <button @click="openChatModal" class="changeSupportChat">{{ $t('changeSupportChat') }}</button>
+                </div>
+
+                <div class="chatFolder">
+                  <div class="input">
+                    <!-- Виведення гаманця -->
+                    <div class="tex">
+                      <p>{{ chatID }}</p>
+                    </div>
+                  </div>
+
+                  <!-- Модальне вікно -->
+                  <div v-if="isChatModalOpen" class="modal">
+                    <div class="modal-content">
+                      <span class="close" @click="closeChatModal">&times;</span>
+
+                      <div>
+                        <label for="wallet">New Telegram ID:</label>
+                        <textarea v-model="newChatID" id="wallet"></textarea>
+
+                        <button @click="updateChatID">Зберегти зміни</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+              
 
 
               <!-- <div v-if="isConsultant" class="consultant-panel">
@@ -216,16 +298,19 @@
       </ul>
     </div>
 
-    <!-- Чат підтримки -->
-    <div class="support-chat">
+      <!-- Чат підтримки -->
+      <div class="support-chat">
         <button @click="openTelegram">{{ $t('supportChat') }}</button>
-        <!-- <div v-if="chatOpen" class="chat-window"> -->
-          <!-- <p>{{ $t('chatWindow') }}</p> -->
-          <!-- Відкриття чату в новому вікні
-          <iframe v-if="chatOpen" :src="telegramUrl" width="400" height="600" frameborder="0"></iframe> -->
-        <!-- </div> -->
+      </div>
+
+      <div v-if="paymentConfirmed" class="overlay">
+        <div v-if="paymentConfirmed" class="confirmation-message">
+          <p>{{ $t('paymentInReview') }}</p>
+          <RouterLink to="/UserPage"><button>{{ $t('goToAccount') }}</button></RouterLink>
+        </div>
       </div>
    
+
 
       <!-- Модальне вікно для редагування тарифу -->
       <div v-if="isEditModalOpen" class="modal-tariff">
@@ -241,8 +326,11 @@
           <label for="tariffPrice">{{ $t('costTariff') }}:</label>
           <input v-model="newTariff.price" id="tariffPrice" type="number" placeholder="Ціна" />
 
-          <button @click="saveTariffChanges" class="button-ok">{{ $t('save') }}</button>
-          <button @click="closeEditModal" class="batton-exit">{{ $t('back') }}</button>
+          <div class="border">
+            <button @click="saveTariffChanges" class="button-ok">{{ $t('save') }}</button>
+            <button @click="closeEditModal" class="batton-exit">{{ $t('back') }}</button>
+          </div>
+          
         </div>
       </div>
 
@@ -314,10 +402,19 @@ export default {
   name: 'UserPage',
   data() {
     return {
+      // chatOpen: false,
+      isChatModalOpen: false,
+      chatID: '',
+      newChatID: '',
+      isWalletModalOpen: false,
+      wallet: '',
+      wallets: [],
       users: [],
-      tariffs: [],        // Масив для тарифів
-      isModalOpen: false, // Контроль модального вікна
-      newTariff: {        // Дані нового тарифу
+      tariffs: [],
+      instructions: [],
+      newInstruction: '',
+      isModalOpen: false,
+      newTariff: {
         name: '',
         description: '',
         price: 0,
@@ -337,51 +434,71 @@ export default {
       isEditModalOpen: false,
       selectedTariffId: null,
 
-      instructionText: '',
+      showModalinstr: false,
     };
   },
   created() {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        try {
-          const userDocRef = doc(db, `users/${user.uid}`);
-          const userDoc = await getDoc(userDocRef);
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      try {
+        const userDocRef = doc(db, `users/${user.uid}`);
+        const userDoc = await getDoc(userDocRef);
 
-          if (userDoc.exists()) {
-            const userData = userDoc.data();
-            
-            this.userName = userData.name || 'Error';
-            this.userEmail = userData.email || 'We can`t find it';
-            this.userPhone = userData.phone || 'We can`t find it';
-            this.userWallet = userData.wallet || 'TRC20 Wallet Address';
-            this.userConsultantId = userData.consultantId || 'We can`t find it';
-            this.userTariff = userData.tariff || 'No tariff selected';
-            this.userPosition = userData.position || 'Position is not found';
-            
-            if (this.userTariff !== 'No tariff selected') {
-              await this.fetchTariffInfo(this.userTariff);
-            }
+        // Завантаження гаманця
+        this.createdWallet();
 
-            this.isAdmin = this.userPosition === "admin";
-            this.isUser = this.userPosition === "user";
-            this.isConsultant = this.userPosition === "consultant";
+        // Завантаження інструкції
+        this.loadInstructions();
 
-            if (this.isAdmin) {
-              await this.fetchUsers();
-            }
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
 
-          } else {
-            console.error('No user data found');
+          this.userName = userData.name || 'Error';
+          this.userEmail = userData.email || 'We can`t find it';
+          this.userPhone = userData.phone || 'We can`t find it';
+          this.userWallet = userData.wallet || 'TRC20 Wallet Address';
+          this.userConsultantId = userData.consultantId || 'We can`t find it';
+          this.userTariff = userData.tariff || 'No tariff selected';
+          this.userPosition = userData.position || 'Position is not found';
+
+          if (this.userTariff !== 'No tariff selected') {
+            await this.fetchTariffInfo(this.userTariff);
           }
-        } catch (error) {
-          console.error('Error fetching user data:', error);
+
+          this.isAdmin = this.userPosition === "admin";
+          this.isUser = this.userPosition === "user";
+          this.isConsultant = this.userPosition === "consultant";
+
+          if (this.isAdmin) {
+            await this.fetchUsers();
+          }
+        } else {
+          console.error('No user data found');
         }
-      } else {
-        console.error('No user is signed in');
-        this.$router.push('/login');
+      } catch (error) {
+        console.error('Error fetching user data:', error);
       }
-    });
-  },
+
+      // Завантажуємо chatID з Firestore
+      try {
+        const docRefChat = doc(db, 'supportChat', '1aONeejgoIf15kc3CCxu');  // Шлях до документа підтримки
+        const docSnapChat = await getDoc(docRefChat);
+
+        if (docSnapChat.exists()) {
+          this.chatID = docSnapChat.data().chatID || '';  // Підставляємо chatID з поля "chatID"
+        } else {
+          console.error('Документ підтримки не знайдено');
+        }
+      } catch (error) {
+        console.error('Помилка при завантаженні chatID:', error);
+      }     
+    } else {
+      console.error('No user is signed in');
+      this.$router.push('/login');
+    }
+  });
+},
+
 
 
   async createdInstruction() {
@@ -393,6 +510,9 @@ export default {
       if (docSnap.exists()) {
         // Записуємо отриманий текст у поле
         this.instructionText = docSnap.data().text;
+        
+         // Ініціалізація тексту інструкції
+         this.newInstruction = docSnap.data().text || '';
       } else {
         console.log("Інструкцію не знайдено");
       }
@@ -400,12 +520,166 @@ export default {
       console.error("Помилка при отриманні інструкції:", error);
     }},
 
+    // Функція для отримання гаманців з Firestore
+    // async createdWallet() {
+    //   try {
+    //     const docRef = doc(db, "wallets", "h8kj0fwHOiE07hS01fAh"); // Шлях до документа
+    //     const docSnap = await getDoc(docRef);
+
+    //     if (docSnap.exists()) {
+    //       // Отримуємо масив гаманців та конкретне поле "wallet" з Firestore
+    //       this.wallets = docSnap.data().wallets || [];
+    //       this.wallet = docSnap.data().wallet; // Зберігаємо значення гаманця
+    //     } else {
+    //       console.error("Документ не знайдено");
+    //     }
+    //   } catch (error) {
+    //     console.error("Помилка при завантаженні даних:", error);
+    //   }
+    // },
+
 
   async mounted() {
     // Викликаємо функцію для завантаження тарифів
     this.fetchTariffs();
   },
+
+
+
+
+
   methods: {
+
+    openTelegram() {
+      // Перевіряємо chatID
+      if (this.chatID) {
+        // Лог для перевірки значення chatID
+        // console.log('chatID:', this.chatID);
+        const formattedChatID = this.chatID.replace('@', '');
+        // Формуємо URL та відкриваємо
+        const telegramUrl = `https://t.me/${formattedChatID}`;
+        
+        window.open(telegramUrl, '_blank');
+      } else {
+        alert('Немає доступного chatID для переходу.');
+      }
+    },
+
+    // Для оновлення гаманцю
+    openChatModal() {
+      this.isChatModalOpen = true;  // Відкриваємо модальне вікно
+    },
+
+    closeChatModal() {
+      this.isChatModalOpen = false;  // Закриття модального вікна
+    },
+
+    // Для оновлення чату підтримки
+    async updateChatID() {
+      if (this.newChatID.trim() !== '') {
+        try {
+          const docRef = doc(db, 'supportChat', '1aONeejgoIf15kc3CCxu');
+          await updateDoc(docRef, {
+            chatID: this.newChatID.trim()  // Оновлюємо chatID в Firestore
+          });
+          this.chatID = this.newChatID.trim();  // Оновлюємо локально
+          this.newChatID = '';  // Очищаємо поле нового chatID
+          this.isChatModalOpen = false;  // Закриваємо модальне вікно
+          alert('Chat ID оновлено успішно');
+        } catch (error) {
+          console.error('Помилка при оновленні chatID:', error);
+        }
+      } else {
+        alert('Введіть новий chat ID');
+      }
+    },
+
+    // Функція для отримання гаманців з Firestore та оновлення поля "wallet"
+    async createdWallet() {
+      try {
+        console.log("Завантаження даних з Firestore...");
+
+        const docRef = doc(db, "wallets", "h8kj0fwHOiE07hS01fAh"); // Шлях до документа
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          console.log("Документ знайдено, отримуємо дані...");
+
+          // Отримуємо дані з Firestore і зберігаємо в конкретне поле
+          const walletData = docSnap.data();
+          console.log("Дані з Firestore:", walletData);
+
+          // Зберігаємо значення поля "wallet" з Firestore
+          this.wallet = walletData.wallet || '';  // Оновлюємо значення гаманця (не масив)
+        } else {
+          console.error("Документ не знайдено");
+        }
+      } catch (error) {
+        console.error("Помилка при завантаженні даних:", error);
+      }
+    },
+
+    // Для оновлення гаманцю
+    openWalletModal() {
+      this.isWalletModalOpen = true;  // Відкриваємо модальне вікно
+    },
+    closeWalletModal() {
+      this.isWalletModalOpen = false;  // Закриваємо модальне вікно
+    },
+    
+    // Для оновлення гаманцю
+    async updateWallet() {
+      try {
+        const docRef = doc(db, "wallets", "h8kj0fwHOiE07hS01fAh"); // Шлях до документа
+        await updateDoc(docRef, {
+          wallet: this.wallet,  // Оновлюємо поле "wallet" в Firestore
+        });
+
+        alert('Зміни збережено!');
+      } catch (error) {
+        console.error("Помилка при оновленні поля wallet:", error);
+      }
+    },
+
+    // Відкриваємо або закриваємо модальне вікно
+    instructionModal() {
+      this.showModalinstr = !this.showModalinstr;
+    },
+
+    async updateInstruction() {
+      try {
+        const docRef = doc(db, "instruction", "rgBhZDY3xqPq0DTgLmNk");
+
+        await updateDoc(docRef, {
+          text: this.newInstruction
+        });
+
+        // alert('Інструкцію оновлено!');
+        this.instructions = [this.newInstruction];  // Оновлюємо локальну інструкцію
+        this.instructionModal();
+
+      } catch (error) {
+        console.error("Помилка при оновленні інструкції:", error);
+      }
+    },
+
+    // Вивод інструкції
+    async loadInstructions() {
+      try {
+        const docRef = doc(db, "instruction", "rgBhZDY3xqPq0DTgLmNk");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          // Якщо є інструкція, додаємо її до масиву instructions
+          const instructionText = docSnap.data().text || 'Інструкція відсутня';
+          this.instructions.push(instructionText);
+        } else {
+          console.error("Інструкцію не знайдено");
+        }
+      } catch (error) {
+        console.error("Помилка при отриманні інструкції:", error);
+      }
+    },
     
     // Редагування інструкції
     async changeInstruction() {
@@ -701,9 +975,7 @@ export default {
       }
     },
 
-    openTelegram() {
-      window.open('https://t.me/CEO_BigCat', '_blank');
-    },
+   
   }
 };
 </script>
