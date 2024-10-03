@@ -63,44 +63,31 @@ export default {
         phone: '',
         wallet: '',
         consultantId: '',
-        tariff: this.$route.params.tariffId,
-        tariffName: this.$route.query.tariffName
+        tariffId: this.$route.params.tariffId,  // Передача ID тарифу з URL
       }
     };
-  },
-  computed: {
-    tariffId() {
-      return this.$route.params.tariffId;
-    },
-    tariffName() {
-      return this.$route.query.tariffName;
-    }
   },
   methods: {
     async handleSubmit() {
       try {
-        const { email, password, name, phone, wallet, consultantId, tariff, tariffName } = this.form;
+        const { email, password, name, phone, wallet, consultantId, tariffId } = this.form;
 
-        // Создаем пользователя
+        // Реєстрація користувача
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        console.log('User successfully registered:', userCredential);
-
-        // Получаем ID пользователя
         const userId = userCredential.user.uid;
 
-        // Записываем данные в Cloud Firestore, добавляя поле position
+        // Зберігаємо інформацію в Firestore
         await setDoc(doc(db, 'users', userId), {
-          tariff: tariff, // Сохраняем ID тарифа
-          tariffName: tariffName,
+          tariff: tariffId,  // Зберігаємо ID тарифу
           name: name,
           email: email,
           phone: phone,
           wallet: wallet,
           consultantId: consultantId,
-          position: "user" // Додаємо поле position
+          position: "user"
         });
 
-        // Очистка формы
+        // Очистка форми
         this.form.name = '';
         this.form.email = '';
         this.form.password = '';
@@ -108,21 +95,16 @@ export default {
         this.form.wallet = '';
         this.form.consultantId = '';
 
-        // Перенаправление на страницу оплаты с параметрами
-        this.$router.push({ 
-          path: '/Payment', 
-          query: { tariffId: tariff, tariffName: tariffName }
+        // Перехід на сторінку оплати
+        this.$router.push({
+          path: '/Payment',
+          query: { tariffId: tariffId }
         });
       } catch (error) {
-        if (error.code === 'auth/email-already-in-use') {
-          alert('This email is already registered. Please use a different email.');
-        } else {
-          console.error('Registration error:', error);
-          alert('Registration error: ' + error.message);
-        }
+        console.error('Помилка реєстрації:', error);
+        alert('Помилка реєстрації: ' + error.message);
       }
     }
-    
   }
 }
 </script>

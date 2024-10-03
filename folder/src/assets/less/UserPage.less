@@ -145,9 +145,12 @@
                 background-color: #cacaca;
                 width: 100px;
                 height: 40px;
-                border-radius: 15px;
+                border-radius: 5px;
                 cursor: pointer;
                 border: none;
+                // border: #333;
+                box-shadow: 0 2px 5px rgba(114, 114, 114, 0.267);
+
           
                 display: flex;
                 align-items: center;
@@ -197,36 +200,46 @@
           font-weight: bold;
         }
     
-          
-          ul {
-            display: inline;
-            list-style: none;
-            padding: 0;
-    
-            li {
+          .class-ul {
+            ul {
               display: inline;
-              
-              margin-bottom: 10px;
-    
-              .border {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 100px;
-                height: 20px;
-                padding: 10px;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-                background-color: #d6ffc3;
-              }
-    
-              .details {
-                ul {
-                  list-style: none;
-                  padding: 0;
-    
+              list-style: none;
+              padding: 0;
+      
+              li {
+                display: inline;
+                
+                margin-bottom: 10px;
+      
+                .border {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  
+                  
+                  // width: 100px;
+                  // height: 20px;
+                  // padding: 10px;
+                  border: 1px solid #ddd;
+                  border-radius: 4px;
+                  background-color: #d6ffc3;
                   p {
-                    // margin: 5px 0;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                    padding-top: 2px;
+                    padding-bottom: 2px;
+                    color: #3e5832;
+                  }
+                }
+      
+                .details {
+                  ul {
+                    list-style: none;
+                    padding: 0;
+      
+                    p {
+                      // margin: 5px 0;
+                    }
                   }
                 }
               }
@@ -245,7 +258,6 @@
         border-radius: 8px;
         margin-bottom: 20px;
 
-        .admin-panel {
 
           .name {
             p {
@@ -258,7 +270,7 @@
           .users {
             border-radius: 5px;
             width: 100%;
-            height: 300px;
+            height: 200px;
             // background-color: #c8e9ff;
             background-color: #eeeeee;
             border-style: dotted;
@@ -289,7 +301,8 @@
                 h4 {
                   margin-left: 10px;
                   margin-right: 10px;
-                }
+                  white-space: nowrap;
+                }                
           
                 p {
                   margin-right: 10px;
@@ -307,84 +320,70 @@
                   background-color: #d6ffc3;
                 }
 
-                  .admin-button {
-                    
-                    // margin-right: 0px; /* Забираємо будь-які відступи зліва */
-                    // display: flex;
-                    // justify-content: flex-start;
-                    margin-right: 10px;
-                    margin-left: auto;  
+                .parent-container {
+                  margin-right: 10px;
+                  width: 100%;
+                  display: flex;
+                  justify-content: flex-end;
+                  align-items: center;
+                  
+                  .admin-button,
+                  .consultant-button,
+                  .removeConsultant-button,
+                  .user-button,
+                  .delete-button {
+                    // margin-right: 10px;
+                    margin-left: 10px;
                     background-color: rgb(235, 158, 70);
                     color: white;
                     border: none;
                     padding: 5px 10px;
                     border-radius: 5px;
                     cursor: pointer;
-                      &:hover {
-                        background-color: rgb(165, 107, 40);
-                      }
+                    
+                    &:hover {
+                      background-color: rgb(165, 107, 40);
+                    }
                   }
                   
                   .consultant-button {
-                    margin-right: 10px;
-                    margin-left: auto;  
                     background-color: rgb(232, 235, 70);
-                    color: rgb(0, 0, 0);
-                    border: none;
-                    padding: 5px 10px;
-                    border-radius: 5px;
-                    cursor: pointer;
-                      &:hover {
-                        background-color: rgb(190, 182, 102);
-                      }
-                  }
-                  .removeConsultant-button {
-                    margin-right: 10px;
-                    margin-left: auto;  
-                    background-color: rgb(235, 89, 70);
-                    color: rgb(255, 255, 255);
-                    border: none;
-                    padding: 5px 10px;
-                    border-radius: 5px;
-                    cursor: pointer;
-                      &:hover {
-                        background-color: rgb(168, 51, 51);
-                      }
-                  }
-
-                  .user-button {
-                    margin-right: 10px;
-                    margin-left: auto;  
-                    background-color: rgb(235, 70, 70);
-                    color: white;
-                    border: none;
-                    padding: 5px 10px;
-                    border-radius: 5px;
-                    cursor: pointer;
-                      &:hover {
-                        background-color: rgb(168, 51, 51);
-                      }
-                  }
-                
-
-                .delete-button {
-                  margin-right: 10px;
-                  margin-left: auto;
-                  background-color: rgb(235, 70, 70);
-                  color: white;
-                  border: none;
-                  padding: 5px 10px;
-                  border-radius: 5px;
-                  cursor: pointer;
+                    color: black;
+                    
                     &:hover {
-                    background-color: rgb(168, 51, 51);
+                      background-color: rgb(190, 182, 102);
+                    }
+                  }
+                  
+                  .removeConsultant-button {
+                    background-color: rgb(235, 89, 70);
+                    color: white;
+                    
+                    &:hover {
+                      background-color: rgb(168, 51, 51);
+                    }
+                  }
+                  
+                  .user-button {
+                    background-color: rgb(235, 70, 70);
+                    
+                    &:hover {
+                      background-color: rgb(168, 51, 51);
+                    }
+                  }
+                  
+                  .delete-button {
+                    background-color: rgb(235, 70, 70);
+                    
+                    &:hover {
+                      background-color: rgb(168, 51, 51);
+                    }
                   }
                 }
-
                 &:hover {
                   background-color: #f7f7f7;
                 }
-                
+              
               }
             }
           }
@@ -392,17 +391,45 @@
           .tariff-settings {
             
             .Title {
+              display: flex;
+              align-items: center;
+
               p {
                 font-weight: 800;
                 color: #333;
                 font-size: 20px;
+              }
+              .parent-container {
+                
+                // display: flex;
+                // justify-content: flex-end;  // Вирівнювання по правій стороні
+                // align-items: center;
+              
+                .add-tariff-button {
+                  margin-left: 20px;
+                  font-size: 15px;
+                  width: 150px;
+                  height: 40px;
+                  color: white;
+                  background-color: #00a2ff;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  border: none;
+                  border-radius: 5px;
+                  box-shadow: 0 2px 5px rgba(0, 53, 114, 0.288);
+
+                  &:hover {
+                    background-color: #0485cf;
+                  }
+                }
               }
             }
            
             .tariffs {
               margin-top: 10px;
               width: 100%;
-              height: 300px;
+              height: 200px;
               background-color: #eeeeee;
               border-style: dotted;
               display: flex;
@@ -411,38 +438,118 @@
 
               ul {
                 margin-top: 10px;
-              margin-left: -30px;
-              display: block;
-              width: 100%;
-              margin-right: 20px;
+                margin-left: -30px;
+                display: block;
+                width: 100%;
+                margin-right: 20px;
+
                 li {
                   padding-left: 10px;
                   padding-right: 10px;
+                  padding-top: 0px;
+
+                  margin-right: 10px;
+                  margin-left: 10px;
                   margin-bottom: 5px;
+
                   align-items: center;
                   display: flex;
                   background-color: #ffffff;
                   width: 100%;
-                  height: 40px;
-                  margin-right: 10px;
+                  // height: 50px;
+                  // margin-right: 100px;
                   margin-left: 10px;
                   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
                   border-radius: 5px;
 
-                  .imgConteiner {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 20px;
-                    height: 20px;
-                    margin-left: 10px;
-              
-                    img {
-                      width: 100%;
-                      height: 100%;
-                      object-fit: contain;
+                  .flexClass {
+                    display: inline;
+                    h2 {
+                      white-space: nowrap;
+                      font-size: 20px;
                     }
                   }
+                  .price {
+                    margin-left: 50px;
+                    p {
+                      white-space: nowrap;
+
+                    }
+                  }
+                  
+
+                  .parent-container {
+                    margin-right: 30px;
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+
+                    .changeTariff {
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      width: 70px;
+                      height: 40px;
+                      margin-left: 10px;
+                      border: none;
+                      border-radius: 5px;
+                      padding-left: 10px;
+                      padding-right: 10px;
+                      background-color: #fffebc;
+                      
+                      .imgConteiner {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 20px;
+                        height: 20px;
+                        margin-left: 10px;
+                  
+                        img {
+                          width: 100%;
+                          height: 100%;
+                          object-fit: contain;
+                        }
+                      }
+                      &:hover {
+                        background-color: #dad5b0;
+                      }
+                    }
+
+                    .deleteTariff {
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+
+                      width: 70px;
+                      height: 40px;
+                      margin-left: 10px;
+                      border: none;
+                      border-radius: 5px;
+                      padding-left: 10px;
+                      padding-right: 10px;
+                      background-color: rgb(255, 217, 217);
+                      .imgConteiner {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 20px;
+                        height: 20px;
+                        margin-left: 10px;
+                  
+                        img {
+                          width: 100%;
+                          height: 100%;
+                          object-fit: contain;
+                        }
+                      }
+                      &:hover {
+                        background-color: rgb(212, 155, 155);
+                      }
+                    }
+                  }
+                  
 
                   &:hover {
                     background-color: #f1f1f1;
@@ -451,7 +558,33 @@
               }
             }
           }
-        }
+
+
+          .addInstruction {
+            .Title {
+              display: flex;
+              align-items: center;
+
+              p {
+                font-weight: 800;
+                color: #333;
+                font-size: 20px;
+              }
+            }
+            .instruction {
+              .textInput {
+                width: 50%;
+                padding-bottom: 20px;
+                font-size: 16px;
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                resize: vertical;
+              }
+            }
+            
+          }
+        
 
       }
 
@@ -506,7 +639,7 @@
 
 
 
-
+// Модалка для додавання тарифа
 .modal-tariff {
   position: fixed;
   top: 0;
@@ -520,6 +653,9 @@
   z-index: 1000;
 
   .modal-content {
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -556,31 +692,113 @@
       }
     }
 
-    button {
+    .buttons {
+       // display: flex;
+    // justify-content: center;
+    // align-items: center;
+      .button-add {
+        padding: 10px 20px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+      
+     .batton-exit {
       padding: 10px 20px;
       margin-right: 10px;
       border: none;
       border-radius: 4px;
-      background-color: #007bff;
+      background-color: #9c9c9c;
       color: white;
       cursor: pointer;
       font-size: 16px;
       transition: background-color 0.3s ease;
+        &:hover {
+          background-color: #757575;
+        }
+     }
+
+      
+    }
+  }
+}
+
+
+
+// Модалка для редагування тарифа
+.modal-tariff {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    h3 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .button-ok {
+      margin-right: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      background-color: #1183fd;
+      color: white;
+      cursor: pointer;
 
       &:hover {
         background-color: #0056b3;
       }
+    }
+    .batton-exit {
+      margin-right: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      background-color: #9c9c9c;
+      color: white;
+      cursor: pointer;
 
-      &:last-child {
-        background-color: #dc3545;
-
-        &:hover {
-          background-color: #c82333;
-        }
+      &:hover {
+        background-color: #8a8a8a;
       }
     }
   }
 }
+
 
 
 

@@ -12,6 +12,7 @@
     <div class="walletPage">
       <h1>{{ $t('walletPayment') }}</h1>
 
+      <!-- Показ тарифу -->
       <div v-if="tariff" class="payment-info">
         <p><strong>{{ $t('selectedPackage') }}:</strong> {{ tariff.name }}</p>
         <p>{{ tariff.description }}</p>
@@ -35,16 +36,9 @@
 
       <button @click="confirmTransaction" class="confirm-button">{{ $t('confirmPayment') }}</button>
 
-      
-     
       <!-- Чат технічної підтримки через Telegram -->
       <div class="support-chat">
         <button @click="openTelegram">{{ $t('supportChat') }}</button>
-        <!-- <div v-if="chatOpen" class="chat-window"> -->
-          <!-- <p>{{ $t('chatWindow') }}</p> -->
-          <!-- Відкриття чату в новому вікні
-          <iframe v-if="chatOpen" :src="telegramUrl" width="400" height="600" frameborder="0"></iframe> -->
-        <!-- </div> -->
       </div>
 
       <div v-if="paymentConfirmed" class="overlay">
@@ -66,8 +60,8 @@ export default {
   name: 'WalletPayment',
   data() {
     return {
-      chatOpen: false, // Один раз оголошено chatOpen
-      tariffId: this.$route.query.tariffId || null,
+      chatOpen: false,
+      tariffId: this.$route.query.tariffId || null,  // Зчитуємо тариф за допомогою параметра в URL
       tariff: null,
       paymentAddress: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
       network: 'Bitcoin',
@@ -76,37 +70,25 @@ export default {
     };
   },
   async created() {
-    if (this.tariffId) {
-      try {
-        const docRef = doc(db, 'tariffs', 'beNOUQ1b9ffvpRNDKxS4');
-        const docSnap = await getDoc(docRef);
+  console.log("Received tariffId:", this.tariffId);  // Логування tariffId для перевірки
+  if (this.tariffId) {
+    try {
+      const docRef = doc(db, 'tariffs', this.tariffId);  // Використовуємо tariffId
+      const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-          const tariffsData = docSnap.data();
-          const tariffs = [
-            { ...tariffsData.Basic, id: 1 },
-            { ...tariffsData.Standard, id: 2 },
-            { ...tariffsData.Premium, id: 3 },
-            { ...tariffsData.Deluxe, id: 4 }
-          ];
-
-          const foundTariff = tariffs.find(tariff => tariff.id == this.tariffId);
-
-          if (foundTariff) {
-            this.tariff = foundTariff;
-          } else {
-            console.error('Тариф с таким id не найден');
-          }
-        } else {
-          console.error('Документ с тарифами не найден');
-        }
-      } catch (error) {
-        console.error('Ошибка при загрузке тарифа:', error);
+      if (docSnap.exists()) {
+        this.tariff = docSnap.data();
+      } else {
+        console.error('Тариф не знайдено');
       }
-    } else {
-      console.error('tariffId не передан');
+    } catch (error) {
+      console.error('Помилка при завантаженні даних:', error);
     }
-  },
+  } else {
+    console.error('tariffId не передано');
+  }
+}
+,
   methods: {
     copyAddress() {
       navigator.clipboard.writeText(this.paymentAddress).then(() => {

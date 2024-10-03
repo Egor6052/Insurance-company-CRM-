@@ -7,6 +7,13 @@ import { createI18n } from 'vue-i18n'
 // Для перекладів
 const messages = {
   en: {
+    save: 'save changes',
+    addTariff: 'Add tariff',
+    titleInstruction : 'Add instructions after payment',
+    addNewTariffButton: 'Add',
+    costTariff: 'Price of tariff',
+    nameTariff: 'Name tariff',
+    addNewTariff: 'Add new tariff',
     tariffTitle: 'Settings Tariff',
     removeConsultant: 'Make user',
     addConsultant: 'Add consultant',
@@ -48,6 +55,13 @@ const messages = {
     acceptButton: 'Agree and accept'
   },
   uk: {
+    save: 'Зберегти зміни',
+    addTariff: 'Додати тариф',
+    titleInstruction : 'Додати інструкцію після оплати',
+    addNewTariffButton: 'Додати',
+    costTariff: 'Ціна тарифу',
+    nameTariff: 'Назва тарифу',
+    addNewTariff: 'Додати новий тариф',
     tariffTitle: 'Редагування тарифів',
     removeConsultant: 'Зробити користувачем',
     addConsultant: 'Зробити консультантом',

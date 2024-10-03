@@ -92,10 +92,8 @@
 
         <li>
           <!-- Панель налаштувань для адміністратора -->
-           <div class="panel">
+           <div v-if="isAdmin" class="panel">
               <!-- Для Адміністратора -->
-              <div v-if="isAdmin" class="admin-panel">
-
 
                 <div class="name">
                     <p>{{ $t('users') }}</p>
@@ -115,20 +113,22 @@
                         {{ user.position }}
                       </div>
 
-                      <!-- Кнопка для створення консультанта -->
-                      <button v-if="user.position === 'user'" @click="AddConsultant(user.id)" class="consultant-button">{{ $t('addConsultant') }}</button>
-                      
-                      <!-- Кнопка для забирання прав консультанта -->
-                      <button v-if="user.position === 'consultant'" @click="RemoveConsultant(user.id)" class="removeConsultant-button">{{ $t('removeConsultant') }}</button>
-                      
-                       <!-- Кнопка для створення адміна -->
-                      <button v-if="user.position === 'user' || user.position === 'consultant'" @click="AddAdminUser(user.id)" class="admin-button">{{ $t('addAdmin') }}</button>
-                      
-                      <!-- Кнопка для забирання прав адміністратора -->
-                      <button v-if="user.position === 'admin'" @click="RemoveAdmin(user.id)" class="user-button">{{ $t('removeAdmin') }}</button>
+                      <div class="parent-container">
+                        <!-- Кнопка для створення консультанта -->
+                        <button v-if="user.position === 'user'" @click="AddConsultant(user.id)" class="consultant-button">{{ $t('addConsultant') }}</button>
+                        
+                        <!-- Кнопка для забирання прав консультанта -->
+                        <button v-if="user.position === 'consultant'" @click="RemoveConsultant(user.id)" class="removeConsultant-button">{{ $t('removeConsultant') }}</button>
+                        
+                        <!-- Кнопка для створення адміна -->
+                        <button v-if="user.position === 'user' || user.position === 'consultant'" @click="AddAdminUser(user.id)" class="admin-button">{{ $t('addAdmin') }}</button>
+                        
+                        <!-- Кнопка для забирання прав адміністратора -->
+                        <button v-if="user.position === 'admin'" @click="RemoveAdmin(user.id)" class="user-button">{{ $t('removeAdmin') }}</button>
 
-                      <!-- Кнопка для видалення -->
-                      <!-- <button @click="deleteUser(user.id)" class="delete-button">{{ $t('delete') }}</button> -->
+                        <!-- Кнопка для видалення -->
+                        <!-- <button @click="deleteUser(user.id)" class="delete-button">{{ $t('delete') }}</button> -->
+                      </div>
                     </li>
                   </ul>
                 </div>
@@ -139,49 +139,77 @@
                     <p>{{ $t('tariffTitle') }}</p>
                     
                     <!-- Кнопка для додавання нового тарифу -->
-                    <button @click="openAddTariffModal" class="add-tariff-button">+</button>
+                     <div class="parent-container">
+                        <button @click="openAddTariffModal" class="add-tariff-button">{{ $t('addTariff') }}</button>
+                     </div>
 
                   </div>
                   
                   <div class="tariffs">
                     <ul>
                       <li v-for="tariff in tariffs" :key="tariff.id">
-                        <h2>{{ tariff.name }}</h2>
-                        <p>{{ tariff.description }}</p>
-                        <p>{{ tariff.price }} {{ $t('$') }}</p>
 
-                        <button @click="changeTariff" class="changeTariff">
+                        <div class="flexClass">
+                          <h2>{{ tariff.name }}</h2>
+                          <p>{{ tariff.description }}</p>
+                        </div>
+                        
+                        <div class="price">
+                          <p>{{ tariff.price }} {{ $t('$') }}</p>
+                        </div>
+
+
+
+                        <div class="parent-container">
+                        <button @click="changeTariff(tariff.id)" class="changeTariff">
                           <div class="imgConteiner">
                             <img src="../assets/icons/pencil.png" alt="Edit">
                           </div>
                         </button>
-                        <button @click="deleteTariff" class="changeTariff">
+
+                        <button @click="deleteTariff(tariff.id)" class="deleteTariff">
                           <div class="imgConteiner">
-                            <img src="../assets/icons/free-icon-bin-839571.png" alt="Edit">
+                            <img src="../assets/icons/free-icon-bin-839571.png" alt="Delete">
                           </div>
                         </button>
+                        </div>
+
                       </li>
                     </ul>
                   </div>
-                  
+                </div>
+
+                <div class="addInstruction">
+                  <div class="Title">
+                    <p>{{ $t('titleInstruction') }}</p>
+                  </div>
 
 
-
+                  <div class="instruction">
+                    <div class="input">
+                      <!-- Поле для введення тексту інструкції -->
+                      <textarea v-model="instructionText" rows="5" cols="30" placeholder="Редагуйте інструкцію тут..."></textarea>
+                    </div>
+                    <button @click="changeInstruction" class="changeInstruction">
+                      <div class="imgContainer">
+                        <img src="../assets/icons/pencil.png" alt="Edit">
+                      </div>
+                    </button>
+                  </div>
 
                 </div>
 
-              </div>
 
-              <div v-if="isConsultant" class="consultant-panel">
+              <!-- <div v-if="isConsultant" class="consultant-panel">
 
-              </div>
+              </div> -->
 
               <!-- Для звичайного користувача -->
-              <div v-if="isUser" class="user-panel">
+              <!-- <div v-if="isUser" class="user-panel">
                 <p>Your User!</p>
-              </div>
+              </div> -->
 
-           </div>
+            </div>
          
 
         </li>
@@ -199,26 +227,45 @@
       </div>
    
 
+      <!-- Модальне вікно для редагування тарифу -->
+      <div v-if="isEditModalOpen" class="modal-tariff">
+        <div class="modal-content">
+          <h3>Редагувати тариф</h3>
 
+          <label for="tariffName">{{ $t('nameTariff') }}:</label>
+          <input v-model="newTariff.name" id="tariffName" type="text" placeholder="Назва" />
 
+          <label for="tariffDescription">{{ $t('descriptionTariff') }}:</label>
+          <input v-model="newTariff.description" id="tariffDescription" type="text" placeholder="Опис" />
+
+          <label for="tariffPrice">{{ $t('costTariff') }}:</label>
+          <input v-model="newTariff.price" id="tariffPrice" type="number" placeholder="Ціна" />
+
+          <button @click="saveTariffChanges" class="button-ok">{{ $t('save') }}</button>
+          <button @click="closeEditModal" class="batton-exit">{{ $t('back') }}</button>
+        </div>
+      </div>
 
 
       <!-- Модальне вікно для додавання тарифу -->
       <div v-if="isModalOpen" class="modal-tariff">
         <div class="modal-content">
-          <h3>Додати новий тариф</h3>
+          <h3>{{ $t('addNewTariff') }}</h3>
 
-          <label for="tariffName">Назва тарифу:</label>
+          <label for="tariffName">{{ $t('nameTariff') }}:</label>
           <input v-model="newTariff.name" id="tariffName" type="text" placeholder="Назва" />
 
-          <label for="tariffDescription">Опис тарифу:</label>
+          <label for="tariffDescription">{{ $t('descriptionTariff') }}:</label>
           <input v-model="newTariff.description" id="tariffDescription" type="text" placeholder="Опис" />
 
-          <label for="tariffPrice">Ціна тарифу:</label>
+          <label for="tariffPrice">{{ $t('costTariff') }}:</label>
           <input v-model="newTariff.price" id="tariffPrice" type="number" placeholder="Ціна" />
 
-          <button @click="addTariff">Додати тариф</button>
-          <button @click="closeModal">Закрити</button>
+          <div class="buttons">
+            <button @click="addTariff" class="button-add">{{ $t('addNewTariffButton') }}</button>
+            <button @click="closeModal" class="batton-exit">{{ $t('back') }}</button>
+          </div>
+          
         </div>
       </div>
 
@@ -286,6 +333,11 @@ export default {
       isAdmin: false,
       isUser: false,
       isConsultant: false,
+
+      isEditModalOpen: false,
+      selectedTariffId: null,
+
+      instructionText: '',
     };
   },
   created() {
@@ -330,16 +382,98 @@ export default {
       }
     });
   },
+
+
+  async createdInstruction() {
+    try {
+      // Отримуємо поточну інструкцію з Firestore
+      const docRef = doc(db, "instruction", "rgBhZDY3xqPq0DTgLmNk");
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        // Записуємо отриманий текст у поле
+        this.instructionText = docSnap.data().text;
+      } else {
+        console.log("Інструкцію не знайдено");
+      }
+    } catch (error) {
+      console.error("Помилка при отриманні інструкції:", error);
+    }},
+
+
   async mounted() {
     // Викликаємо функцію для завантаження тарифів
     this.fetchTariffs();
   },
   methods: {
+    
+    // Редагування інструкції
+    async changeInstruction() {
+      try {
+        const docRef = doc(db, "instruction", "rgBhZDY3xqPq0DTgLmNk");
+
+        await updateDoc(docRef, {
+          text: this.instructionText
+        });
+
+        alert('Інструкцію оновлено!');
+      } catch (error) {
+        console.error("Помилка при оновленні інструкції:", error);
+      }
+    },
+    
+    // Відкрити модальне вікно з даними тарифу для редагування
+    changeTariff(tariffId) {
+      const tariff = this.tariffs.find(t => t.id === tariffId); // Знайти тариф за ID
+      if (tariff) {
+        this.selectedTariffId = tariffId;
+        this.newTariff = { ...tariff }; // Копіювати дані тарифу у форму
+        this.isEditModalOpen = true; // Відкрити модальне вікно
+      }
+    },
+
+    // Закрити модальне вікно без збереження
+    closeEditModal() {
+      this.isEditModalOpen = false;
+      this.newTariff = { name: '', description: '', price: 0 };
+    },
+
+    // Функція для зміни тарифу
+    async saveTariffChanges() {
+      try {
+        const docRef = doc(db, 'tariffs', this.selectedTariffId);
+        await updateDoc(docRef, {
+          name: this.newTariff.name,
+          description: this.newTariff.description,
+          price: parseFloat(this.newTariff.price),
+        });
+
+        // Оновити список тарифів після редагування
+        this.fetchTariffs();
+
+        // Закрити модальне вікно після збереження
+        this.closeEditModal();
+      } catch (error) {
+        console.error('Error updating tariff:', error);
+      }
+    },
+
+     // Функція для видалення тарифу
+     async deleteTariff(tariffId) {
+      if (confirm('Ви впевнені, що хочете видалити цей тариф?')) {
+        try {
+          const docRef = doc(db, 'tariffs', tariffId);
+          await deleteDoc(docRef);
+
+          this.fetchTariffs();
+        } catch (error) {
+          console.error('Error deleting tariff:', error);
+        }
+      }
+    },
 
 
-
-
-    // Відкрити модальне вікно
+    // Відкрити модальне вікно для додавання нового тарифу
     openAddTariffModal() {
       this.isModalOpen = true;
     },
@@ -352,11 +486,24 @@ export default {
     // Додати новий тариф у Firestore
     async addTariff() {
       try {
+        if (!this.newTariff.name) {
+          alert('Будь ласка, введіть назву тарифу');
+          return;
+        }
+        if (!this.newTariff.description) {
+          alert('Будь ласка, введіть опис тарифу');
+          return;
+        }
+        if (!this.newTariff.price || this.newTariff.price <= 0) {
+          alert('Будь ласка, введіть коректну ціну тарифу');
+          return;
+        }
+
         // Створюємо новий документ в колекції tariffs
         await addDoc(collection(db, 'tariffs'), {
           name: this.newTariff.name,
           description: this.newTariff.description,
-          price: parseFloat(this.newTariff.price), // Перетворюємо ціну в число
+          price: parseFloat(this.newTariff.price),
         });
 
         // Очищуємо форму після додавання
@@ -372,6 +519,7 @@ export default {
       }
     },
 
+
       // Функція для отримання тарифів з колекції "tariffs"
       async fetchTariffs() {
         try {
@@ -381,8 +529,8 @@ export default {
           
           // Преобразовуємо всі документи в масив тарифів
           this.tariffs = tariffsSnapshot.docs.map(doc => ({
-            id: doc.id,            // Ідентифікатор документа
-            ...doc.data()          // Дані документа (name, description, price)
+            id: doc.id,
+            ...doc.data()
           }));
         } catch (error) {
           console.error('Error fetching tariffs:', error);
@@ -392,15 +540,6 @@ export default {
     register(tariffId, tariffName) {
       this.$router.push({ name: 'Register', params: { tariffId }, query: { tariffName } });
     },
-
-    
-
-  //   mounted() {
-  //   this.fetchTariffs();
-  // },
-
-
-
 
 
     // Перевірка тарифу який обрав юзер

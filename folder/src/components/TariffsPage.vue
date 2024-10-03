@@ -13,7 +13,7 @@
     
     <div class="tariffs-container">
       <div v-for="tariff in tariffs" :key="tariff.id" class="tariff">
-        <a @click="register(tariff.id, tariff.name)" class="buttonMenu">
+        <!-- <a @click="register(tariff.id, tariff.name)" class="buttonMenu"> -->
           <ul>
             <li>
               <h2>{{ tariff.name }}</h2>
@@ -22,7 +22,7 @@
               <button @click="register(tariff.id, tariff.name)">{{ $t('choose') }}</button>
             </li>
           </ul>
-        </a>
+        <!-- </a> -->
       </div>
     </div>
 
