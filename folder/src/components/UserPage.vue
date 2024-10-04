@@ -294,10 +294,10 @@
                         </div>
 
                         <div class="parent-container">
-                          <button @click="acceptUser(user.id)" class="Accept">
+                          <button @click="acceptUser(application.userId)" class="Accept">
                             {{ $t('AcceptToConsultant') }}
                           </button>
-                          <button @click="rejectUser(user.applicationId)" class="Reject">
+                          <button @click="rejectUser(application.id)" class="Reject">
                             {{ $t('RejectToConsultant') }}
                           </button>
 
@@ -445,8 +445,9 @@ export default {
       isWalletModalOpen: false,
       wallet: '',
       wallets: [],
-
+      user: null,
       users: [],
+
       usersToConsultant: [],
 
       tariffs: [],
@@ -589,77 +590,102 @@ export default {
   methods: {
 
    // Функція для прийняття користувача на роль консультанта
-    async acceptUser(userId) {
-      try {
-        const userDocRef = doc(db, `users/${userId}`);
-        await updateDoc(userDocRef, {
-          position: "consultant",
+   async acceptUser(userId) {
+    console.log(`Спроба прийняти користувача з ID: ${userId}`);
+    if (!userId) {
+        console.error('userId є undefined!');
+        return; // Вихід, якщо userId невизначений
+    }
+
+    try {
+        const userRef = doc(db, 'users', userId);
+        const userDoc = await getDoc(userRef);
+        
+        if (!userDoc.exists()) {
+            console.error(`Документ з ID ${userId} не існує.`);
+            return; // Вихід, якщо документ не існує
+        }
+        
+        await updateDoc(userRef, {
+            position: 'consultant'
         });
-        this.fetchApplications(); // Оновлюємо список
-      } catch (error) {
-        console.error('Помилка при прийнятті користувача:', error);
-      }
-    },
+        console.log(`Користувача ${userId} прийнято на позицію consultant.`);
+
+        // Оновлюємо масив користувачів
+        this.usersToConsultant = this.usersToConsultant.filter(application => application.userId !== userId);
+    } catch (error) {
+        console.error('Не вдалося прийняти користувача:', error);
+    }
+},
+
+
+
 
     // Функція для відхилення користувача
     async rejectUser(applicationId) {
-      try {
-        await deleteDoc(doc(db, "ApplicationForConsultant", applicationId)); // Видаляємо заявку
-        console.log("Заявка успішно видалена");
-        this.fetchApplications(); // Оновлюємо список після видалення
-      } catch (error) {
-        console.error("Помилка при видаленні заявки:", error);
-      }
-    },
+    try {
+        const applicationRef = doc(db, 'ApplicationForConsultant', applicationId);
+        const applicationDoc = await getDoc(applicationRef); // Отримуємо документ
+        
+        if (applicationDoc.exists()) {
+            await deleteDoc(applicationRef);
+            console.log(`Заявку ${applicationId} відхилено.`);
+            
+            // Оновлюємо локальний масив користувачів
+            this.usersToConsultant = this.usersToConsultant.filter(application => application.id !== applicationId);
+        } else {
+            console.error(`Документ з ID ${applicationId} не існує.`);
+        }
+    } catch (error) {
+        console.error('Не вдалося відхилити заявку:', error);
+    }
+},
 
 
 
     // Функція для отримання користувачів зі статусом консультанта
     async fetchApplications() {
-      try {
-        // Отримуємо користувачів, які зареєстровані на сервісі
-        const users = await this.fetchUsers(); // Функція для отримання загальних користувачів
-        console.log("Отримані користувачі:", users); // Логування отриманих користувачів
+    try {
+        const users = await this.fetchUsers(); // Отримуємо загальних користувачів
+        console.log("Отримані користувачі:", users);
 
         if (!users || users.length === 0) {
-          console.error("Не вдалося отримати користувачів.");
-          return; // Якщо користувачів не знайдено, виходимо з функції
+            console.error("Не вдалося отримати користувачів.");
+            return;
         }
 
-        // Отримуємо заявки з колекції ApplicationForConsultant
         const q = query(collection(db, "ApplicationForConsultant"));
         const querySnapshot = await getDocs(q);
 
-        const applications = []; // Масив для збереження заявок
+        const applications = []; // Масив для заявок
 
-        // Зберігаємо користувачів у словник для швидкого доступу
         const usersMap = users.reduce((acc, user) => {
-          acc[user.id] = user; // Зберігаємо користувачів за їх ID
-          return acc;
+            acc[user.id] = user; // Зберігаємо користувачів за їх ID
+            return acc;
         }, {});
 
-        // Обробляємо отримані заявки
         querySnapshot.forEach((doc) => {
-          const applicationData = { id: doc.id, ...doc.data() }; // Дані заявки
-          const user = usersMap[applicationData.IDuser]; // Знаходимо користувача за ID із заявки
+            const applicationData = { id: doc.id, ...doc.data() }; // Дані заявки
+            const user = usersMap[applicationData.IDuser]; // Знаходимо користувача
 
-          if (user) {
-            applications.push({ 
-              id: applicationData.id, // ID заявки
-              userId: applicationData.IDuser, // ID користувача
-              name: user.name, // Ім’я користувача
-              email: user.email // Email користувача
-            }); 
-          }
+            if (user) {
+                applications.push({ 
+                    id: applicationData.id, // ID заявки
+                    userId: applicationData.IDuser, // ID користувача
+                    name: user.name, // Ім'я
+                    email: user.email // Email
+                }); 
+            }
         });
 
-        // Оновлюємо масив користувачів із заявками на консультанта
         this.usersToConsultant = applications; 
-        console.log("Заявки на консультанта:", this.usersToConsultant); // Логування отриманих заявок
-      } catch (error) {
-        console.error("Помилка при отриманні заявок:", error); // Логування помилки
-      }
-    },
+        console.log("Заявки на консультанта:", this.usersToConsultant); 
+    } catch (error) {
+        console.error("Помилка при отриманні заявок:", error);
+    }
+},
+
+
 
 
 
@@ -707,23 +733,26 @@ export default {
     // Логіка для отримання заявок
     async fetchUsersToConsultant() {
       try {
-        const q = query(collection(this.firestore, "ApplicationForConsultant"));
-        const querySnapshot = await getDocs(q);
-        
-        const usersPromises = querySnapshot.docs.map(async (docSnapshot) => {
-          const userId = docSnapshot.data().IDuser;
-          const userDocRef = doc(this.firestore, `users/${userId}`); // Створюємо референцію на документ
-          const userDoc = await getDoc(userDocRef); // Отримуємо документ
+          const q = query(collection(this.firestore, "ApplicationForConsultant"));
+          const querySnapshot = await getDocs(q);
+          
+          const usersPromises = querySnapshot.docs.map(async (docSnapshot) => {
+              const applicationData = docSnapshot.data();
+              const userId = applicationData.IDuser;
+              console.log(`Заявка ID: ${docSnapshot.id}, UserID: ${userId}`); // Логування
 
-          return userDoc.exists() ? { id: userId, ...userDoc.data() } : null; // Перевірка на існування документа
-        });
+              const userDocRef = doc(this.firestore, `users/${userId}`);
+              const userDoc = await getDoc(userDocRef);
 
-        const users = (await Promise.all(usersPromises)).filter(Boolean); // Фільтруємо null значення
-        this.usersToConsultant = users; // Оновлюємо список користувачів
+              return userDoc.exists() ? { id: userId, ...userDoc.data() } : null;
+          });
+
+          const users = (await Promise.all(usersPromises)).filter(Boolean);
+          this.usersToConsultant = users;
       } catch (error) {
-        console.error("Помилка при отриманні користувачів:", error);
+          console.error("Помилка при отриманні користувачів:", error);
       }
-    },
+  },
 
 
 
@@ -1164,15 +1193,20 @@ export default {
 
     async fetchUsers() {
       try {
-          const usersSnapshot = await getDocs(collection(db, 'users'));
-          const users = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          
-          this.users = users; // Зберігаємо користувачів у реактивну змінну
-          console.log("Отримані користувачі для адміністратора:", this.users); // Лог після присвоєння
+        const usersSnapshot = await getDocs(collection(db, 'users'));
+        const users = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+        this.users = users; // Зберігаємо користувачів у реактивну змінну
+        console.log("Отримані користувачі для адміністратора:", this.users); // Лог після присвоєння
+        return users; // Можливо, вам не потрібно повертати users
       } catch (error) {
-          console.error('Помилка при отриманні користувачів:', error);
+        console.error("Не вдалося отримати користувачів:", error);
+        this.users = []; // Очищуємо масив користувачів у разі помилки
+        return []; // Повертаємо порожній масив
       }
     },
+
+
 
 
 
