@@ -84,7 +84,8 @@ export default {
           phone: phone,
           wallet: wallet,
           consultantId: consultantId,
-          position: "user"
+          position: "user",
+          // statusConsultant: false
         });
 
         // Очистка форми

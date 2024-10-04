@@ -248,7 +248,7 @@
       }
 
       // Панель адміністрування
-      .panel {
+      .panelAdmin {
         width: 900px;
         height: 100%;
         
@@ -744,6 +744,208 @@
           }
         
 
+      }
+
+      .panelConsultant {
+        width: 900px;
+        height: 100%;
+        
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        
+        .acceptUserToConsultant {
+           margin: 20px;
+
+          .Title {
+            display: flex;
+            align-items: center;
+
+            p {
+              font-weight: 800;
+              color: #333;
+              font-size: 20px;
+            }
+          }
+          
+          .users {
+            border-radius: 5px;
+            width: 100%;
+            height: 200px;
+            // background-color: #c8e9ff;
+            background-color: #eeeeee;
+            border-style: dotted;
+            display: flex;
+            overflow-y: auto;
+          
+            ul {
+              margin-top: 10px;
+              margin-left: -30px;
+              display: block;
+              width: 100%;
+              margin-right: 20px;
+          
+              li {
+                
+                display: flex;
+                align-items: center;
+                margin-bottom: 5px;
+                background-color: #ffffff;
+                // border-style:groove;
+                border-radius: 5px;
+                // border-color: #ffffff;
+                width: 100%;
+                height: 40px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+                
+                .parent-container {
+                  margin-right: 10px;
+                  width: 100%;
+                  display: flex;
+                  justify-content: flex-end;
+                  align-items: center;
+                  // display: flex;
+                  // gap: 10px;
+      
+                  .Accept {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+
+                    background-color: #4CAF50; /* Зелена кнопка */
+                    color: white;
+                    border: none;
+                    width: 120px;
+                    height: 30px;
+                    // padding: 10px 20px;
+                    cursor: pointer;
+                    border-radius: 5px;
+                    &:hover {
+                      background-color: #45a049;
+                    }
+                  }
+                  
+                  .Reject {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+
+                    background-color: #f44336; /* Червона кнопка */
+                    color: white;
+                    border: none;
+                    width: 120px;
+                    height: 30px;
+                    // padding: 10px 20px;
+                    cursor: pointer;
+                    border-radius: 5px;
+                    &:hover {
+                      background-color: #e53935;
+                    }
+                  }
+                  
+                  
+                }
+                h2 {
+                  margin-left: 20px;
+                  white-space: nowrap;
+                  font-size: 20px;
+                }
+                p {
+                  margin-left: 20px;
+                  margin-right: 10px;
+                }
+
+              }
+            }
+          }
+
+          .flexClass {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          
+          .parent-container {
+            display: flex;
+            gap: 10px;
+
+            button.Accept {
+              background-color: #4CAF50; /* Зелена кнопка */
+              color: white;
+              border: none;
+              padding: 10px 20px;
+              cursor: pointer;
+              border-radius: 5px;
+              &:hover {
+                background-color: #45a049;
+              }
+            }
+            
+            button.Reject {
+              background-color: #f44336; /* Червона кнопка */
+              color: white;
+              border: none;
+              padding: 10px 20px;
+              cursor: pointer;
+              border-radius: 5px;
+              &:hover {
+                background-color: #e53935;
+              }
+            }
+            
+            
+          }
+        }
+        
+       
+        
+       
+        
+        
+        
+      }
+
+
+      .panelUser {
+        width: 900px;
+        height: 100%;
+        
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+
+        .Title {
+          display: flex;
+          align-items: center;
+
+          p {
+            font-weight: 800;
+            color: #333;
+            font-size: 20px;
+          }
+        }
+
+        .button {
+          .Accept {
+            color: wheat;
+            font-size: 15px;
+            width: 200px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3094ff;
+            box-shadow: 0 2px 5px rgba(8, 31, 235, 0.39);
+
+            &:hover {
+              background-color: #2983e4;
+              box-shadow: 0 2px 5px rgba(8, 31, 235, 0.589);
+
+            }
+          }
+        }
       }
 
 

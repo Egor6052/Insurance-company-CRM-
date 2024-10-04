@@ -92,7 +92,7 @@
 
         <li>
           <!-- Панель налаштувань для адміністратора -->
-           <div v-if="isAdmin" class="panel">
+           <div v-if="isAdmin" class="panelAdmin">
               <!-- Для Адміністратора -->
 
                 <div class="name">
@@ -246,7 +246,7 @@
                 </div>
 
 
-                <!-- Чат технічної підтримки через Telegram -->
+              <!-- Чат технічної підтримки через Telegram -->
               <div class="supportChatFolder">
                 <div class="Title">
                   <p>{{ $t('titleSupportChat') }}</p>
@@ -276,21 +276,55 @@
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div  v-if="isConsultant" class="panelConsultant">
+
+              <div class="acceptUserToConsultant">
+                <!-- Налагодження тарифів -->
+                  <div class="Title">
+                    <p>{{ $t('UserToConsultant') }}</p>
+                  </div>
+                  
+                  <div class="users">
+                    <ul>
+                      <li v-for="application in usersToConsultant" :key="application.id">                        <div class="flexClass">
+                        <h2>{{ application.name }}</h2>
+                        <p>{{ application.email }}</p>
+                        </div>
+
+                        <div class="parent-container">
+                          <button @click="acceptUser(user.id)" class="Accept">
+                            {{ $t('AcceptToConsultant') }}
+                          </button>
+                          <button @click="rejectUser(user.applicationId)" class="Reject">
+                            {{ $t('RejectToConsultant') }}
+                          </button>
+
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
 
 
 
-              
+              </div>
 
+            </div>
 
-              <!-- <div v-if="isConsultant" class="consultant-panel">
+            <div v-if="isUser" class="panelUser">
 
-              </div> -->
+              <div class="consultatStatus">
+                <div class="Title">
+                  <p>{{ $t('consultatStatus') }}</p>
+                </div>
 
-              <!-- Для звичайного користувача -->
-              <!-- <div v-if="isUser" class="user-panel">
-                <p>Your User!</p>
-              </div> -->
-
+                <div class="button">
+                  <div class="button">
+                    <button @click="becomeConsultant" class="Accept">{{ $t('becomeConsultant') }}</button>
+                  </div>
+                </div>
+              </div>
             </div>
          
 
@@ -395,13 +429,15 @@
 
 <script>
 import { auth, db } from "../firebase";
-import { doc, getDoc, updateDoc, deleteDoc, collection, getDocs, addDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, deleteDoc, collection, getDocs, addDoc, query, where, getFirestore } from "firebase/firestore";
 import { deleteUser as deleteAuthUser, onAuthStateChanged } from "firebase/auth";
 
 export default {
   name: 'UserPage',
   data() {
     return {
+      userId: null,
+      statusConsultant: false,
       // chatOpen: false,
       isChatModalOpen: false,
       chatID: '',
@@ -409,7 +445,10 @@ export default {
       isWalletModalOpen: false,
       wallet: '',
       wallets: [],
+
       users: [],
+      usersToConsultant: [],
+
       tariffs: [],
       instructions: [],
       newInstruction: '',
@@ -433,16 +472,22 @@ export default {
 
       isEditModalOpen: false,
       selectedTariffId: null,
-
+      firestore: null,
       showModalinstr: false,
     };
   },
   created() {
+    
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       try {
         const userDocRef = doc(db, `users/${user.uid}`);
         const userDoc = await getDoc(userDocRef);
+        
+        this.firestore = getFirestore();
+        
+        // Завантаження користувачів які хочуть бути консультантами
+        await this.fetchUsersToConsultant();
 
         // Завантаження гаманця
         this.createdWallet();
@@ -470,7 +515,11 @@ export default {
           this.isConsultant = this.userPosition === "consultant";
 
           if (this.isAdmin) {
+            console.log("Користувач є адміністратором, завантажую користувачів...");
+            const users = await this.fetchUsers();
             await this.fetchUsers();
+            console.log("Отримані користувачі для адміністратора:", users);
+            this.usersToConsultant = users;
           }
         } else {
           console.error('No user data found');
@@ -520,35 +569,175 @@ export default {
       console.error("Помилка при отриманні інструкції:", error);
     }},
 
-    // Функція для отримання гаманців з Firestore
-    // async createdWallet() {
-    //   try {
-    //     const docRef = doc(db, "wallets", "h8kj0fwHOiE07hS01fAh"); // Шлях до документа
-    //     const docSnap = await getDoc(docRef);
-
-    //     if (docSnap.exists()) {
-    //       // Отримуємо масив гаманців та конкретне поле "wallet" з Firestore
-    //       this.wallets = docSnap.data().wallets || [];
-    //       this.wallet = docSnap.data().wallet; // Зберігаємо значення гаманця
-    //     } else {
-    //       console.error("Документ не знайдено");
-    //     }
-    //   } catch (error) {
-    //     console.error("Помилка при завантаженні даних:", error);
-    //   }
-    // },
 
 
   async mounted() {
     // Викликаємо функцію для завантаження тарифів
     this.fetchTariffs();
+
+    // Отримуємо користувачів з колекції заявок
+    this.fetchApplications();
   },
 
 
 
 
 
+
+
+  
   methods: {
+
+   // Функція для прийняття користувача на роль консультанта
+    async acceptUser(userId) {
+      try {
+        const userDocRef = doc(db, `users/${userId}`);
+        await updateDoc(userDocRef, {
+          position: "consultant",
+        });
+        this.fetchApplications(); // Оновлюємо список
+      } catch (error) {
+        console.error('Помилка при прийнятті користувача:', error);
+      }
+    },
+
+    // Функція для відхилення користувача
+    async rejectUser(applicationId) {
+      try {
+        await deleteDoc(doc(db, "ApplicationForConsultant", applicationId)); // Видаляємо заявку
+        console.log("Заявка успішно видалена");
+        this.fetchApplications(); // Оновлюємо список після видалення
+      } catch (error) {
+        console.error("Помилка при видаленні заявки:", error);
+      }
+    },
+
+
+
+    // Функція для отримання користувачів зі статусом консультанта
+    async fetchApplications() {
+      try {
+        // Отримуємо користувачів, які зареєстровані на сервісі
+        const users = await this.fetchUsers(); // Функція для отримання загальних користувачів
+        console.log("Отримані користувачі:", users); // Логування отриманих користувачів
+
+        if (!users || users.length === 0) {
+          console.error("Не вдалося отримати користувачів.");
+          return; // Якщо користувачів не знайдено, виходимо з функції
+        }
+
+        // Отримуємо заявки з колекції ApplicationForConsultant
+        const q = query(collection(db, "ApplicationForConsultant"));
+        const querySnapshot = await getDocs(q);
+
+        const applications = []; // Масив для збереження заявок
+
+        // Зберігаємо користувачів у словник для швидкого доступу
+        const usersMap = users.reduce((acc, user) => {
+          acc[user.id] = user; // Зберігаємо користувачів за їх ID
+          return acc;
+        }, {});
+
+        // Обробляємо отримані заявки
+        querySnapshot.forEach((doc) => {
+          const applicationData = { id: doc.id, ...doc.data() }; // Дані заявки
+          const user = usersMap[applicationData.IDuser]; // Знаходимо користувача за ID із заявки
+
+          if (user) {
+            applications.push({ 
+              id: applicationData.id, // ID заявки
+              userId: applicationData.IDuser, // ID користувача
+              name: user.name, // Ім’я користувача
+              email: user.email // Email користувача
+            }); 
+          }
+        });
+
+        // Оновлюємо масив користувачів із заявками на консультанта
+        this.usersToConsultant = applications; 
+        console.log("Заявки на консультанта:", this.usersToConsultant); // Логування отриманих заявок
+      } catch (error) {
+        console.error("Помилка при отриманні заявок:", error); // Логування помилки
+      }
+    },
+
+
+
+
+
+
+
+    
+    // Функція для зміни статусу користувача
+    async becomeConsultant() {
+      const user = auth.currentUser;
+
+      if (user) {
+        try {
+          // Посилання на колекцію ApplicationForConsultant
+          const applicationRef = collection(db, "ApplicationForConsultant");
+          
+          // Запит для перевірки, чи вже існує заявка для цього користувача
+          const q = query(applicationRef, where("IDuser", "==", user.uid));
+          const querySnapshot = await getDocs(q);
+
+          // Перевірка, чи знайдено документи
+          if (!querySnapshot.empty) {
+            alert('Ви вже подали заявку на консультанта.');
+            return; // Зупиняємо виконання, якщо заявка вже існує
+          }
+
+          // Якщо заявки ще немає, додаємо нову
+          await addDoc(applicationRef, {
+            IDuser: user.uid,
+          });
+
+          alert('Заявку відправлено!');
+        } catch (error) {
+          console.error('Помилка при відправленні заявки:', error);
+          alert('Сталася помилка при відправленні заявки.');
+        }
+      } else {
+        console.error('Користувач не авторизований');
+        alert('Потрібно увійти в систему, щоб стати консультантом.');
+      }
+    },
+
+
+    // Логіка для отримання заявок
+    async fetchUsersToConsultant() {
+      try {
+        const q = query(collection(this.firestore, "ApplicationForConsultant"));
+        const querySnapshot = await getDocs(q);
+        
+        const usersPromises = querySnapshot.docs.map(async (docSnapshot) => {
+          const userId = docSnapshot.data().IDuser;
+          const userDocRef = doc(this.firestore, `users/${userId}`); // Створюємо референцію на документ
+          const userDoc = await getDoc(userDocRef); // Отримуємо документ
+
+          return userDoc.exists() ? { id: userId, ...userDoc.data() } : null; // Перевірка на існування документа
+        });
+
+        const users = (await Promise.all(usersPromises)).filter(Boolean); // Фільтруємо null значення
+        this.usersToConsultant = users; // Оновлюємо список користувачів
+      } catch (error) {
+        console.error("Помилка при отриманні користувачів:", error);
+      }
+    },
+
+
+
+
+
+
+
+
+  //   async created() {
+  //   const user = auth.currentUser; // Ваша логіка аутентифікації
+  //   if (user) {
+  //     this.userId = user.uid;
+  //   }
+  // },
 
     openTelegram() {
       // Перевіряємо chatID
@@ -597,17 +786,17 @@ export default {
     // Функція для отримання гаманців з Firestore та оновлення поля "wallet"
     async createdWallet() {
       try {
-        console.log("Завантаження даних з Firestore...");
+        // console.log("Завантаження даних з Firestore...");
 
         const docRef = doc(db, "wallets", "h8kj0fwHOiE07hS01fAh"); // Шлях до документа
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          console.log("Документ знайдено, отримуємо дані...");
+          // console.log("Документ знайдено, отримуємо дані...");
 
           // Отримуємо дані з Firestore і зберігаємо в конкретне поле
           const walletData = docSnap.data();
-          console.log("Дані з Firestore:", walletData);
+          // console.log("Дані з Firestore:", walletData);
 
           // Зберігаємо значення поля "wallet" з Firestore
           this.wallet = walletData.wallet || '';  // Оновлюємо значення гаманця (не масив)
@@ -810,10 +999,11 @@ export default {
           console.error('Error fetching tariffs:', error);
         }
       },
-    // Метод для переходу на сторінку реєстрації із тарифом
-    register(tariffId, tariffName) {
-      this.$router.push({ name: 'Register', params: { tariffId }, query: { tariffName } });
-    },
+
+    // // Метод для переходу на сторінку реєстрації із тарифом
+    // register(tariffId, tariffName) {
+    //   this.$router.push({ name: 'Register', params: { tariffId }, query: { tariffName } });
+    // },
 
 
     // Перевірка тарифу який обрав юзер
@@ -871,13 +1061,17 @@ export default {
       try {
         const userDocRef = doc(db, 'users', userId);
         await updateDoc(userDocRef, {
+          // statusConsultant: false,
           position: 'admin'
         });
         console.log(`User with ID ${userId} is now an admin`);
         
         // Оновлюємо користувача в інтерфейсі після зміни
         this.users = this.users.map(user =>
-          user.id === userId ? { ...user, position: 'admin' } : user
+          user.id === userId ? { ...user,
+            // statusConsultant: false,
+            position: 'admin' 
+          } : user
         );
       } catch (error) {
         console.error('Error updating user to admin:', error);
@@ -889,6 +1083,7 @@ export default {
       try {
         const userDocRef = doc(db, 'users', userId);
         await updateDoc(userDocRef, {
+          // statusConsultant: false,
           position: 'user'
         });
         console.log(`User with ID ${userId} is now an user`);
@@ -907,6 +1102,7 @@ export default {
       try {
         const userDocRef = doc(db, 'users', userId);
         await updateDoc(userDocRef, {
+          // statusConsultant: false,
           position: 'consultant'
         });
         console.log(`User with ID ${userId} is now an consultant`);
@@ -925,6 +1121,7 @@ export default {
       try {
         const userDocRef = doc(db, 'users', userId);
         await updateDoc(userDocRef, {
+          // statusConsultant: false,
           position: 'user'
         });
         console.log(`User with ID ${userId} is now an user`);
@@ -940,6 +1137,7 @@ export default {
   
 
     // Функція для видалення користувача з Firestore та Authentication
+    // Поки нема кнопки, є нюанси в розробці
     async deleteUser(userId) {
       try {
         // Видаляємо користувача з Firestore
@@ -966,14 +1164,22 @@ export default {
 
     async fetchUsers() {
       try {
-        const usersCollection = collection(db, 'users');
-        const usersSnapshot = await getDocs(usersCollection);
-        const usersList = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        this.users = usersList;
+          const usersSnapshot = await getDocs(collection(db, 'users'));
+          const users = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          
+          this.users = users; // Зберігаємо користувачів у реактивну змінну
+          console.log("Отримані користувачі для адміністратора:", this.users); // Лог після присвоєння
       } catch (error) {
-        console.error('Error fetching users:', error);
+          console.error('Помилка при отриманні користувачів:', error);
       }
     },
+
+
+
+
+
+
+
 
    
   }

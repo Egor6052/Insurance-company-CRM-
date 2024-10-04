@@ -7,6 +7,11 @@ import { createI18n } from 'vue-i18n'
 // Для перекладів
 const messages = {
   en: {
+    RejectToConsultant: 'Reject',
+    AcceptToConsultant: 'Accept',
+    becomeConsultant: 'Become a consultant',
+    consultatStatus: 'Apply for consultant status',
+    UserToConsultant: 'Users who have applied for consultant status',
     changeSupportChat: 'Change Support Chat',
     titleSupportChat: 'Support chat',
     changeWallet: 'change wallet',
@@ -61,6 +66,11 @@ const messages = {
     acceptButton: 'Agree and accept'
   },
   uk: {
+    RejectToConsultant: 'Відхилити',
+    AcceptToConsultant: 'Дозволити',
+    becomeConsultant: 'Стати консультантом',
+    consultatStatus: 'Подати заявку на стутус консультанта',
+    UserToConsultant: 'Користувачі, які подали заявку на статус консультанта',
     changeSupportChat: 'Змінити чат підтримки',
     titleSupportChat: 'Чат підтримки',
     changeWallet: 'Змінити гаманець',
