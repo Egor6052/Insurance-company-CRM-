@@ -1,0 +1,10 @@
+[build]
+  base = "folder/"
+  publish = "folder/dist"
+  command = "npm run build"
+
+[functions]
+directory = "folder/netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "18"
