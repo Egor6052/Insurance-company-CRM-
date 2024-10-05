@@ -299,9 +299,13 @@
                           </button>
 
 
-                          <button @click="rejectUser(application.id)" class="Reject">
-                            {{ $t('RejectToConsultant') }}
-                          </button>
+                          <button @click="() => { console.log(application.id); rejectUser(application.id); }" class="Reject">
+    {{ $t('RejectToConsultant') }}
+</button>
+
+
+
+
 
                         </div>
                       </li>
@@ -632,15 +636,18 @@ export default {
 
     // Функція для відхилення користувача
     async rejectUser(applicationId) {
+    console.log(`Спроба відхилити заявку з ID: ${applicationId}`);
     try {
-        const applicationRef = doc(db, 'ApplicationForConsultant', applicationId);
-        const applicationDoc = await getDoc(applicationRef); // Отримуємо документ
-        
+        const applicationRef = doc(db, 'ApplicationForConsultant', applicationId.trim());
+        console.log(`Шлях до документа: ${applicationRef.path}`); // Логування шляху до документа
+
+        const applicationDoc = await getDoc(applicationRef);
+        console.log('Отриманий документ:', applicationDoc); // Логування отриманого документа
+
         if (applicationDoc.exists()) {
             await deleteDoc(applicationRef);
             console.log(`Заявку ${applicationId} відхилено.`);
             
-            // Оновлюємо локальний масив користувачів
             this.usersToConsultant = this.usersToConsultant.filter(application => application.id !== applicationId);
         } else {
             console.error(`Документ з ID ${applicationId} не існує.`);
@@ -649,6 +656,12 @@ export default {
         console.error('Не вдалося відхилити заявку:', error);
     }
 },
+
+
+
+
+
+
 
 
 
