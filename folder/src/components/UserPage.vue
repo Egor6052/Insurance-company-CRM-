@@ -278,7 +278,7 @@
               </div>
             </div>
 
-            <div  v-if="isConsultant" class="panelConsultant">
+            <div  v-if="isConsultant || isAdmin" class="panelConsultant">
 
               <div class="acceptUserToConsultant">
                 <!-- Налагодження тарифів -->
@@ -294,9 +294,11 @@
                         </div>
 
                         <div class="parent-container">
-                          <button @click="acceptUser(application.userId)" class="Accept">
-                            {{ $t('AcceptToConsultant') }}
+                          <button @click="() => { console.log(application); acceptUser(application.IDuser || application.id); }" class="Accept">
+                              {{ $t('AcceptToConsultant') }}
                           </button>
+
+
                           <button @click="rejectUser(application.id)" class="Reject">
                             {{ $t('RejectToConsultant') }}
                           </button>
@@ -594,7 +596,7 @@ export default {
     console.log(`Спроба прийняти користувача з ID: ${userId}`);
     if (!userId) {
         console.error('userId є undefined!');
-        return; // Вихід, якщо userId невизначений
+        return;
     }
 
     try {
@@ -603,7 +605,7 @@ export default {
         
         if (!userDoc.exists()) {
             console.error(`Документ з ID ${userId} не існує.`);
-            return; // Вихід, якщо документ не існує
+            return;
         }
         
         await updateDoc(userRef, {
@@ -611,12 +613,19 @@ export default {
         });
         console.log(`Користувача ${userId} прийнято на позицію consultant.`);
 
-        // Оновлюємо масив користувачів
-        this.usersToConsultant = this.usersToConsultant.filter(application => application.userId !== userId);
+        // Оновлення масиву користувачів
+        this.usersToConsultant = this.usersToConsultant.filter(application => application.IDuser !== userId);
+        
+        // Логування для перевірки
+        console.log(this.usersToConsultant); // Перевірте, чи заявка видалена
     } catch (error) {
         console.error('Не вдалося прийняти користувача:', error);
     }
 },
+
+
+
+
 
 
 
@@ -732,27 +741,27 @@ export default {
 
     // Логіка для отримання заявок
     async fetchUsersToConsultant() {
-      try {
-          const q = query(collection(this.firestore, "ApplicationForConsultant"));
-          const querySnapshot = await getDocs(q);
-          
-          const usersPromises = querySnapshot.docs.map(async (docSnapshot) => {
-              const applicationData = docSnapshot.data();
-              const userId = applicationData.IDuser;
-              console.log(`Заявка ID: ${docSnapshot.id}, UserID: ${userId}`); // Логування
+    try {
+        const q = query(collection(this.firestore, "ApplicationForConsultant"));
+        const querySnapshot = await getDocs(q);
+        
+        const usersPromises = querySnapshot.docs.map(async (docSnapshot) => {
+            const userId = docSnapshot.data().IDuser;
+            console.log(`ID користувача з заявки: ${userId}`); // Логування ID
+            const userDocRef = doc(this.firestore, `users/${userId}`);
+            const userDoc = await getDoc(userDocRef);
 
-              const userDocRef = doc(this.firestore, `users/${userId}`);
-              const userDoc = await getDoc(userDocRef);
+            return userDoc.exists() ? { id: userId, ...userDoc.data() } : null;
+        });
 
-              return userDoc.exists() ? { id: userId, ...userDoc.data() } : null;
-          });
+        const users = (await Promise.all(usersPromises)).filter(Boolean);
+        console.log(users); // Логування отриманих користувачів
+        this.usersToConsultant = users;
+    } catch (error) {
+        console.error("Помилка при отриманні користувачів:", error);
+    }
+},
 
-          const users = (await Promise.all(usersPromises)).filter(Boolean);
-          this.usersToConsultant = users;
-      } catch (error) {
-          console.error("Помилка при отриманні користувачів:", error);
-      }
-  },
 
 
 
