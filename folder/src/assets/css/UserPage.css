@@ -55,8 +55,6 @@
   margin-right: 20px;
 }
 .user-page .folders ul li .page {
-  width: 350px;
-  height: 600px;
   background-color: #fff;
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -78,8 +76,6 @@
   margin-right: 20px;
 }
 .user-page .folders ul li .page .user-header ul li .user-icon .icon-img {
-  width: 100px;
-  height: 100px;
   border-radius: 50%;
   background-color: #64b7c5;
 }
@@ -101,9 +97,8 @@
   width: 170px;
 }
 .user-page .folders ul li .page .user-header ul li .user-info ul li h1 {
-  font-size: 24px;
-  margin-bottom: 10px;
   color: #333;
+  margin-bottom: 10px;
 }
 .user-page .folders ul li .page .user-header ul li .user-info ul li p {
   margin: 5px 0;
@@ -112,10 +107,7 @@
 .user-page .folders ul li .page .user-header ul li .change {
   margin-left: 30px;
   margin-top: 20px;
-  margin-right: 60px;
   background-color: #cacaca;
-  width: 100px;
-  height: 40px;
   border-radius: 5px;
   cursor: pointer;
   border: none;
@@ -141,7 +133,6 @@
   background-color: #b9b9b9;
 }
 .user-page .folders ul li .tariffs-page {
-  width: 400px;
   background-color: #fff;
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -183,19 +174,18 @@
 }
 .user-page .folders ul li .panelAdmin {
   width: 900px;
-  height: 1000px;
   margin-bottom: 10px;
   background-color: #fff;
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
-.user-page .folders ul li .panelAdmin .name p {
+.user-page .folders ul li .panelAdmin .listUsers .name p {
   font-weight: 800;
   color: #333;
   font-size: 20px;
 }
-.user-page .folders ul li .panelAdmin .users {
+.user-page .folders ul li .panelAdmin .listUsers .users {
   border-radius: 5px;
   width: 100%;
   height: 200px;
@@ -204,14 +194,14 @@
   display: flex;
   overflow-y: auto;
 }
-.user-page .folders ul li .panelAdmin .users ul {
+.user-page .folders ul li .panelAdmin .listUsers .users ul {
   margin-top: 10px;
   margin-left: -30px;
   display: block;
   width: 100%;
   margin-right: 20px;
 }
-.user-page .folders ul li .panelAdmin .users ul li {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li {
   display: flex;
   align-items: center;
   margin-bottom: 5px;
@@ -221,15 +211,19 @@
   height: 40px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-.user-page .folders ul li .panelAdmin .users ul li h4 {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass {
+  align-items: center;
+  display: flex;
+}
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass h4 {
   margin-left: 10px;
   margin-right: 10px;
   white-space: nowrap;
 }
-.user-page .folders ul li .panelAdmin .users ul li p {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass .ppp {
   margin-right: 10px;
 }
-.user-page .folders ul li .panelAdmin .users ul li .position {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass .position p {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -240,18 +234,18 @@
   border-radius: 5px;
   background-color: #d6ffc3;
 }
-.user-page .folders ul li .panelAdmin .users ul li .parent-container {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container {
   margin-right: 10px;
   width: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
-.user-page .folders ul li .panelAdmin .users ul li .parent-container .admin-button,
-.user-page .folders ul li .panelAdmin .users ul li .parent-container .consultant-button,
-.user-page .folders ul li .panelAdmin .users ul li .parent-container .removeConsultant-button,
-.user-page .folders ul li .panelAdmin .users ul li .parent-container .user-button,
-.user-page .folders ul li .panelAdmin .users ul li .parent-container .delete-button {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .admin-button,
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .consultant-button,
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .removeConsultant-button,
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .user-button,
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .delete-button {
   margin-left: 10px;
   background-color: #46a1eb;
   color: white;
@@ -260,45 +254,46 @@
   border-radius: 5px;
   cursor: pointer;
 }
-.user-page .folders ul li .panelAdmin .users ul li .parent-container .admin-button:hover,
-.user-page .folders ul li .panelAdmin .users ul li .parent-container .consultant-button:hover,
-.user-page .folders ul li .panelAdmin .users ul li .parent-container .removeConsultant-button:hover,
-.user-page .folders ul li .panelAdmin .users ul li .parent-container .user-button:hover,
-.user-page .folders ul li .panelAdmin .users ul li .parent-container .delete-button:hover {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .admin-button:hover,
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .consultant-button:hover,
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .removeConsultant-button:hover,
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .user-button:hover,
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .delete-button:hover {
   background-color: #3a8aca;
 }
-.user-page .folders ul li .panelAdmin .users ul li .parent-container .consultant-button {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .consultant-button {
   background-color: #46d2eb;
   color: #ffffff;
 }
-.user-page .folders ul li .panelAdmin .users ul li .parent-container .consultant-button:hover {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .consultant-button:hover {
   background-color: #3bafc4;
 }
-.user-page .folders ul li .panelAdmin .users ul li .parent-container .removeConsultant-button {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .removeConsultant-button {
   background-color: #4672eb;
   color: white;
 }
-.user-page .folders ul li .panelAdmin .users ul li .parent-container .removeConsultant-button:hover {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .removeConsultant-button:hover {
   background-color: #3b61ca;
 }
-.user-page .folders ul li .panelAdmin .users ul li .parent-container .user-button {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .user-button {
   background-color: #7246eb;
 }
-.user-page .folders ul li .panelAdmin .users ul li .parent-container .user-button:hover {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .user-button:hover {
   background-color: #623bce;
 }
-.user-page .folders ul li .panelAdmin .users ul li .parent-container .delete-button {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .delete-button {
   background-color: #eb4646;
 }
-.user-page .folders ul li .panelAdmin .users ul li .parent-container .delete-button:hover {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .delete-button:hover {
   background-color: #a83333;
 }
-.user-page .folders ul li .panelAdmin .users ul li:hover {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li:hover {
   background-color: #f7f7f7;
 }
 .user-page .folders ul li .panelAdmin .tariff-settings .Title {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 .user-page .folders ul li .panelAdmin .tariff-settings .Title p {
   font-weight: 800;
@@ -308,16 +303,13 @@
 .user-page .folders ul li .panelAdmin .tariff-settings .Title .parent-container .add-tariff-button {
   margin-left: 20px;
   font-size: 15px;
-  width: 150px;
-  height: 40px;
+  padding: 10px 15px;
   color: white;
   background-color: #00a2ff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border: none;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 53, 114, 0.288);
+  transition: background-color 0.3s;
 }
 .user-page .folders ul li .panelAdmin .tariff-settings .Title .parent-container .add-tariff-button:hover {
   background-color: #0485cf;
@@ -325,108 +317,86 @@
 .user-page .folders ul li .panelAdmin .tariff-settings .tariffs {
   margin-top: 10px;
   width: 100%;
-  height: 200px;
   background-color: #eeeeee;
   border-style: dotted;
-  display: flex;
-  overflow-y: auto;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
 .user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul {
-  margin-top: 10px;
-  margin-left: -30px;
+  padding: 0;
+  margin: 0;
   display: block;
   width: 100%;
-  margin-right: 20px;
 }
 .user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li {
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 0px;
-  margin-right: 10px;
-  margin-bottom: 5px;
-  align-items: center;
+  padding: 15px;
+  margin: 5px;
   display: flex;
+  justify-content: space-between;
   background-color: #ffffff;
-  width: 100%;
-  margin-left: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 }
 .user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .flexClass {
-  display: inline;
+  display: flex;
+  flex-direction: column;
 }
 .user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .flexClass h2 {
   white-space: nowrap;
-  font-size: 20px;
+  font-size: 18px;
+}
+.user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .flexClass p {
+  font-size: 14px;
 }
 .user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .price {
-  margin-left: 50px;
+  margin-left: 20px;
 }
 .user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .price p {
   white-space: nowrap;
+  font-size: 16px;
 }
 .user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .parent-container {
-  margin-right: 30px;
-  width: 100%;
   display: flex;
+  align-items: center;
   justify-content: flex-end;
-  align-items: center;
 }
-.user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .parent-container .changeTariff {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 70px;
-  height: 40px;
-  margin-left: 10px;
-  border: none;
-  border-radius: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background-color: #fffebc;
-}
-.user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .parent-container .changeTariff .imgConteiner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20px;
-  height: 20px;
-  margin-left: 10px;
-}
-.user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .parent-container .changeTariff .imgConteiner img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-.user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .parent-container .changeTariff:hover {
-  background-color: #dad5b0;
-}
+.user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .parent-container .changeTariff,
 .user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .parent-container .deleteTariff {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70px;
-  height: 40px;
+  width: 60px;
+  height: 30px;
   margin-left: 10px;
   border: none;
   border-radius: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background-color: #ffd9d9;
+  padding: 5px;
+  transition: background-color 0.3s;
 }
+.user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .parent-container .changeTariff .imgConteiner,
 .user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .parent-container .deleteTariff .imgConteiner {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 20px;
   height: 20px;
-  margin-left: 10px;
 }
+.user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .parent-container .changeTariff .imgConteiner img,
 .user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .parent-container .deleteTariff .imgConteiner img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+.user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .parent-container .changeTariff {
+  background-color: #fffebc;
+}
+.user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .parent-container .changeTariff:hover {
+  background-color: #dad5b0;
+}
+.user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .parent-container .deleteTariff {
+  background-color: #ffd9d9;
 }
 .user-page .folders ul li .panelAdmin .tariff-settings .tariffs ul li .parent-container .deleteTariff:hover {
   background-color: #d49b9b;
@@ -572,17 +542,6 @@
   font-size: 16px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-.user-page .folders ul li .panelConsultant {
-  width: 900px;
-  height: 100%;
-  background-color: #fff;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-.user-page .folders ul li .panelConsultant .acceptUserToConsultant {
-  margin: 20px;
-}
 .user-page .folders ul li .panelConsultant .acceptUserToConsultant .Title {
   display: flex;
   align-items: center;
@@ -698,14 +657,6 @@
 }
 .user-page .folders ul li .panelConsultant .acceptUserToConsultant .parent-container button.Reject:hover {
   background-color: #e53935;
-}
-.user-page .folders ul li .panelUser {
-  width: 900px;
-  height: 100%;
-  background-color: #fff;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
 }
 .user-page .folders ul li .panelUser .Title {
   display: flex;
@@ -1020,19 +971,446 @@
 .user-page .modal .modal-content .submit-button:hover {
   background-color: #0062cc;
 }
+@media (min-width: 1024px) {
+  .user-page .folders ul li .page {
+    width: 350px;
+    height: 600px;
+  }
+  .user-page .folders ul li .page .user-header ul li .user-icon .icon-img {
+    width: 100px;
+    height: 100px;
+  }
+  .user-page .folders ul li .page .user-header ul li .user-info ul li h1 {
+    font-size: 24px;
+  }
+  .user-page .folders ul li .page .user-header ul li .user-info ul li .admin-message {
+    width: 170px;
+  }
+  .user-page .folders ul li .page .user-header ul li .user-info ul li p {
+    font-size: 16px;
+  }
+  .user-page .folders ul li .page .user-header ul li .change {
+    width: 100px;
+    height: 40px;
+  }
+  .user-page .folders ul li .page .panelAdmin .listUsers .name p {
+    font: optional;
+  }
+  .user-page .folders ul li .page .panelAdmin .listUsers .users {
+    height: auto;
+  }
+  .user-page .folders ul li .page .panelAdmin .listUsers .users ul {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .user-page .folders ul li .page .panelAdmin .listUsers .users ul li {
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .user-page .folders ul li .page .panelAdmin .listUsers .users ul li h4 {
+    margin: 5px 0;
+  }
+  .user-page .folders ul li .page .panelAdmin .listUsers .users ul li .ppp {
+    margin: 5px 0;
+  }
+  .user-page .folders ul li .page .panelAdmin .listUsers .users ul li .parent-container {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .user-page .folders ul li .tariffs-page .headerTariff {
+    font-size: 16px;
+  }
+  .user-page .folders ul li .tariffs-page .class-ul ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .user-page .folders ul li .tariffs-page .class-ul ul li {
+    width: 100%;
+  }
+  .user-page .folders ul li .tariff-settings .Title p {
+    font-size: 24px;
+  }
+  .user-page .folders ul li .tariff-settings .Title .parent-container .add-tariff-button {
+    font-size: 18px;
+    width: 180px;
+  }
+  .user-page .folders ul li .tariff-settings .tariffs {
+    height: 300px;
+  }
+  .user-page .folders ul li .tariff-settings .tariffs li {
+    padding: 20px;
+    margin: 10px;
+  }
+  .user-page .folders ul li .tariff-settings .tariffs li .flexClass h2 {
+    font-size: 20px;
+  }
+  .user-page .folders ul li .tariff-settings .tariffs li .flexClass p {
+    font-size: 16px;
+  }
+  .user-page .folders ul li .tariff-settings .tariffs li .price p {
+    font-size: 18px;
+  }
+  .user-page .folders ul li .tariff-settings .tariffs li .changeTariff,
+  .user-page .folders ul li .tariff-settings .tariffs li .deleteTariff {
+    width: 80px;
+    height: 40px;
+  }
+  .user-page .folders ul li .addInstruction .instruction {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .user-page .folders ul li .addInstruction .instruction .input {
+    width: 60%;
+    padding: 20px;
+  }
+  .user-page .folders ul li .addWallet .walletFolder {
+    display: flex;
+    justify-content: space-between;
+  }
+  .user-page .folders ul li .addWallet .walletFolder .input {
+    width: 60%;
+    padding: 20px;
+  }
+  .user-page .folders ul li .supportChatFolder .chatFolder {
+    display: flex;
+    justify-content: space-between;
+  }
+  .user-page .folders ul li .supportChatFolder .chatFolder .input {
+    width: 60%;
+    padding: 20px;
+  }
+  .user-page .support-chat {
+    bottom: 15px;
+    right: 15px;
+  }
+  .user-page .support-chat button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
 @media (max-width: 480px) {
   .user-page .header {
     height: 50px;
   }
   .user-page .header .battonBack {
-    margin-left: 20px;
+    margin-left: 10px;
   }
   .user-page .header .battonBack .Accept {
     width: 70px;
     height: 35px;
     font-size: 0.8rem;
   }
-  .user-page .header .battonBack .change {
+  .user-page .folders ul {
+    display: block;
+  }
+  .user-page .folders ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .user-page .folders ul li .page {
+    margin-top: -100px;
+    margin-left: -20px;
+    width: 320px;
+    height: 500px;
+    padding: 10px;
+  }
+  .user-page .folders ul li .page .user-header ul {
+    flex-direction: column;
+  }
+  .user-page .folders ul li .page .user-header ul li {
+    flex-direction: column;
+  }
+  .user-page .folders ul li .page .user-header ul li .user-icon {
+    margin-left: -25px;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  .user-page .folders ul li .page .user-header ul li .user-icon .icon-img {
+    width: 80px;
+    height: 80px;
+  }
+  .user-page .folders ul li .page .user-header ul li .user-info ul li h1 {
+    font-size: 20px;
+    text-align: center;
+  }
+  .user-page .folders ul li .page .user-header ul li .user-info ul li .admin-message {
+    width: 100%;
+    text-align: center;
+  }
+  .user-page .folders ul li .page .user-header ul li .user-info ul li p {
+    font-size: 14px;
+    text-align: center;
+  }
+  .user-page .folders ul li .page .user-header ul li .change {
+    margin-left: 0;
+    margin-top: 10px;
+    width: 80px;
     height: 35px;
+  }
+  .user-page .folders ul li .tariffs-page {
+    margin-left: -20px;
+    width: 320px;
+    padding: 10px;
+  }
+  .user-page .folders ul li .tariffs-page .headerTariff {
+    margin-top: 10px;
+    margin-left: 50px;
+    font-size: 14px;
+  }
+  .user-page .folders ul li .tariffs-page .class-ul {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .user-page .folders ul li .tariffs-page .class-ul ul li .border {
+    width: 100%;
+    padding-bottom: 10px;
+  }
+  .user-page .folders ul li .tariffs-page .class-ul ul li .details ul p {
+    font-size: 15px;
+  }
+  .user-page .folders ul li .panelAdmin {
+    margin-left: -20px;
+    width: 300px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .name p {
+    font: 15px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users {
+    height: auto;
+    padding: 20px;
+    border-radius: 8px;
+    height: 400px;
+    width: 250px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul {
+    margin-left: -50px;
+    list-style: none;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li {
+    width: 270px;
+    display: inline-block;
+    height: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass .ppp {
+    margin-top: 10px;
+    font-size: 15px;
+    color: #666;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass .position {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass .position p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .consultant-button {
+    width: 120px;
+    height: 50px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .removeConsultant-button {
+    width: 120px;
+    height: 50px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .admin-button {
+    width: 100px;
+    height: 50px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .user-button {
+    width: 120px;
+    height: 50px;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .Title p {
+    font-weight: 800;
+    color: #333;
+    font-size: 18px;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users {
+    border-radius: 5px;
+    width: 295px;
+    height: 400px;
+    border-style: dotted;
+    display: flex;
+    overflow-y: auto;
+    border-radius: 8px;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users ul {
+    margin-left: 10px;
+    list-style: none;
+    padding: 0;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users ul li {
+    width: 270px;
+    display: inline-block;
+    height: auto;
+    border-radius: 5px;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users ul li .flexClass {
+    display: block;
+    justify-content: center;
+    align-items: center;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users ul li .parent-container {
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users ul li .parent-container .Accept {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users ul li .parent-container .Reject {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users ul li h2 {
+    margin-left: 10px;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users ul li p {
+    margin-left: 10px;
+  }
+  .user-page .folders ul li .tariff-settings .Title {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .user-page .folders ul li .tariff-settings .Title p {
+    font-size: 18px;
+  }
+  .user-page .folders ul li .tariff-settings .Title .parent-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .user-page .folders ul li .tariff-settings .Title .parent-container .add-tariff-button {
+    font-size: 14px;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .user-page .folders ul li .tariff-settings .tariffs {
+    height: 400px;
+  }
+  .user-page .folders ul li .tariff-settings .tariffs li {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    margin: 5px;
+  }
+  .user-page .folders ul li .tariff-settings .tariffs li .flexClass h2 {
+    font-size: 16px;
+  }
+  .user-page .folders ul li .tariff-settings .tariffs li .flexClass p {
+    font-size: 12px;
+  }
+  .user-page .folders ul li .tariff-settings .tariffs li .price p {
+    font-size: 14px;
+  }
+  .user-page .folders ul li .tariff-settings .tariffs li .parent-container .changeTariff,
+  .user-page .folders ul li .tariff-settings .tariffs li .parent-container .deleteTariff {
+    width: 50px;
+    height: 30px;
+    font-size: 12px;
+  }
+  .user-page .folders ul li .addInstruction .Title p {
+    font-size: 18px;
+  }
+  .user-page .folders ul li .addInstruction .instruction {
+    width: 560px;
+    flex-direction: column;
+  }
+  .user-page .folders ul li .addInstruction .instruction .input {
+    width: 100%;
+    padding-bottom: 0px;
+  }
+  .user-page .folders ul li .addWallet .Title p {
+    font-size: 18px;
+  }
+  .user-page .folders ul li .addWallet .walletFolder {
+    width: 560px;
+    flex-direction: column;
+  }
+  .user-page .folders ul li .addWallet .walletFolder .input {
+    width: 100%;
+    padding-bottom: 10px;
+  }
+  .user-page .folders ul li .addWallet .modal {
+    width: 90%;
+    margin: auto;
+  }
+  .user-page .folders ul li .supportChatFolder .Title p {
+    font-size: 18px;
+  }
+  .user-page .folders ul li .supportChatFolder .Title .changeSupportChat {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+  .user-page .folders ul li .supportChatFolder .chatFolder {
+    width: 560px;
+    flex-direction: column;
+  }
+  .user-page .folders ul li .supportChatFolder .chatFolder .input {
+    width: 100%;
+    padding-bottom: 10px;
+  }
+  .user-page .folders ul li .supportChatFolder .modal {
+    width: 100%;
+    padding-bottom: 10px;
+  }
+  .user-page .folders ul li .panelUser {
+    width: 100%;
+    padding: 10px;
+  }
+  .user-page .folders ul li .panelUser .Title p {
+    font-size: 18px;
+  }
+  .user-page .folders ul li .panelUser .button .Accept {
+    width: 100%;
+    font-size: 14px;
+    height: 35px;
+  }
+  .user-page .support-chat {
+    bottom: 10px;
+    right: 50px;
+  }
+  .user-page .support-chat button {
+    padding: 8px 16px;
+    font-size: 12px;
+    border-radius: 4px;
   }
 }

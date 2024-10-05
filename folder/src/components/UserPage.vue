@@ -92,9 +92,10 @@
 
         <li>
           <!-- Панель налаштувань для адміністратора -->
-           <div v-if="isAdmin" class="panelAdmin">
+           <div class="panelAdmin">
               <!-- Для Адміністратора -->
 
+              <div v-if="isAdmin" class="listUsers">
                 <div class="name">
                     <p>{{ $t('users') }}</p>
                 </div>
@@ -102,16 +103,22 @@
                 <div class="users">
                   <ul>
                     <li v-for="user in users" :key="user.id">
-                      <h4>
-                        {{ user.name }}
-                      </h4>
-                      <p>
-                        {{ user.email }}
-                      </p>
+                      <div class="flexClass">
+                        <h4>
+                          {{ user.name }}
+                        </h4>
+                        <p class="ppp">
+                          {{ user.email }}
+                        </p>
 
-                      <div class="position">
-                        {{ user.position }}
+                        <div class="position">
+                          <p>
+                            {{ user.position }}
+                          </p>
+                          
+                        </div>
                       </div>
+                     
 
                       <div class="parent-container">
                         <!-- Кнопка для створення консультанта -->
@@ -132,9 +139,42 @@
                     </li>
                   </ul>
                 </div>
+              </div>
+                
+
+                <div  v-if="isConsultant || isAdmin" class="panelConsultant">
+                  <div class="acceptUserToConsultant">
+                    <!-- Налагодження тарифів -->
+                      <div class="Title">
+                        <p>{{ $t('UserToConsultant') }}</p>
+                      </div>
+                      
+                      <div class="users">
+                        <ul>
+                          <li v-for="application in usersToConsultant" :key="application.id">                        
+                            <div class="flexClass">
+                              <h2>{{ application.name }}</h2>
+                              <p>{{ application.email }}</p>
+                            </div>
+
+                            <div class="parent-container">
+                              <button @click="() => { console.log(application); acceptUser(application.IDuser || application.id); }" class="Accept">
+                                  {{ $t('AcceptToConsultant') }}
+                              </button>
+
+
+                              <button @click="() => { console.log(application.id); rejectUser(application.id); }" class="Reject">
+                                  {{ $t('RejectToConsultant') }}
+                              </button>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
 
                 <!-- Налагодження тарифів -->
-                <div class="tariff-settings">
+                <div v-if="isAdmin" class="tariff-settings">
                   <div class="Title">
                     <p>{{ $t('tariffTitle') }}</p>
                     
@@ -179,7 +219,8 @@
                   </div>
                 </div>
 
-                <div class="addInstruction">
+                <!-- Додавання інструкції -->
+                <div v-if="isAdmin" class="addInstruction">
                   <div class="Title">
                     <p>{{ $t('titleInstruction') }}</p>
                     <button @click="instructionModal" class="changeInstruction">{{ $t('changeInstruction') }}</button>
@@ -214,8 +255,8 @@
                   </div>
                 </div>
 
-
-                <div class="addWallet">
+                <!-- Редагування гаманця для оплати -->
+                <div v-if="isAdmin" class="addWallet">
                   <div class="Title">
                     <p>{{ $t('titleWallet') }}</p>
                     <button @click="openWalletModal" class="changeWallet">{{ $t('changeWallet') }}</button>
@@ -247,7 +288,7 @@
 
 
               <!-- Чат технічної підтримки через Telegram -->
-              <div class="supportChatFolder">
+              <div v-if="isAdmin" class="supportChatFolder">
                 <div class="Title">
                   <p>{{ $t('titleSupportChat') }}</p>
                   <button @click="openChatModal" class="changeSupportChat">{{ $t('changeSupportChat') }}</button>
@@ -276,50 +317,10 @@
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div  v-if="isConsultant || isAdmin" class="panelConsultant">
-
-              <div class="acceptUserToConsultant">
-                <!-- Налагодження тарифів -->
-                  <div class="Title">
-                    <p>{{ $t('UserToConsultant') }}</p>
-                  </div>
-                  
-                  <div class="users">
-                    <ul>
-                      <li v-for="application in usersToConsultant" :key="application.id">                        <div class="flexClass">
-                        <h2>{{ application.name }}</h2>
-                        <p>{{ application.email }}</p>
-                        </div>
-
-                        <div class="parent-container">
-                          <button @click="() => { console.log(application); acceptUser(application.IDuser || application.id); }" class="Accept">
-                              {{ $t('AcceptToConsultant') }}
-                          </button>
-
-
-                          <button @click="() => { console.log(application.id); rejectUser(application.id); }" class="Reject">
-    {{ $t('RejectToConsultant') }}
-</button>
 
 
 
-
-
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-
-
-
-              </div>
-
-            </div>
-
-            <div v-if="isUser" class="panelUser">
-
+              <div v-if="isUser" class="panelUser">
               <div class="consultatStatus">
                 <div class="Title">
                   <p>{{ $t('consultatStatus') }}</p>
@@ -331,10 +332,13 @@
                   </div>
                 </div>
               </div>
+              </div>
             </div>
-         
+
+
 
         </li>
+        
       </ul>
     </div>
 
