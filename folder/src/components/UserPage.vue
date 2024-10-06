@@ -158,10 +158,9 @@
                             </div>
 
                             <div class="parent-container">
-                              <button @click="() => { console.log(application); acceptUser(application.IDuser || application.id); }" class="Accept">
-                                  {{ $t('AcceptToConsultant') }}
+                              <button @click="() => { acceptUser(application.IDuser || application.id); }" class="Accept">
+                                {{ $t('AcceptToConsultant') }}
                               </button>
-
 
                               <button @click="() => { console.log(application.id); rejectUser(application.id); }" class="Reject">
                                 {{ $t('RejectToConsultant') }}
@@ -601,35 +600,33 @@ export default {
 
    // Функція для прийняття користувача на роль консультанта
    async acceptUser(userId) {
-    console.log(`Спроба прийняти користувача з ID: ${userId}`);
-    if (!userId) {
-        console.error('userId є undefined!');
-        return;
-    }
+  // Підтвердження дії
+  const confirmed = confirm(`Ви впевнені, що хочете підтвердити статус консультанта для користувача з ID ${userId}?`);
+  if (!confirmed) {
+    return; // Виходимо, якщо користувач не підтвердив
+  }
 
-    try {
-        const userRef = doc(db, 'users', userId);
-        const userDoc = await getDoc(userRef);
-        
-        if (!userDoc.exists()) {
-            console.error(`Документ з ID ${userId} не існує.`);
-            return;
-        }
-        
-        await updateDoc(userRef, {
-            position: 'consultant'
-        });
-        console.log(`Користувача ${userId} прийнято на позицію consultant.`);
+  try {
+    // Отримуємо документ користувача для оновлення ролі
+    const userRef = doc(this.firestore, `Users/${userId}`);
 
-        // Оновлення масиву користувачів
-        this.usersToConsultant = this.usersToConsultant.filter(application => application.IDuser !== userId);
-        
-        // Логування для перевірки
-        console.log(this.usersToConsultant); // Перевірте, чи заявка видалена
-    } catch (error) {
-        console.error('Не вдалося прийняти користувача:', error);
-    }
+    // Оновлюємо роль користувача на "consultant"
+    await updateDoc(userRef, {
+      position: 'consultant'
+    });
+    console.log(`Користувача ${userId} прийнято на позицію consultant.`);
+
+    // Викликаємо функцію для видалення документа зі заявки
+    await this.rejectUser(userId); // Використовуємо вашу існуючу функцію для видалення
+
+    // Оновлюємо список документів (опціонально)
+    this.fetchUsersToConsultant(); // або будь-який інший метод для оновлення даних
+  } catch (error) {
+    console.error("Помилка при підтвердженні та видаленні документа:", error);
+  }
 },
+
+
 
 
 
