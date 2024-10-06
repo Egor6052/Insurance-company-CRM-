@@ -7,6 +7,7 @@
   color: #333;
   width: 100%;
   height: 100%;
+  /* Media queries для до 768px */
 }
 .user-page .header {
   background: #555;
@@ -1018,6 +1019,11 @@
     width: 100%;
     justify-content: space-between;
   }
+  .user-page .folders ul li .tariffs-page {
+    margin-left: -10px;
+    width: 350px;
+    padding: 15px;
+  }
   .user-page .folders ul li .tariffs-page .headerTariff {
     font-size: 16px;
   }
@@ -1087,6 +1093,302 @@
   .user-page .support-chat button {
     padding: 10px 20px;
     font-size: 14px;
+  }
+}
+@media (max-width: 768px) {
+  .user-page .header {
+    height: 60px;
+  }
+  .user-page .header .battonBack {
+    margin-left: 15px;
+  }
+  .user-page .header .battonBack .Accept {
+    width: 90px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  .user-page .folders ul {
+    display: block;
+  }
+  .user-page .folders ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .user-page .folders ul li .page {
+    margin-top: -80px;
+    margin-left: -10px;
+    width: 400px;
+    height: 600px;
+    padding: 15px;
+  }
+  .user-page .folders ul li .page .user-header ul {
+    flex-direction: column;
+  }
+  .user-page .folders ul li .page .user-header ul li {
+    flex-direction: column;
+  }
+  .user-page .folders ul li .page .user-header ul li .user-icon {
+    margin-left: -20px;
+    margin-bottom: 15px;
+  }
+  .user-page .folders ul li .page .user-header ul li .user-icon .icon-img {
+    width: 100px;
+    height: 100px;
+  }
+  .user-page .folders ul li .page .user-header ul li .user-info ul li h1 {
+    font-size: 22px;
+    text-align: center;
+  }
+  .user-page .folders ul li .page .user-header ul li .user-info ul li .admin-message {
+    width: 100%;
+    text-align: center;
+  }
+  .user-page .folders ul li .page .user-header ul li .user-info ul li p {
+    font-size: 16px;
+    text-align: center;
+  }
+  .user-page .folders ul li .page .user-header ul li .change {
+    margin-left: 0;
+    margin-top: 15px;
+    width: 100px;
+    height: 40px;
+  }
+  .user-page .folders ul li .tariffs-page {
+    margin-left: -10px;
+    width: 400px;
+    padding: 15px;
+  }
+  .user-page .folders ul li .tariffs-page .headerTariff {
+    margin-top: 15px;
+    margin-left: 60px;
+    font-size: 16px;
+  }
+  .user-page .folders ul li .tariffs-page .class-ul {
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+  .user-page .folders ul li .tariffs-page .class-ul ul li .border {
+    width: 100%;
+    padding-bottom: 15px;
+  }
+  .user-page .folders ul li .tariffs-page .class-ul ul li .details ul p {
+    font-size: 16px;
+  }
+  .user-page .folders ul li .panelAdmin {
+    margin-left: -10px;
+    width: 390px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .name p {
+    font: 15px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users {
+    height: auto;
+    padding: 20px;
+    border-radius: 8px;
+    height: 400px;
+    width: 345px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul {
+    margin-left: -50px;
+    list-style: none;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li {
+    width: 365px;
+    display: inline-block;
+    height: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass .ppp {
+    margin-top: 10px;
+    font-size: 15px;
+    color: #666;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass .position {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass .position p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .consultant-button {
+    width: 120px;
+    height: 50px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .removeConsultant-button {
+    width: 120px;
+    height: 50px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .admin-button {
+    width: 100px;
+    height: 50px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .parent-container .user-button {
+    width: 120px;
+    height: 50px;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .Title p {
+    font-weight: 800;
+    color: #333;
+    font-size: 18px;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users {
+    border-radius: 5px;
+    width: 385px;
+    height: 400px;
+    border-style: dotted;
+    display: flex;
+    overflow-y: auto;
+    border-radius: 8px;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users ul {
+    margin-left: 10px;
+    list-style: none;
+    padding: 0;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users ul li {
+    width: 360px;
+    display: inline-block;
+    height: auto;
+    border-radius: 5px;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users ul li .flexClass {
+    display: block;
+    justify-content: center;
+    align-items: center;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users ul li .parent-container {
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users ul li .parent-container .Accept {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users ul li .parent-container .Reject {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users ul li h2 {
+    margin-left: 10px;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users ul li p {
+    margin-left: 10px;
+  }
+  .user-page .folders ul li .tariff-settings .Title p {
+    font-size: 20px;
+  }
+  .user-page .folders ul li .tariff-settings .Title .parent-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .user-page .folders ul li .tariff-settings .Title .parent-container .add-tariff-button {
+    font-size: 14px;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .user-page .folders ul li .tariff-settings .tariffs {
+    height: 450px;
+  }
+  .user-page .folders ul li .tariff-settings .tariffs li .flexClass h2 {
+    font-size: 18px;
+  }
+  .user-page .folders ul li .tariff-settings .tariffs li .flexClass p {
+    font-size: 14px;
+  }
+  .user-page .folders ul li .tariff-settings .tariffs li .price p {
+    font-size: 16px;
+  }
+  .user-page .folders ul li .tariff-settings .tariffs li .parent-container .changeTariff,
+  .user-page .folders ul li .tariff-settings .tariffs li .parent-container .deleteTariff {
+    width: 60px;
+    height: 35px;
+  }
+  .user-page .folders ul li .addInstruction .Title p {
+    font-size: 20px;
+  }
+  .user-page .folders ul li .addInstruction .Title .instruction {
+    width: 560px;
+    flex-direction: column;
+  }
+  .user-page .folders ul li .addInstruction .Title .instruction .input {
+    width: 100%;
+    padding-bottom: 0px;
+  }
+  .user-page .folders ul li .addWallet .Title p {
+    font-size: 20px;
+  }
+  .user-page .folders ul li .addWallet .Title .walletFolder {
+    width: 600px;
+  }
+  .user-page .folders ul li .addWallet .Title .modal {
+    width: 95%;
+  }
+  .user-page .folders ul li .supportChatFolder .Title p {
+    font-size: 20px;
+  }
+  .user-page .folders ul li .supportChatFolder .Title .chatFolder {
+    width: 600px;
+  }
+  .user-page .folders ul li .supportChatFolder .Title .modal {
+    width: 100%;
+  }
+  .user-page .folders ul li .panelUser {
+    width: 100%;
+    padding: 15px;
+  }
+  .user-page .folders ul li .panelUser .Title p {
+    font-size: 20px;
+  }
+  .user-page .folders ul li .panelUser .button .Accept {
+    width: 100%;
+    font-size: 16px;
+    height: 40px;
+  }
+  .user-page .support-chat {
+    bottom: 15px;
+    right: 30px;
+  }
+  .user-page .support-chat button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 6px;
   }
 }
 @media (max-width: 480px) {

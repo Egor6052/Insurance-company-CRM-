@@ -1332,8 +1332,9 @@
         }
 
       .tariffs-page {
-        // width: 90%;
-        // padding: 15px;
+        margin-left: -10px;
+          width: 350px;
+          padding: 15px;
     
         .headerTariff {
           font-size: 16px;
@@ -1458,6 +1459,441 @@
   }
 
 }
+
+
+/* Media queries для до 768px */
+@media (max-width: 768px) {
+
+  .header {
+    height: 60px;
+
+    .battonBack {
+      margin-left: 15px;
+
+      .Accept {
+        width: 90px;
+        height: 40px;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .folders {
+    ul {
+      display: block;
+
+      li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .page {
+          margin-top: -80px;
+          margin-left: -10px;
+          width: 400px;
+          height: 600px;
+          padding: 15px;
+
+          .user-header {
+            ul {
+              flex-direction: column;
+
+              li {
+                flex-direction: column;
+
+                .user-icon {
+                  margin-left: -20px;
+                  margin-bottom: 15px;
+
+                  .icon-img {
+                    width: 100px;
+                    height: 100px;
+                  }
+                }
+
+                .user-info {
+                  ul {
+                    li {
+                      h1 {
+                        font-size: 22px;
+                        text-align: center;
+                      }
+
+                      .admin-message {
+                        width: 100%;
+                        text-align: center;
+                      }
+
+                      p {
+                        font-size: 16px;
+                        text-align: center;
+                      }
+                    }
+                  }
+                }
+
+                .change {
+                  margin-left: 0;
+                  margin-top: 15px;
+                  width: 100px;
+                  height: 40px;
+                }
+              }
+            }
+          }
+        }
+
+        .tariffs-page {
+          margin-left: -10px;
+          width: 400px;
+          padding: 15px;
+
+          .headerTariff {
+            margin-top: 15px;
+            margin-left: 60px;
+            font-size: 16px;
+          }
+
+          .class-ul {
+            margin-left: 25px;
+            margin-right: 25px;
+
+            ul {
+              li {
+                .border {
+                  width: 100%;
+                  padding-bottom: 15px;
+                }
+
+                .details {
+                  ul {
+                    p {
+                      font-size: 16px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .panelAdmin {
+          margin-left: -10px;
+          width: 390px;
+
+          .listUsers {
+            .name {
+              p {
+                font: 15px
+              }
+            }
+  
+            .users {
+              height: auto;
+              padding: 20px; 
+              border-radius: 8px; 
+              height: 400px;
+              width: 345px;
+  
+              ul {
+                
+                margin-left: -50px;
+                
+               
+                list-style: none;
+                
+                li {
+                  width: 365px;
+                  display: inline-block;
+                  
+                  height: auto; 
+                  background-color: #fff; 
+                  border-radius: 5px; 
+                  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); // Легка тінь
+            
+                  .flexClass {
+                    display: flex;
+                    flex-direction: column;
+                    margin-top: 10px; 
+  
+                    h4 {
+                      margin: 0; 
+                      font-size: 18px;
+                      color: #333; 
+                    }
+            
+                    .ppp {
+                      margin-top: 10px; 
+                      font-size: 15px; 
+                      color: #666;
+                    }
+            
+                    .position {
+                      
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      
+            
+                      p {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 5px;
+                        border-radius: 5px;
+                        // background-color: #d6ffc3;
+                        // color: #333;
+                      }
+                    }
+                  }
+            
+                  .parent-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-bottom: 10px;
+  
+                    .consultant-button {
+                      width: 120px;
+                      height: 50px;
+                    }
+                    .removeConsultant-button {
+                      width: 120px;
+                      height: 50px;
+                    }
+                    .admin-button {
+                      width: 100px;
+                      height: 50px;
+                    }
+                    .user-button {
+                      width: 120px;
+                      height: 50px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .panelConsultant {
+          
+          .acceptUserToConsultant {
+            
+            .Title {
+              p {
+                font-weight: 800;
+                color: #333;
+                font-size: 18px;
+              }
+            }
+        
+            .users {
+              border-radius: 5px;
+              width: 385px;
+              height: 400px;
+              border-style: dotted;
+              display: flex;
+              overflow-y: auto;
+              border-radius: 8px;
+
+              ul {
+                
+                margin-left: 10px;
+                list-style: none;
+                padding: 0;
+        
+                li {
+                  width: 360px;
+                  display: inline-block;
+                
+                  height: auto; 
+                  border-radius: 5px;
+                  .flexClass {
+                    display:block;
+                    justify-content: center;
+                    align-items: center;
+                  }
+        
+                  .parent-container {
+                    margin-bottom: 5px;
+                    display:flex;
+                    justify-content: center;
+                    align-items: center;
+                   
+                    .Accept {
+                      display:flex;
+                      justify-content: center;
+                      align-items: center;
+                      width: 100px;
+                      height: 40px;
+                      cursor: pointer;
+                    }
+                    .Reject {
+                      display:flex;
+                      justify-content: center;
+                      align-items: center;
+                      width: 100px;
+                      height: 40px;
+                      cursor: pointer;
+                    }
+        
+                  }
+        
+                  h2 {
+                    margin-left: 10px;
+                    font-size: 16px;
+                    white-space: nowrap;
+                  }
+        
+                  p {
+                    margin-left: 10px;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .tariff-settings {
+          .Title {
+            p {
+              font-size: 20px;
+            }
+
+            .parent-container {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              .add-tariff-button {
+                // margin-left: -29px;
+                font-size: 14px;
+                width: 100%;
+                margin-top: 10px;
+              }
+            }
+          }
+
+          .tariffs {
+            height: 450px;
+
+            li {
+              .flexClass {
+                h2 {
+                  font-size: 18px;
+                }
+
+                p {
+                  font-size: 14px;
+                }
+              }
+
+              .price {
+                p {
+                  font-size: 16px;
+                }
+              }
+
+              .parent-container {
+                .changeTariff, .deleteTariff {
+                  width: 60px;
+                  height: 35px;
+                }
+              }
+            }
+          }
+        }
+
+        .addInstruction {
+          .Title {
+            p {
+              font-size: 20px;
+            }
+
+            .instruction {
+              width: 560px;
+              flex-direction: column;
+        
+              .input {
+                width: 100%;
+                padding-bottom: 0px;
+              }
+            }
+          }
+        }
+
+        .addWallet {
+          .Title {
+            p {
+              font-size: 20px;
+            }
+
+            .walletFolder {
+              width: 600px;
+
+              // .input {
+                // padding-right: 400px;
+                // width: 5;
+              // }
+            }
+
+            .modal {
+              width: 95%;
+            }
+          }
+        }
+
+        .supportChatFolder {
+          .Title {
+            p {
+              font-size: 20px;
+            }
+
+            .chatFolder {
+              width: 600px;
+            }
+
+            .modal {
+              width: 100%;
+            }
+          }
+        }
+
+        .panelUser {
+          width: 100%;
+          padding: 15px;
+
+          .Title {
+            p {
+              font-size: 20px;
+            }
+          }
+
+          .button {
+            .Accept {
+              width: 100%;
+              font-size: 16px;
+              height: 40px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .support-chat {
+    bottom: 15px;
+    right: 30px;
+
+    button {
+      padding: 10px 20px;
+      font-size: 14px;
+      border-radius: 6px;
+    }
+  }
+}
+
+
 
 // Media queries для екранів до 480px
 @media (max-width: 480px) {
