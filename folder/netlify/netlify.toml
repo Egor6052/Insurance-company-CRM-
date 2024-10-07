@@ -1,0 +1,7 @@
+[build]
+  base = "folder/"
+  command = "npm run build"
+  publish = "dist"  # Залиште dist в рамках folder
+
+[build.environment]
+  NODE_VERSION = "18"
