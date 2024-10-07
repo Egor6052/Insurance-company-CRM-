@@ -97,49 +97,53 @@
 
               <div v-if="isAdmin" class="listUsers">
                 <div class="name">
-                    <p>{{ $t('users') }}</p>
+                  <p>{{ $t('users') }}</p>
+                </div>
+
+                <!-- Пошук за іменем -->
+                <div class="searchUsers">
+                  <input type="text" v-model="searchTerm" @input="searchUsersByName(searchTerm)" placeholder="Search user by name" />
                 </div>
 
                 <div class="users">
                   <ul>
-                    <li v-for="user in users" :key="user.id">
-                      <div class="flexClass">
-                        <h4>
-                          {{ user.name }}
-                        </h4>
-                        <p class="ppp">
-                          {{ user.email }}
-                        </p>
-
-                        <div class="position">
-                          <p>
-                            {{ user.position }}
-                          </p>
+                    <!-- Відфільтровані користувачі -->
+                      <li v-for="user in filteredUsers" :key="user.id">
+                        <RouterLink :to="{ name: 'SelectedUser', params: { userId: user.id } }" 
+                          class="goTo">
+                         
+                          <div class="flexClass">
+                            <h4>{{ user.name }}</h4>
+                            <p class="ppp">{{ user.email }}</p>
+                            <div class="position">
+                              <p>{{ user.position }}</p>
+                            </div>
+                          </div>
+                        </RouterLink>
+                          <div class="parent-container">
+                          <!-- Кнопка для створення консультанта -->
+                          <button v-if="user.position === 'user'" @click="AddConsultant(user.id)" class="consultant-button">{{ $t('addConsultant') }}</button>
                           
+                          <!-- Кнопка для забирання прав консультанта -->
+                          <button v-if="user.position === 'consultant'" @click="RemoveConsultant(user.id)" class="removeConsultant-button">{{ $t('removeConsultant') }}</button>
+                          
+                          <!-- Кнопка для створення адміна -->
+                          <button v-if="user.position === 'user' || user.position === 'consultant'" @click="AddAdminUser(user.id)" class="admin-button">{{ $t('addAdmin') }}</button>
+                          
+                          <!-- Кнопка для забирання прав адміністратора -->
+                          <button v-if="user.position === 'admin'" @click="RemoveAdmin(user.id)" class="user-button">{{ $t('removeAdmin') }}</button>
+
+                          <!-- Кнопка для видалення -->
+                          <!-- <button @click="deleteUser(user.id)" class="delete-button">{{ $t('delete') }}</button> -->
                         </div>
-                      </div>
-                     
+                    
 
-                      <div class="parent-container">
-                        <!-- Кнопка для створення консультанта -->
-                        <button v-if="user.position === 'user'" @click="AddConsultant(user.id)" class="consultant-button">{{ $t('addConsultant') }}</button>
-                        
-                        <!-- Кнопка для забирання прав консультанта -->
-                        <button v-if="user.position === 'consultant'" @click="RemoveConsultant(user.id)" class="removeConsultant-button">{{ $t('removeConsultant') }}</button>
-                        
-                        <!-- Кнопка для створення адміна -->
-                        <button v-if="user.position === 'user' || user.position === 'consultant'" @click="AddAdminUser(user.id)" class="admin-button">{{ $t('addAdmin') }}</button>
-                        
-                        <!-- Кнопка для забирання прав адміністратора -->
-                        <button v-if="user.position === 'admin'" @click="RemoveAdmin(user.id)" class="user-button">{{ $t('removeAdmin') }}</button>
+                      </li>
 
-                        <!-- Кнопка для видалення -->
-                        <!-- <button @click="deleteUser(user.id)" class="delete-button">{{ $t('delete') }}</button> -->
-                      </div>
-                    </li>
                   </ul>
                 </div>
               </div>
+
                 
 
                 <div v-if="isConsultant || isAdmin" class="panelConsultant">
@@ -445,6 +449,10 @@ export default {
   name: 'UserPage',
   data() {
     return {
+      searchQuery: '',
+      filteredUsers: [],
+      searchTerm: '',
+
       userId: null,
       statusConsultant: false,
       // chatOpen: false,
@@ -486,6 +494,12 @@ export default {
       showModalinstr: false,
     };
   },
+  watch: {
+    searchTerm(newTerm) {
+      this.searchUsersByName(newTerm);
+    }
+  },
+
   created() {
     
   onAuthStateChanged(auth, async (user) => {
@@ -579,7 +593,12 @@ export default {
       console.error("Помилка при отриманні інструкції:", error);
     }},
 
-
+    filteredUsers() {
+      // Фільтруємо користувачів за введеним значенням пошуку
+      return this.users.filter(user =>
+        user.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    },
 
   async mounted() {
     // Викликаємо функцію для завантаження тарифів
@@ -587,6 +606,10 @@ export default {
 
     // Отримуємо користувачів з колекції заявок
     this.fetchApplications();
+
+    // Для пошуку користувача за іменем
+    this.users = await this.fetchUsers();
+    this.filteredUsers = this.users; // Показуємо всіх користувачів спочатку
   },
 
 
@@ -642,19 +665,19 @@ export default {
         const q = query(collection(this.firestore, "ApplicationForConsultant"));
         const querySnapshot = await getDocs(q);
 
-        let docIdToDelete = null; // Змінна для збереження ID документа для видалення
+        let docIdToDelete = null
 
         // Перебираємо документи, щоб знайти той, що містить IDuser
         querySnapshot.forEach((doc) => {
           const applicationData = doc.data();
           if (applicationData.IDuser === userId) {
-            docIdToDelete = doc.id; // Зберігаємо ID документа, якщо IDuser співпадає
+            docIdToDelete = doc.id;
           }
         });
 
         if (!docIdToDelete) {
           console.log(`Документ з IDuser ${userId} не знайдено.`);
-          return; // Виходимо, якщо документ не знайдено
+          return;
         }
 
         // Видаляємо документ
@@ -663,7 +686,7 @@ export default {
         console.log(`Документ з ID ${docIdToDelete} видалено.`);
         
         // Оновлюємо список документів (опціонально)
-        this.fetchUsersToConsultant(); // або будь-який інший метод для оновлення даних
+        this.fetchUsersToConsultant();
       } catch (error) {
         console.error("Помилка при видаленні документа:", error);
       }
@@ -682,7 +705,7 @@ export default {
     // Функція для отримання користувачів зі статусом консультанта
   async fetchApplications() {
       try {
-          const users = await this.fetchUsers(); // Отримуємо загальних користувачів
+          const users = await this.fetchUsers();
           console.log("Отримані користувачі:", users);
 
           if (!users || users.length === 0) {
@@ -693,25 +716,25 @@ export default {
           const q = query(collection(db, "ApplicationForConsultant"));
           const querySnapshot = await getDocs(q);
 
-          const applications = []; // Масив для заявок
+          const applications = [];
 
           const usersMap = users.reduce((acc, user) => {
-              acc[user.id] = user; // Зберігаємо користувачів за їх ID
+              acc[user.id] = user;
               return acc;
           }, {});
 
           // Фільтруємо заявки для консультанта або адміністратора
           querySnapshot.forEach((doc) => {
-              const applicationData = { id: doc.id, ...doc.data() }; // Дані заявки
-              const user = usersMap[applicationData.IDuser]; // Знаходимо користувача
+              const applicationData = { id: doc.id, ...doc.data() };
+              const user = usersMap[applicationData.IDuser];
 
               // Якщо користувач існує і це адміністратор або консультант
               if (user && (this.isConsultant || this.isAdmin)) {
                   applications.push({ 
-                      id: applicationData.id, // ID заявки
-                      userId: applicationData.IDuser, // ID користувача
-                      name: user.name, // Ім'я
-                      email: user.email // Email
+                      id: applicationData.id,
+                      userId: applicationData.IDuser,
+                      name: user.name,
+                      email: user.email
                   }); 
               }
           });
@@ -749,7 +772,7 @@ export default {
           // Перевірка, чи знайдено документи
           if (!querySnapshot.empty) {
             alert('Ви вже подали заявку на консультанта.');
-            return; // Зупиняємо виконання, якщо заявка вже існує
+            return;
           }
 
           // Якщо заявки ще немає, додаємо нову
@@ -770,7 +793,7 @@ export default {
 
 
     // Логіка для отримання заявок
-    async fetchUsersToConsultant() {
+async fetchUsersToConsultant() {
   try {
     // Отримуємо заявки на консультанта
     const q = query(collection(this.firestore, "ApplicationForConsultant"));
@@ -786,14 +809,18 @@ export default {
       const userDoc = await getDoc(userDocRef);
 
       if (userDoc.exists()) {
-        return { id: userId, ...userDoc.data() };
+        const userData = userDoc.data();
+        // Перевіряємо, чи користувач має статус "user"
+        if (userData.position === "user") {
+          return { id: userId, ...userData };
+        }
       } else {
         console.log(`Користувача з ID ${userId} не знайдено в базі`);
-        return null;
       }
+      return null;
     });
 
-    // Отримуємо тільки користувачів, що існують
+    // Отримуємо тільки користувачів зі статусом "user"
     const users = (await Promise.all(usersPromises)).filter(Boolean);
     console.log("Відфільтровані користувачі:", users);
 
@@ -806,22 +833,6 @@ export default {
 
 
 
-
-
-
-
-
-
-
-
-
-
-  //   async created() {
-  //   const user = auth.currentUser; // Ваша логіка аутентифікації
-  //   if (user) {
-  //     this.userId = user.uid;
-  //   }
-  // },
 
     openTelegram() {
       // Перевіряємо chatID
@@ -883,7 +894,7 @@ export default {
           // console.log("Дані з Firestore:", walletData);
 
           // Зберігаємо значення поля "wallet" з Firestore
-          this.wallet = walletData.wallet || '';  // Оновлюємо значення гаманця (не масив)
+          this.wallet = walletData.wallet || ''; 
         } else {
           console.error("Документ не знайдено");
         }
@@ -894,18 +905,18 @@ export default {
 
     // Для оновлення гаманцю
     openWalletModal() {
-      this.isWalletModalOpen = true;  // Відкриваємо модальне вікно
+      this.isWalletModalOpen = true;
     },
     closeWalletModal() {
-      this.isWalletModalOpen = false;  // Закриваємо модальне вікно
+      this.isWalletModalOpen = false;
     },
     
     // Для оновлення гаманцю
     async updateWallet() {
       try {
-        const docRef = doc(db, "wallets", "h8kj0fwHOiE07hS01fAh"); // Шлях до документа
+        const docRef = doc(db, "wallets", "h8kj0fwHOiE07hS01fAh");
         await updateDoc(docRef, {
-          wallet: this.wallet,  // Оновлюємо поле "wallet" в Firestore
+          wallet: this.wallet,
         });
 
         alert('Зміни збережено!');
@@ -974,8 +985,8 @@ export default {
       const tariff = this.tariffs.find(t => t.id === tariffId); // Знайти тариф за ID
       if (tariff) {
         this.selectedTariffId = tariffId;
-        this.newTariff = { ...tariff }; // Копіювати дані тарифу у форму
-        this.isEditModalOpen = true; // Відкрити модальне вікно
+        this.newTariff = { ...tariff };
+        this.isEditModalOpen = true;
       }
     },
 
@@ -1101,17 +1112,17 @@ export default {
           
           // Перетворюємо документи на масив об'єктів
           const tariffsList = tariffsSnapshot.docs.map(doc => ({
-            id: doc.id,        // Унікальний id документа
-            ...doc.data()      // Дані документа (назва, ціна, опис тощо)
+            id: doc.id, 
+            ...doc.data()
           }));
 
           // Знаходимо тариф за doc.id
           const selectedTariff = tariffsList.find(tariff => tariff.id === tariffId);
 
           if (selectedTariff) {
-            this.userTariffInfo = selectedTariff;  // Встановлюємо обраний тариф
+            this.userTariffInfo = selectedTariff;
           } else {
-            console.error('Tariff not found');  // Якщо тариф не знайдений
+            console.error('Tariff not found');
           }
         } catch (error) {
           console.error('Error fetching tariff data:', error);
@@ -1157,6 +1168,7 @@ export default {
             position: 'admin' 
           } : user
         );
+        await this.fetchUsers();
       } catch (error) {
         console.error('Error updating user to admin:', error);
       }
@@ -1176,6 +1188,7 @@ export default {
         this.users = this.users.map(user =>
           user.id === userId ? { ...user, position: 'user' } : user
         );
+        await this.fetchUsers();
       } catch (error) {
         console.error('Error updating user to user:', error);
       }
@@ -1195,6 +1208,7 @@ export default {
         this.users = this.users.map(user =>
           user.id === userId ? { ...user, position: 'consultant' } : user
         );
+        await this.fetchUsers();
       } catch (error) {
         console.error('Error updating user to consultant:', error);
       }
@@ -1214,6 +1228,7 @@ export default {
         this.users = this.users.map(user =>
           user.id === userId ? { ...user, position: 'user' } : user
         );
+        await this.fetchUsers();
       } catch (error) {
         console.error('Error updating user to user:', error);
       }
@@ -1244,33 +1259,49 @@ export default {
       } catch (error) {
         console.error('Error deleting user:', error);
       }
-    },  
+    },
 
-    async fetchUsers() {
+    // Пошук користувача за іменем
+    async searchUsersByName(searchTerm) {
       try {
+        // Отримуємо всіх користувачів
         const usersSnapshot = await getDocs(collection(db, 'users'));
         const users = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-        this.users = users; // Зберігаємо користувачів у реактивну змінну
-        console.log("Отримані користувачі для адміністратора:", this.users); // Лог після присвоєння
-        return users; // Можливо, вам не потрібно повертати users
+        // Фільтруємо користувачів за іменем
+        const filteredUsers = users.filter(user => 
+          user.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+        // Зберігаємо відфільтрованих користувачів
+        this.filteredUsers = filteredUsers;
       } catch (error) {
-        console.error("Не вдалося отримати користувачів:", error);
-        this.users = []; // Очищуємо масив користувачів у разі помилки
-        return []; // Повертаємо порожній масив
+        console.error("Помилка при отриманні користувачів:", error);
+        this.filteredUsers = [];
       }
     },
 
+    
 
 
+    // Завантаження всіх користувачів
+    async fetchUsers() {
+    try {
+      const usersSnapshot = await getDocs(collection(db, 'users'));
+      const users = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+      this.users = users;
+      this.filteredUsers = users; // Додаємо цю стрічку, щоб оновити відфільтрованих користувачів
+      return users;
+    } catch (error) {
+      console.error("Не вдалося отримати користувачів:", error);
+      this.users = [];
+      this.filteredUsers = []; // Очищаємо також відфільтрованих користувачів
+      return [];
+    }
+  },
 
 
-
-
-
-
-
-   
   }
 };
 </script>

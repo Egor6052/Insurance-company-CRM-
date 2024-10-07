@@ -30,28 +30,27 @@
       margin-left: 70px;
 
 
-    .Accept {
-      border-radius: 5px;
-      width: 100px;
-      height: 50px;
-      background-color: #007bff;
-      text-decoration: none;
-      color: aliceblue;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.3s ease;
+      .Accept {
+        border-radius: 5px;
+        width: 100px;
+        height: 50px;
+        background-color: #007bff;
+        text-decoration: none;
+        color: aliceblue;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s ease;
 
-      &:hover {
-        background-color: #0056b3;
+        &:hover {
+          background-color: #0056b3;
+        }
       }
     }
   }
-
-}
 
 
 
@@ -237,7 +236,26 @@
         // margin-bottom: 10px;
 
         .listUsers {
+          
+          .searchUsers {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f1f1f1;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-radius: 10px;
+            margin-bottom: 5px;
 
+            input {
+              border-style: dashed;
+              border-radius: 5px;
+              border-color: #818181;
+              width: 400px;
+              height: 30px;
+            }
+            
+          }
           .name {
             p {
               font-weight: 800;
@@ -264,7 +282,6 @@
               margin-right: 20px;
           
               li {
-                
                 display: flex;
                 align-items: center;
                 margin-bottom: 5px;
@@ -275,42 +292,47 @@
                 width: 100%;
                 height: 40px;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                  
 
-                .flexClass {
-                  display: flex;
-                  align-items: center;
-                  display: flex;
-
-                  h4 {
-                    margin-left: 10px;
-                    margin-right: 10px;
-                    white-space: nowrap;
-                  }                
-            
-                  .ppp {
-                    margin-right: 10px;
-                  }
-            
-                  .position {
-                    p {
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                      // width: 100px;
-                      // height: 20px;
-                      padding-left: 5px;
-                      padding-top: 1px;
-                      padding-right: 5px;
-                      padding-bottom: 1px;
-                      border-radius: 5px;
-                      background-color: #d6ffc3;
+                .goTo {
+                  text-decoration: none;
+                  color: #333;
+                 
+                  
+                  .flexClass {
+                    display: flex;
+                    align-items: center;
+  
+                    h4 {
+                      margin-left: 10px;
+                      margin-right: 10px;
+                      white-space: nowrap;
+                    }                
+              
+                    .ppp {
+                      margin-right: 10px;
                     }
-                   
+              
+                    .position {
+                      p {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        // width: 100px;
+                        // height: 20px;
+                        padding-left: 5px;
+                        padding-top: 1px;
+                        padding-right: 5px;
+                        padding-bottom: 1px;
+                        border-radius: 5px;
+                        background-color: #d6ffc3;
+                      }
+                     
+                    }
                   }
+                 
                 }
-          
                 
-
                 .parent-container {
                   margin-right: 10px;
                   width: 100%;
@@ -379,8 +401,7 @@
                 }
                 &:hover {
                   background-color: #f7f7f7;
-                }
-              
+                }    
               }
             }
           }
@@ -1294,6 +1315,16 @@
 
           .panelAdmin {
             .listUsers {
+
+              .searchUsers {
+                input {
+                 
+                  width: 400px;
+                  height: 30px;
+                }
+                
+              }
+              
             .name {
               p {
                 font: optional;
@@ -1312,14 +1343,18 @@
                   height: auto; 
                   flex-direction: column;
                   align-items: flex-start;
-          
-                  h4 {
-                    margin: 5px 0;
+
+                  .goTo {
+                    
+                    h4 {
+                      margin: 5px 0;
+                    }
+                     .ppp{
+                      margin: 5px 0;
+                    }
+
                   }
-                   .ppp{
-                    margin: 5px 0;
-                  }
-          
+
                   .parent-container {
                     width: 100%;
                     justify-content: space-between; 
@@ -1372,17 +1407,18 @@
           li {
             padding: 20px;
             margin: 10px;
-    
-            .flexClass {
-              h2 {
-                font-size: 20px;
-              }
-    
-              p {
-                font-size: 16px; 
+            .goTo {
+              .flexClass {
+                h2 {
+                  font-size: 20px;
+                }
+      
+                p {
+                  font-size: 16px; 
+                }
               }
             }
-    
+
             .price {
               p {
                 font-size: 18px;
@@ -1582,6 +1618,16 @@
           width: 390px;
 
           .listUsers {
+            .searchUsers {
+             
+  
+              input {
+              
+                width: 330px;
+                height: 30px;
+              }
+              
+            }
             .name {
               p {
                 font: 15px
@@ -1611,41 +1657,44 @@
                   border-radius: 5px; 
                   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); // Легка тінь
             
-                  .flexClass {
-                    display: flex;
-                    flex-direction: column;
-                    margin-top: 10px; 
-  
-                    h4 {
-                      margin: 0; 
-                      font-size: 18px;
-                      color: #333; 
-                    }
-            
-                    .ppp {
-                      margin-top: 10px; 
-                      font-size: 15px; 
-                      color: #666;
-                    }
-            
-                    .position {
-                      
-                      display: flex;
-                      justify-content: center;
-                      align-items: center;
-                      
-            
-                      p {
+                    .goTo {
+                      .flexClass {
                         display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        padding: 5px;
-                        border-radius: 5px;
-                        // background-color: #d6ffc3;
-                        // color: #333;
+                        flex-direction: column;
+                        margin-top: 10px; 
+      
+                        h4 {
+                          margin: 0; 
+                          font-size: 18px;
+                          color: #333; 
+                        }
+                
+                        .ppp {
+                          margin-top: 10px; 
+                          font-size: 15px; 
+                          color: #666;
+                        }
+                
+                        .position {
+                          
+                          display: flex;
+                          justify-content: center;
+                          align-items: center;
+                          
+                
+                          p {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            padding: 5px;
+                            border-radius: 5px;
+                            // background-color: #d6ffc3;
+                            // color: #333;
+                          }
+                        }
                       }
                     }
-                  }
+                  
             
                   .parent-container {
                     display: flex;
@@ -1709,11 +1758,15 @@
                 
                   height: auto; 
                   border-radius: 5px;
-                  .flexClass {
-                    display:block;
-                    justify-content: center;
-                    align-items: center;
+
+                  .goTo {
+                    .flexClass {
+                      display:block;
+                      justify-content: center;
+                      align-items: center;
+                    }
                   }
+                  
         
                   .parent-container {
                     margin-bottom: 5px;
@@ -2026,6 +2079,17 @@
           width: 300px;
 
           .listUsers {
+            .searchUsers {
+             
+  
+              input {
+               
+                width: 250px;
+                height: 30px;
+              }
+              
+            }
+
           .name {
             p {
               font: 15px

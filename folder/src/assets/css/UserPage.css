@@ -181,6 +181,23 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
+.user-page .folders ul li .panelAdmin .listUsers .searchUsers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f1f1;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+.user-page .folders ul li .panelAdmin .listUsers .searchUsers input {
+  border-style: dashed;
+  border-radius: 5px;
+  border-color: #818181;
+  width: 400px;
+  height: 30px;
+}
 .user-page .folders ul li .panelAdmin .listUsers .name p {
   font-weight: 800;
   color: #333;
@@ -212,19 +229,23 @@
   height: 40px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-.user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass {
-  align-items: center;
-  display: flex;
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .goTo {
+  text-decoration: none;
+  color: #333;
 }
-.user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass h4 {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .goTo .flexClass {
+  display: flex;
+  align-items: center;
+}
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .goTo .flexClass h4 {
   margin-left: 10px;
   margin-right: 10px;
   white-space: nowrap;
 }
-.user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass .ppp {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .goTo .flexClass .ppp {
   margin-right: 10px;
 }
-.user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass .position p {
+.user-page .folders ul li .panelAdmin .listUsers .users ul li .goTo .flexClass .position p {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -994,6 +1015,10 @@
     width: 100px;
     height: 40px;
   }
+  .user-page .folders ul li .page .panelAdmin .listUsers .searchUsers input {
+    width: 400px;
+    height: 30px;
+  }
   .user-page .folders ul li .page .panelAdmin .listUsers .name p {
     font: optional;
   }
@@ -1009,10 +1034,10 @@
     flex-direction: column;
     align-items: flex-start;
   }
-  .user-page .folders ul li .page .panelAdmin .listUsers .users ul li h4 {
+  .user-page .folders ul li .page .panelAdmin .listUsers .users ul li .goTo h4 {
     margin: 5px 0;
   }
-  .user-page .folders ul li .page .panelAdmin .listUsers .users ul li .ppp {
+  .user-page .folders ul li .page .panelAdmin .listUsers .users ul li .goTo .ppp {
     margin: 5px 0;
   }
   .user-page .folders ul li .page .panelAdmin .listUsers .users ul li .parent-container {
@@ -1048,10 +1073,10 @@
     padding: 20px;
     margin: 10px;
   }
-  .user-page .folders ul li .tariff-settings .tariffs li .flexClass h2 {
+  .user-page .folders ul li .tariff-settings .tariffs li .goTo .flexClass h2 {
     font-size: 20px;
   }
-  .user-page .folders ul li .tariff-settings .tariffs li .flexClass p {
+  .user-page .folders ul li .tariff-settings .tariffs li .goTo .flexClass p {
     font-size: 16px;
   }
   .user-page .folders ul li .tariff-settings .tariffs li .price p {
@@ -1179,6 +1204,10 @@
     margin-left: -10px;
     width: 390px;
   }
+  .user-page .folders ul li .panelAdmin .listUsers .searchUsers input {
+    width: 330px;
+    height: 30px;
+  }
   .user-page .folders ul li .panelAdmin .listUsers .name p {
     font: 15px;
   }
@@ -1201,27 +1230,27 @@
     border-radius: 5px;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
   }
-  .user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass {
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .goTo .flexClass {
     display: flex;
     flex-direction: column;
     margin-top: 10px;
   }
-  .user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass h4 {
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .goTo .flexClass h4 {
     margin: 0;
     font-size: 18px;
     color: #333;
   }
-  .user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass .ppp {
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .goTo .flexClass .ppp {
     margin-top: 10px;
     font-size: 15px;
     color: #666;
   }
-  .user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass .position {
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .goTo .flexClass .position {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .user-page .folders ul li .panelAdmin .listUsers .users ul li .flexClass .position p {
+  .user-page .folders ul li .panelAdmin .listUsers .users ul li .goTo .flexClass .position p {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1275,7 +1304,7 @@
     height: auto;
     border-radius: 5px;
   }
-  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users ul li .flexClass {
+  .user-page .folders ul li .panelConsultant .acceptUserToConsultant .users ul li .goTo .flexClass {
     display: block;
     justify-content: center;
     align-items: center;
@@ -1475,6 +1504,10 @@
   .user-page .folders ul li .panelAdmin {
     margin-left: -20px;
     width: 300px;
+  }
+  .user-page .folders ul li .panelAdmin .listUsers .searchUsers input {
+    width: 250px;
+    height: 30px;
   }
   .user-page .folders ul li .panelAdmin .listUsers .name p {
     font: 15px;
