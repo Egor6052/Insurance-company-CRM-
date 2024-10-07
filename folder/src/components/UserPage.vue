@@ -109,8 +109,7 @@
                   <ul>
                     <!-- Відфільтровані користувачі -->
                       <li v-for="user in filteredUsers" :key="user.id">
-                        <RouterLink :to="{ name: 'SelectedUser', params: { userId: user.id } }" 
-                          class="goTo">
+                        <RouterLink :to="{ name: 'SelectedUser', params: { userId: user.id } }" class="goTo">
                          
                           <div class="flexClass">
                             <h4>{{ user.name }}</h4>
