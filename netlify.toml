@@ -1,11 +1,10 @@
 [build]
   base = "folder/"
   command = "npm run build"
-  publish = "folder/dist"
+  publish = "folder/dist"  # Якщо `dist` всередині `folder`
 
-[functions]
-directory = "folder/netlify/functions"
+#[functions]
+ # directory = "folder/netlify/functions"  
 
 [build.environment]
   NODE_VERSION = "18"
-
